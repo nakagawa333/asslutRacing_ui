@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content style="display: flex;">
+    <div>
+        <h3>車種名: {{data.carName}}</h3>
+        <p>コース: {{data.carse}}</p>
+        <p>abs: {{data.abs}}</p>
+
+        <div>
+            <input type="range" min="0" max="100" name="powerSteering" value="{{data.powerSteering}}">
+        </div>
+
+        <div>
+            <input type="range" id="diffgear" name="diffgear" min="0" max="100" value="{{data.diffgear}}">
+        </div>
+
+        <p>タイヤの種類: {{data.tireType}}</p>
+
+        <p>空気圧: {{data.airPressure}}</p>
+     </div>
+
+    <div id="gear_list">
+        <div>
+            <input type="range" min="0" max="100" name="gearFinal" value="{{data.gear.final}}">
+        </div>
+        <div>
+            <input type="range" min="0" max="100" name="gearOne" value="{{data.gear.one}}">
+        </div>
+        <div>
+            <input type="range" min="0" max="100" name="gearTwo" value="{{data.gear.two}}">
+        </div>
+        <div>
+            <input type="range" min="0" max="100" name="gearThree" value="{{data.gear.three}}">
+        </div>
+        <div>
+            <input type="range" min="0" max="100" name="gearFour" value="{{data.gear.four}}">
+        </div>
+        <div>
+            <input type="range" min="0" max="100" name="gearFive" value="{{data.gear.five}}">
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <input type="range" min="0" max="100" name="stabiliserAgo" value="{{data.stabiliser.ago}}">
+        </div>
+
+        <div>
+            <input type="range" min="0" max="100" name="stabiliserAfter" value="{{data.stabiliser.after}}">
+        </div>
+
+        <div>
+            <div>
+                <input type="range" min="0" max="100" name="camberAgo" value="{{data.camber.ago}}">
+            </div>
+            <div>
+                <input type="range" min="0" max="100" name="camberAfter" value="{{data.camber.after}}">
+            </div>
+        </div>
+
+        <div>
+            <input type="range" min="0" max="100" name="breakPower" value="{{data.breakPower}}"> 
+        </div>
+
+        <div>
+            <input type="range" min="0" max="100" name="breakBallance" value="{{data.breakBallance}}">         
+        </div>
+    </div>
+
+    <div>
+        <p>車高: {{data.carHigh}}</p>
+        <p>オフセット: {{data.offset}}</p>
+        <p>車高: {{data.carHigh}}</p>
+        <p>ホイールサイズ: {{data.hoilesize}}</p>
+
+        <label>メモ: <input type="text" name="describe" value="{{data.describe}}" /></label>
+    </div> 
+    
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">閉じる</button>
+    <button mat-buttn>更新する</button>
+</div>

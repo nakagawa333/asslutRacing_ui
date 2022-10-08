@@ -1,0 +1,68 @@
+[
+    {
+        "id":1,
+        "title":"Nissan 180SX 419馬力",
+        "carName":"Nissan 180SX",
+        "carse":"Touge",
+        "abs":"ON",
+        "powerSteering":100,
+        "diffgear":0,
+        "tireType":"Slick",
+        "airPressure":"10psi",
+        "gear":{
+            "final":3.71,
+            "one":2.70,
+            "two":1.90,
+            "three":1.38,
+            "four":1.00,
+            "five":0.73
+        },
+        "stabiliser":{
+            "ago":1.0,
+            "after":1.0
+        },
+        "camber":{
+            "ago":3.0,
+            "after":1.0
+        },
+        "breakPower":1.0,
+        "breakBallance":0.1,
+        "carHigh":"8cm",
+        "offset":"2cm",
+        "hoilesize":"17inch",
+        "describe":"Nissan 180SX 419馬力。峠仕様。"
+    },
+    {
+        "id":2,
+        "title":"AE86 峠",
+        "carName":"AE86",
+        "carse":"Touge",
+        "abs":"ON",
+        "powerSteering":100,
+        "diffgear":0,
+        "tireType":"Slick",
+        "airPressure":"10psi",
+        "gear":{
+            "final":4.00,
+            "one":2.72,
+            "two":1.79,
+            "three":1.63,
+            "four":1.45,
+            "five":1.16
+        },
+        "stabiliser":{
+            "ago":1.0,
+            "after":1.0
+        },
+        "camber":{
+            "ago":3.0,
+            "after":1.0
+        },
+        "breakPower":1.0,
+        "breakBallance":0.1,
+        "carHigh":"8cm",
+        "offset":"2cm",
+        "hoilesize":"17inch",
+        "describe":"AE86 峠 高回転仕様"
+    }
+]
