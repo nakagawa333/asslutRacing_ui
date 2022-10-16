@@ -50,8 +50,8 @@ export class SampleDateService{
     constructor(){}
     dates : MatTableDataSource<any> = new MatTableDataSource;
 
-    getSamplesDate(){
-        this.dates = new MatTableDataSource(DateFrom);
+    getSamplesDate(dates:any){
+        this.dates = new MatTableDataSource(dates);
         return this.dates;
     }
 }

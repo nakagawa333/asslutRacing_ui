@@ -1,35 +1,41 @@
-import { Dialog } from '@angular/cdk/dialog';
 import { Component,Inject, OnInit,ViewChild,AfterViewInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { animate } from '@angular/animations'
 import {SampleDateService} from "src/shared/sampleDate.service";
-import { identifierName } from '@angular/compiler';
 import {settingModalComponent} from 'src/app/settingModal/settingModal.component';
 import {deleteConfirmModalComponent} from 'src/app/deleteConfirmModal/deleteConfirmModal.component'
 import {MatPaginator} from '@angular/material/paginator';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import * as constant from '../constants';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit,AfterViewInit {
+export class AppComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,public service: SampleDateService) {}
+  constructor(public dialog: MatDialog,public service: SampleDateService,private http: HttpClient) {}
 
   title:string = 'assltRacing_ui';
   dates:any;
   displayedColumns:string[] = ["title","carName","carse","actions"]
+  headers:HttpHeaders = new HttpHeaders();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.dates = this.service.getSamplesDate();
-    console.log(this.paginator)
+    this.toPromise();
   }
 
-  ngAfterViewInit() {
-    this.dates.paginator = this.paginator;
+  private async toPromise(){
+    this.headers.append('Content-Type', 'application/json')
+    await this.http.get(constant.API.URL + constant.API.HOME,{
+      responseType:"json"
+    })
+    .subscribe(data => {
+      this.dates = this.service.getSamplesDate(data);
+      this.dates.paginator = this.paginator;
+    })
   }
 
   //セルをクリックした場合
@@ -54,11 +60,19 @@ export class AppComponent implements OnInit,AfterViewInit {
       id:"delete-confilm-modal"
     })
 
-    dialogRef.afterClosed().subscribe((result:any) => {
-      //該当idのデータを削除する
+    dialogRef.afterClosed().subscribe(async(result:any) => {
+      dates = this.dates
       if(result.deleteFlag){
-        this.dates.data = this.dates.data.filter((date:any) => {
-          return date.id !== result.id;
+        //該当idのデータを削除する
+        await this.http.delete(constant.API.URL + constant.API.DELETE,{
+          body:result.id
+        })
+        .subscribe(res => {
+          if(res == 1){
+            dates.data = dates.data.filter((date:any) => {
+              return date.id !== result.id;
+            })
+          }
         })
       }
     })

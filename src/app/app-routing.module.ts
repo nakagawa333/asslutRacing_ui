@@ -5,7 +5,7 @@ import {MatCardModule} from '@angular/material/card'; //カード
 import {MatInputModule} from '@angular/material/input'; //input
 import {MatTableModule} from '@angular/material/table'; //テーブル
 import {MatDialogModule} from '@angular/material/dialog';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [];
 
@@ -14,7 +14,8 @@ const MaterialComponents = [
   MatCardModule,
   MatInputModule,
   MatTableModule,
-  MatDialogModule
+  MatDialogModule,
+  HttpClientModule
 ]
 
 @NgModule({
