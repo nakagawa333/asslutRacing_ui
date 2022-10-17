@@ -43,10 +43,32 @@ export class AppComponent implements OnInit {
     this.openDialog(row)
   }
 
+  //追加ボタンクリック時
+  async addClick(){
+    await this.http.get(constant.API.URL + constant.API.INFOS,{
+      responseType:"json"
+    })
+    .subscribe((res) => {
+      console.log(res)
+    })
+  }
+
+  //車名一覧,メーカー,コース一覧取得
+  private async getInfos():Promise<any>{    
+    return await this.http.get(constant.API.URL + constant.API.INFOS,{
+      responseType:"json"
+    })
+    .subscribe((res) => {
+      console.log(res)
+    })
+  }
+
+  //削除ボタンクリック時
   deleteClick(row:any){
     this.deleteConfilmOpenDialog(row,this.dates);
   }
 
+  //ダイアログボタンクリック時
   openDialog(row:any): void{
     const dialogRef = this.dialog.open(settingModalComponent,{
       data:row,
@@ -62,11 +84,10 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async(result:any) => {
       dates = this.dates
+      const body:object = {"id":result.id}
       if(result.deleteFlag){
         //該当idのデータを削除する
-        await this.http.delete(constant.API.URL + constant.API.DELETE,{
-          body:result.id
-        })
+        await this.http.put(constant.API.URL + constant.API.DELETE,body)
         .subscribe(res => {
           if(res == 1){
             dates.data = dates.data.filter((date:any) => {
