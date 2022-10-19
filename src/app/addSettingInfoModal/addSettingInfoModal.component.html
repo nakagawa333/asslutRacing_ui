@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="100"></textarea>
+  </div>
+<!-- <mat-form-field appearance="fill">
+    <mat-label>Favorite food</mat-label>
+    <mat-select>
+        <mat-option>選択してください</mat-option>
+        <mat-option *ngFor="let maker of makerList"></mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <select #maker (change)="makerSelectBoxChange(maker.value)">
+    <option>{{selectGuidMessage}}</option>
+    <option [value]="maker['makerId']" *ngFor="let maker of makerList">{{maker["makerName"]}}</option>
+  </select>
+
+  <select [disabled]="hasCarList">
+    <option *ngFor="let car of carsList">{{car["carName"]}}</option>
+  </select>
+
+  <select>
+    <option *ngFor="let course of courseList">{{course["courseName"]}}</option>
+  </select>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">閉じる</button>
+    <button mat-button>登録する</button>
+</div>

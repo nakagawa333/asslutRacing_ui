@@ -1,11 +1,14 @@
-import { Component,Inject, OnInit,ViewChild,AfterViewInit} from '@angular/core';
+import { Component,Inject, OnInit,ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SampleDateService} from "src/shared/sampleDate.service";
 import {settingModalComponent} from 'src/app/settingModal/settingModal.component';
 import {deleteConfirmModalComponent} from 'src/app/deleteConfirmModal/deleteConfirmModal.component'
+import {addSettingInfoModalComponent} from 'src/app/addSettingInfoModal/addSettingInfoModal.component';
 import {MatPaginator} from '@angular/material/paginator';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../constants';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-root',
@@ -40,7 +43,11 @@ export class AppComponent implements OnInit {
 
   //セルをクリックした場合
   cellClick(row:any){
-    this.openDialog(row)
+    const param:object = {
+      data:row,
+      id:"setting-update-modal"
+    }
+    this.openDialog(settingModalComponent,param)
   }
 
   //追加ボタンクリック時
@@ -49,7 +56,11 @@ export class AppComponent implements OnInit {
       responseType:"json"
     })
     .subscribe((res) => {
-      console.log(res)
+      const param:object = {
+        data:{"dates":res},
+        id:"add-modal"
+      }
+      this.openDialog(addSettingInfoModalComponent,param)
     })
   }
 
@@ -69,18 +80,16 @@ export class AppComponent implements OnInit {
   }
 
   //ダイアログボタンクリック時
-  openDialog(row:any): void{
-    const dialogRef = this.dialog.open(settingModalComponent,{
-      data:row,
-      id:"setting-update-modal"
-    })
+  openDialog(component:any,param:object): void{
+    const dialogRef = this.dialog.open(component,param)
   }
 
   deleteConfilmOpenDialog(row:any,dates:any):void{
-    const dialogRef = this.dialog.open(deleteConfirmModalComponent,{
+    const param:object = {
       data:{"row":row,"dates":dates,"title":row.title,"id":row.id},
       id:"delete-confilm-modal"
-    })
+    }
+    const dialogRef = this.dialog.open(deleteConfirmModalComponent,param)
 
     dialogRef.afterClosed().subscribe(async(result:any) => {
       dates = this.dates

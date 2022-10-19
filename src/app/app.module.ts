@@ -7,11 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { addSettingInfoModalComponent } from './addSettingInfoModal/addSettingInfoModal.component';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    addSettingInfoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +24,13 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     BrowserAnimationsModule,
     MatIconModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    TextFieldModule
+  ],
+  exports: [
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
