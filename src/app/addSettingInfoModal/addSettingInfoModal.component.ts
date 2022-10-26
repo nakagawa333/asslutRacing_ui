@@ -8,10 +8,7 @@ import { BaseModal } from '../baseModal.component';
 
 @Component({
   templateUrl: './addSettingInfoModal.component.html',
-  styleUrls: ['./addSettingInfoModal.component.css'],
-  host: {
-    "(window:resize)":"onResize($event)"
-  }
+  styleUrls: ['./addSettingInfoModal.component.css']
 })
 export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   constructor(
@@ -88,5 +85,10 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   absToggleChange(e:any):void{
     const checked = e["checked"]
     this.absText = checked ? "ON" : "OFF";
+  }
+
+  /** 登録するボタンをクリックした場合 */
+  addSettingInfo(){
+
   }
 }

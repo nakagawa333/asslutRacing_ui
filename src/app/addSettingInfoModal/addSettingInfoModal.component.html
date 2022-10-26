@@ -1,7 +1,6 @@
 <div>
   <div>
     <mat-tab-group>
-
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">create
@@ -117,7 +116,7 @@
             <mat-label>ファイナルドライブ</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+             step="0.1" min="2.2" max="6.1" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
         
@@ -126,7 +125,7 @@
             <mat-label>1速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+             step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
 
@@ -135,7 +134,7 @@
             <mat-label>2速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
 
@@ -144,7 +143,7 @@
             <mat-label>3速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
 
@@ -153,7 +152,7 @@
             <mat-label>4速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
 
@@ -162,7 +161,7 @@
             <mat-label>5速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" >
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
       
@@ -229,108 +228,67 @@
              step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" >
           </mat-slider>
         </div>
+
+        <div>
+          <div>
+            <mat-label>空気圧</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10">
+          </mat-slider>
+        </div>
+
+        <div>
+          <div>
+            <mat-label>車高</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="1" min="5" max="20" aria-label="units" style="width:100%;" value="10">
+          </mat-slider>
+        </div>
+
+        <div>
+          <div>
+            <mat-label>オフセット</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="1" min="0" max="10" aria-label="units" style="width:100%;" value="0">
+          </mat-slider>
+        </div>
+  
+        <div>
+          <div>
+            <mat-label>フロントネガティブキャンバー</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0">
+          </mat-slider>
+        </div>
+
+        <div>
+          <div>
+            <mat-label>リアネガティブキャンバー</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0">
+          </mat-slider>
+        </div>
+
+        <div>
+          <div>
+            <mat-label>ホイールサイズ</mat-label>
+          </div>
+          <mat-slider thumbLabel tickInterval="1000"
+             step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" >
+          </mat-slider>
+        </div>
       
       </mat-tab>
     </mat-tab-group>
   </div>
-  <!-- <div>
-    <mat-form-field appearance="fill">
-      <mat-label>タイトル</mat-label>
-      <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>概要</mat-label>
-      <textarea matInput cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>メーカー</mat-label>
-      <mat-select #maker (selectionChange)="makerSelectBoxChange(maker.value)">
-        <mat-option [value]="maker['makerId']" *ngFor="let maker of makerList">{{maker["makerName"]}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>車</mat-label>
-      <mat-select [disabled]="hasCarList" [(value)]="defalutCarId">
-        <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>コース</mat-label>
-      <mat-select>
-        <mat-option value="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>タイヤの種類</mat-label>
-      <mat-select>
-        <mat-option value="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <div>
-      <mat-label>abs</mat-label>
-    </div>
-    <mat-slide-toggle (change)="absToggleChange($event)" >{{absText}}</mat-slide-toggle>
-  </div>
-
-  <div>
-    <div>
-      <mat-label>パワーステリング</mat-label>
-    </div>
-    <mat-slider thumbLabel tickInterval="1000"
-       step="1" min="0" max="100" aria-label="units"></mat-slider>
-    
-  </div>
-</div>
-
-<div>
-  <div>
-    <div>
-      <mat-label>デブギア</mat-label>
-    </div>
-    <mat-slider thumbLabel tickInterval="1000"
-       step="1" min="0" max="100" aria-label="units">
-    </mat-slider>
-  </div>
-
-  <div>
-    <div>
-      <mat-label>フロントタイヤの圧力</mat-label>
-    </div>
-    <mat-slider thumbLabel tickInterval="1000"
-       step="1" min="10" max="45" aria-label="units">
-    </mat-slider>
-  </div>
-
-  <div>
-    <div>
-      <mat-label>リアタイヤの圧力</mat-label>
-    </div>
-    <mat-slider thumbLabel tickInterval="1000"
-       step="1" min="10" max="45" aria-label="units">
-    </mat-slider>
-  </div> -->
 </div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">閉じる</button>
-  <button mat-button>登録する</button>
+  <button mat-button (click)="addSettingInfo()" >登録する</button>
 </div>
