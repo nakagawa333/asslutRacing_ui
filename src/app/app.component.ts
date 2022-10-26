@@ -3,11 +3,10 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {SampleDateService} from "src/shared/sampleDate.service";
 import {settingModalComponent} from 'src/app/settingModal/settingModal.component';
 import {deleteConfirmModalComponent} from 'src/app/deleteConfirmModal/deleteConfirmModal.component'
-import {addSettingInfoModalComponent} from 'src/app/addSettingInfoModal/addSettingInfoModal.component';
+import {AddSettingInfoModalComponent} from 'src/app/addSettingInfoModal/addSettingInfoModal.component';
 import {MatPaginator} from '@angular/material/paginator';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../constants';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @Component({
@@ -35,19 +34,16 @@ export class AppComponent implements OnInit {
     await this.http.get(constant.API.URL + constant.API.HOME,{
       responseType:"json"
     })
-    .subscribe(data => {
-      this.dates = this.service.getSamplesDate(data);
-      this.dates.paginator = this.paginator;
-    })
-  }
+    .subscribe({
+      next: (data) => {
+        this.dates = this.service.getSamplesDate(data);
+        this.dates.paginator = this.paginator;       
+      },
 
-  //セルをクリックした場合
-  cellClick(row:any){
-    const param:object = {
-      data:row,
-      id:"setting-update-modal"
-    }
-    this.openDialog(settingModalComponent,param)
+      error: (error) => {
+        alert(error.statusText)
+      }
+    })
   }
 
   //追加ボタンクリック時
@@ -58,9 +54,14 @@ export class AppComponent implements OnInit {
     .subscribe((res) => {
       const param:object = {
         data:{"dates":res},
-        id:"add-modal"
+        id:"add-modal",
+        width:"90%",
+        height:"90%",
+        maxWidth:"100%"
       }
-      this.openDialog(addSettingInfoModalComponent,param)
+
+      //ダイアログを開く
+      this.openDialog(AddSettingInfoModalComponent,param)
     })
   }
 

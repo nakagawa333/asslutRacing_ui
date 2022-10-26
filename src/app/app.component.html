@@ -206,20 +206,18 @@
 
       <ng-container matColumnDef="carse">
         <th mat-header-cell *matHeaderCellDef> コース </th>
-        <td mat-cell *matCellDef="let element"> {{element.carse}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.course}} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button (click)="cellClick(row)" class="mat-button-wrapper">
-            <mat-icon>open_in_new</mat-icon>
+          <button mat-icon-button class="mat-button-wrapper mat-mini-fab">
+            <mat-icon style="margin-top: 8px;" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">open_in_new</mat-icon>
           </button>
-          
-          <button mat-icon-button (click)="deleteClick(row)">
-            <mat-icon>delete_outline</mat-icon>
-          </button>
-
+          <button mat-icon-button (click)="deleteClick(row)" class="mat-button-wrapper mat-mini-fab">
+            <mat-icon style="margin-top: 8px;" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">delete_outline</mat-icon>
+          </button> 
         </td>
       </ng-container>
 

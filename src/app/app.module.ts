@@ -8,15 +8,17 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { addSettingInfoModalComponent } from './addSettingInfoModal/addSettingInfoModal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddSettingInfoModalComponent } from './addSettingInfoModal/addSettingInfoModal.component';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    addSettingInfoModalComponent
+    AddSettingInfoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +29,9 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     MatPaginatorModule,
     MatSelectModule,
     MatFormFieldModule,
-    TextFieldModule
-  ],
-  exports: [
-    MatFormFieldModule
+    TextFieldModule,
+    MatSlideToggleModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

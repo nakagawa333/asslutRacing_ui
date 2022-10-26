@@ -1,25 +1,34 @@
 
 import { _isNumberValue } from '@angular/cdk/coercion';
+import { ContentObserver } from '@angular/cdk/observers';
 import { Component,Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { throwError } from 'rxjs';
+// import {BaseModal} from '/app/BaseModal';
+import { BaseModal } from '../baseModal.component';
 
 @Component({
   templateUrl: './addSettingInfoModal.component.html',
-  styleUrls: ['./addSettingInfoModal.component.css']
+  styleUrls: ['./addSettingInfoModal.component.css'],
+  host: {
+    "(window:resize)":"onResize($event)"
+  }
 })
-export class addSettingInfoModalComponent implements OnInit{
+export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   constructor(
-      public dialogRef: MatDialogRef<addSettingInfoModalComponent>,
+      public dialogRef: MatDialogRef<AddSettingInfoModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
   ){}
+
+  defalutCarId:number = 0;
+  absText = "OFF";
   //車一覧
   carsList = [];
   //コース一覧
   courseList = [];
   //メーカー一覧
   makerList = [];
+  //タイヤタイプ一覧
+  tireTypeList = [];
   /** key:makerId value:object */
   carsHashMap = new Map();
 
@@ -34,6 +43,7 @@ export class addSettingInfoModalComponent implements OnInit{
     if(dates !== null){
       this.courseList = dates.courseList
       this.makerList = dates.makerList
+      this.tireTypeList = dates.tireTypeList
 
       for(let car of dates.carsList){
         let makerId:number = car["makerId"];
@@ -53,6 +63,10 @@ export class addSettingInfoModalComponent implements OnInit{
     if(this.isNumber(makerId)){
       this.carsList = this.carsHashMap.get(Number(makerId));
       this.hasCarList = false;
+
+      if(this.carsList !== null && this.carsList.length !== 0){
+        this.defalutCarId = this.carsList[0]["carId"]
+      }
     }
   }
 
@@ -62,7 +76,17 @@ export class addSettingInfoModalComponent implements OnInit{
   }
 
   isNumber(n:any):Boolean{
-    let x = + n;
-    return x.toString() === n;
+    try{
+      Number(n);
+    } catch(e:any){
+      return false;
+    }
+    return true;
+  }
+
+  /** absの状態を変更した場合 */
+  absToggleChange(e:any):void{
+    const checked = e["checked"]
+    this.absText = checked ? "ON" : "OFF";
   }
 }

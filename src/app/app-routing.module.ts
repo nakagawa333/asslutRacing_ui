@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input'; //input
 import {MatTableModule} from '@angular/material/table'; //テーブル
 import {MatDialogModule} from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const routes: Routes = [];
 
@@ -15,7 +16,8 @@ const MaterialComponents = [
   MatInputModule,
   MatTableModule,
   MatDialogModule,
-  HttpClientModule
+  HttpClientModule,
+  MatFormFieldModule
 ]
 
 @NgModule({
