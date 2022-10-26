@@ -3,6 +3,7 @@ import { _isNumberValue } from '@angular/cdk/coercion';
 import { ContentObserver } from '@angular/cdk/observers';
 import { Component,Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SafeResourceUrl } from '@angular/platform-browser';
 // import {BaseModal} from '/app/BaseModal';
 import { BaseModal } from '../baseModal.component';
 
@@ -32,6 +33,38 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   selectGuidMessage:string = "選択してください"
 
   hasCarList:boolean = true;
+
+  settinInfo:any = {
+    "title":"",
+    "carId":null,
+    "makerId":null,
+    "courseId":null,
+    "abs":false,
+    "powerSteering":0,
+    "diffgear":0,
+    "frontTirePressure":0,
+    "rearTirePressure":0,
+    "tireId":null,
+    "airPressure":10,
+    "gearFinal":2.2,
+    "gearOne":0.5,
+    "gearTwo":0.5,
+    "gearThree":0.5,
+    "gearFour":0.5,
+    "gearFive":0.5,
+    "stabiliserAgo":0.1,
+    "stabiliserAfter":0.1,
+    "maxRudderAngle":40,
+    "ackermannAngle":0.1,
+    "camberAgo":-10,
+    "camberAfter":-10,
+    "breakPower":0.1,
+    "breakBallance":0,
+    "carHigh":10,
+    "offset":0,
+    "hoilesize":-1,
+    "memo":""    
+  }
 
   ngOnInit(): void{
     if(this.data === null) return;
@@ -90,5 +123,9 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   /** 登録するボタンをクリックした場合 */
   addSettingInfo(){
 
+  }
+
+  onChange(value:any,name:string){
+    this.settinInfo[name] = value;
   }
 }
