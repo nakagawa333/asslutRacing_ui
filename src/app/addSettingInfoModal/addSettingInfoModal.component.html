@@ -10,14 +10,14 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>タイトル</mat-label>
-            <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'title')"></textarea>
           </mat-form-field>
         </div>
       
         <div>
           <mat-form-field appearance="fill">
             <mat-label>概要</mat-label>
-            <textarea matInput cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            <textarea matInput cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'memo')"></textarea>
           </mat-form-field>
         </div>
       </mat-tab>
@@ -36,10 +36,10 @@
         </div>
         
         <div>
-          <div style="width:100%; display: flex;">
+          <div style="width:100%;">
             <mat-label>パワーステリング</mat-label>
             <mat-slider thumbLabel tickInterval="1000"
-            step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onChange($event.value,'powerSteering')"></mat-slider>
+            step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
           </div>
         </div>
 
@@ -48,7 +48,7 @@
             <mat-label>デブギア</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onChange($event.value,'diffgear')">
+             step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'diffgear')">
           </mat-slider>
         </div>
 
@@ -64,7 +64,7 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>車</mat-label>
-            <mat-select [disabled]="hasCarList" [(value)]="defalutCarId">
+            <mat-select [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange($event.value,'carId')">
               <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -73,7 +73,7 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>コース</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="selectorChange($event.value,'courseId')">
               <mat-option value="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -84,7 +84,7 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>タイヤの種類</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="selectorChange($event.value,'tireId')">
               <mat-option value="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
               </mat-option>
             </mat-select>
@@ -96,7 +96,7 @@
             <mat-label>フロントタイヤの圧力</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onChange($event.value,'frontTirePressure')">
+             step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'frontTirePressure')">
           </mat-slider>
         </div>
       
@@ -105,7 +105,7 @@
             <mat-label>リアタイヤの圧力</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onChange($event.value,'rearTirePressure')">
+             step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'rearTirePressure')">
           </mat-slider>
         </div>
 
@@ -116,7 +116,7 @@
             <mat-label>ファイナルドライブ</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="2.2" max="6.1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearFinal')">
+             step="0.1" min="2.2" max="6.1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFinal')">
           </mat-slider>
         </div>
         
@@ -125,7 +125,7 @@
             <mat-label>1速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearOne')">
+             step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearOne')">
           </mat-slider>
         </div>
 
@@ -134,7 +134,7 @@
             <mat-label>2速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearTwo')">
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearTwo')">
           </mat-slider>
         </div>
 
@@ -143,7 +143,7 @@
             <mat-label>3速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearThree')">
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearThree')">
           </mat-slider>
         </div>
 
@@ -152,7 +152,7 @@
             <mat-label>4速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearFour')">
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFour')">
           </mat-slider>
         </div>
 
@@ -161,7 +161,7 @@
             <mat-label>5速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onChange($event.value,'gearFive')">
+          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFive')">
           </mat-slider>
         </div>
       
@@ -173,7 +173,7 @@
             <mat-label>スタビライザー前軸</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'stabiliserAgo')">
+             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'stabiliserAgo')">
           </mat-slider>
         </div>
 
@@ -182,7 +182,7 @@
             <mat-label>スタビライザー後軸</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'stabiliserAfter')">
+             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'stabiliserAfter')">
           </mat-slider>
         </div>
 
@@ -200,7 +200,7 @@
             <mat-label>アッカーマンアングル</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'ackermannAngle')">
+             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'ackermannAngle')">
           </mat-slider>
         </div>
 
@@ -216,7 +216,7 @@
             <mat-label>BREAKE POWER</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'breakPower')">
+             step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'breakPower')">
           </mat-slider>
         </div>
 
@@ -225,7 +225,7 @@
             <mat-label>ブレーキバランス</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" value="0" (change)="onChange($event.value,'breakBallance')">
+             step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" value="0" (change)="onSliderChange($event.value,'breakBallance')">
           </mat-slider>
         </div>
 
@@ -234,7 +234,7 @@
             <mat-label>空気圧</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10" (change)="onChange($event.value,'airPressure')">
+             step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10" (change)="onSliderChange($event.value,'airPressure')">
           </mat-slider>
         </div>
 
@@ -243,7 +243,7 @@
             <mat-label>車高</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="5" max="20" aria-label="units" style="width:100%;" value="10" (change)="onChange($event.value,'carHigh')">
+             step="1" min="5" max="20" aria-label="units" style="width:100%;" value="10" (change)="onSliderChange($event.value,'carHigh')">
           </mat-slider>
         </div>
 
@@ -252,7 +252,7 @@
             <mat-label>オフセット</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="1" min="0" max="10" aria-label="units" style="width:100%;" value="0" (change)="onChange($event.value,'offset')">
+             step="1" min="0" max="10" aria-label="units" style="width:100%;" value="0" (change)="onSliderChange($event.value,'offset')">
           </mat-slider>
         </div>
   
@@ -261,7 +261,7 @@
             <mat-label>フロントネガティブキャンバー</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0" (change)="onChange($event.value,'camberAgo')">
+             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0" (change)="onSliderChange($event.value,'camberAgo')">
           </mat-slider>
         </div>
 
@@ -270,7 +270,7 @@
             <mat-label>リアネガティブキャンバー</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0" (change)="onChange($event.value,'camberAfter')">
+             step="-1" min="-10" max="0" aria-label="units" style="width:100%;" value="0" (change)="onSliderChange($event.value,'camberAfter')">
           </mat-slider>
         </div>
 
@@ -279,7 +279,7 @@
             <mat-label>ホイールサイズ</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" (change)="onChange($event.value,'hoilesize')">
+             step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'hoilesize')">
           </mat-slider>
         </div>
       

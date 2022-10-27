@@ -13,7 +13,8 @@ import { AddSettingInfoModalComponent } from './addSettingInfoModal/addSettingIn
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {HttpLocalService} from "../shared/httpLocal.service";
+import {AddSettingInfoModalService} from "../app/addSettingInfoModal/addSettingInfoModal.service";
 
 @NgModule({
   declarations: [

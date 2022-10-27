@@ -6,6 +6,9 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { SafeResourceUrl } from '@angular/platform-browser';
 // import {BaseModal} from '/app/BaseModal';
 import { BaseModal } from '../baseModal.component';
+import {AddSettingInfoModalService} from "../addSettingInfoModal/addSettingInfoModal.service"
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import * as constant from '../../constants';
 
 @Component({
   templateUrl: './addSettingInfoModal.component.html',
@@ -15,6 +18,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   constructor(
       public dialogRef: MatDialogRef<AddSettingInfoModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
+      private service:AddSettingInfoModalService,
   ){}
 
   defalutCarId:number = 0;
@@ -63,7 +67,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     "carHigh":10,
     "offset":0,
     "hoilesize":-1,
-    "memo":""    
+    "memo":""
   }
 
   ngOnInit(): void{
@@ -90,13 +94,15 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   /** メーカー一覧を選択した場合  */
   makerSelectBoxChange(makerId:any){
-    if(this.isNumber(makerId)){
+    if(this.service.isNumber(makerId)){
       this.carsList = this.carsHashMap.get(Number(makerId));
       this.hasCarList = false;
 
       if(this.carsList !== null && this.carsList.length !== 0){
         this.defalutCarId = this.carsList[0]["carId"]
       }
+
+      this.settinInfo["makerId"] = makerId
     }
   }
 
@@ -105,27 +111,36 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     this.dialogRef.close()
   }
 
-  isNumber(n:any):Boolean{
-    try{
-      Number(n);
-    } catch(e:any){
-      return false;
-    }
-    return true;
-  }
-
   /** absの状態を変更した場合 */
   absToggleChange(e:any):void{
     const checked = e["checked"]
     this.absText = checked ? "ON" : "OFF";
+    //登録用設定情報のabsを変更
+    this.settinInfo["abs"] = checked
   }
 
   /** 登録するボタンをクリックした場合 */
-  addSettingInfo(){
-
+  async addSettingInfo(){
+    let headers:HttpHeaders = new HttpHeaders();
+    headers.append("Content-Type","application/json");
+    this.service.setUrl(constant.API.URL + constant.API.ADD)
+    //新規に設定情報を登録する
+    let res = await this.service.addSettingInfo(this.settinInfo,headers);
+    //登録に成功したら、ダイアログを閉じる
+    this.closeDialog();
   }
 
-  onChange(value:any,name:string){
+  //各種sliderの値を変更した場合
+  onSliderChange(value:any,name:string):void{
     this.settinInfo[name] = value;
+  }
+
+  //各種テキストエリアに文字が入力された場合
+  textareaInput(e:any,name:string):void{
+    this.settinInfo[name] = e.target.value;
+  }
+
+  selectorChange(e:any,name:string){
+    this.settinInfo[name] = e.target.value;
   }
 }

@@ -3,4 +3,5 @@ export class API{
     public static readonly DELETE = "/delete"
     public static readonly HOME = "/home"
     public static readonly INFOS = "/infos"
+    public static readonly ADD = "/add"
 }
