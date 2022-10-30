@@ -9,7 +9,7 @@
         
         <div>
           <mat-form-field appearance="fill">
-            <mat-label>タイトル</mat-label>
+            <mat-label>セッティングネイム</mat-label>
             <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'title')"></textarea>
           </mat-form-field>
         </div>
@@ -64,7 +64,7 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>車</mat-label>
-            <mat-select [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange($event.value,'carId')">
+            <mat-select #car [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange(car.value,'carId')">
               <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -73,19 +73,19 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>コース</mat-label>
-            <mat-select (selectionChange)="selectorChange($event.value,'courseId')">
-              <mat-option value="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
+            <mat-select #course (selectionChange)="selectorChange(course.value,'courseId')">
+              <mat-option [value]="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
       </mat-tab>
-      <mat-tab label="First">  
+      <mat-tab label="タイヤ">  
         <div>
           <mat-form-field appearance="fill">
             <mat-label>タイヤの種類</mat-label>
-            <mat-select (selectionChange)="selectorChange($event.value,'tireId')">
-              <mat-option value="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
+            <mat-select #tireType (selectionChange)="selectorChange(tireType.value,'tireId')">
+              <mat-option [value]="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -110,13 +110,13 @@
         </div>
 
       </mat-tab>
-      <mat-tab label="Second">
+      <mat-tab label="ギア比">
         <div>
           <div>
             <mat-label>ファイナルドライブ</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="2.2" max="6.1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFinal')">
+             step="0.01" min="2.2" max="6.1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFinal')">
           </mat-slider>
         </div>
         
@@ -125,7 +125,7 @@
             <mat-label>1速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-             step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearOne')">
+             step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearOne')">
           </mat-slider>
         </div>
 
@@ -134,7 +134,7 @@
             <mat-label>2速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearTwo')">
+          step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearTwo')">
           </mat-slider>
         </div>
 
@@ -143,7 +143,7 @@
             <mat-label>3速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearThree')">
+          step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearThree')">
           </mat-slider>
         </div>
 
@@ -152,7 +152,7 @@
             <mat-label>4速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFour')">
+          step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFour')">
           </mat-slider>
         </div>
 
@@ -161,13 +161,12 @@
             <mat-label>5速</mat-label>
           </div>
           <mat-slider thumbLabel tickInterval="1000"
-          step="0.1" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFive')">
+          step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFive')">
           </mat-slider>
         </div>
-      
 
       </mat-tab>
-      <mat-tab label="Third">
+      <mat-tab label="スタビライザー">
         <div>
           <div>
             <mat-label>スタビライザー前軸</mat-label>
@@ -242,7 +241,7 @@
           <div>
             <mat-label>車高</mat-label>
           </div>
-          <mat-slider thumbLabel tickInterval="1000"
+          <mat-slider thumbLabel tickInterval="1000"1
              step="1" min="5" max="20" aria-label="units" style="width:100%;" value="10" (change)="onSliderChange($event.value,'carHigh')">
           </mat-slider>
         </div>
@@ -290,5 +289,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">閉じる</button>
-  <button mat-button (click)="addSettingInfo()" >登録する</button>
+  <button mat-button (click)="addSettingClick()" >登録する</button>
 </div>

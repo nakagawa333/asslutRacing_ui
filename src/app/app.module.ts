@@ -9,12 +9,10 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddSettingInfoModalComponent } from './addSettingInfoModal/addSettingInfoModal.component';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
-import {HttpLocalService} from "../shared/httpLocal.service";
-import {AddSettingInfoModalService} from "../app/addSettingInfoModal/addSettingInfoModal.service";
+import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,3 +36,4 @@ import {AddSettingInfoModalService} from "../app/addSettingInfoModal/addSettingI
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+  

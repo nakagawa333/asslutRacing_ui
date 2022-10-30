@@ -3,14 +3,9 @@ import { Component,Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppComponent} from 'src/app/app.component'
 
-interface Result{
-  id:number,
-  deleteFlag:boolean
-}
-
 @Component({
-  templateUrl: './deleteConfirmModal.component.html',
-  styleUrls: ['./deleteConfirmModal.component.css']
+  templateUrl: './delete-per-modal.component.html',
+  styleUrls: ['./delete-per-modal.component.css']
 })
 
 export class deleteConfirmModalComponent{

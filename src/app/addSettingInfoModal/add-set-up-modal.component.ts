@@ -6,13 +6,14 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { SafeResourceUrl } from '@angular/platform-browser';
 // import {BaseModal} from '/app/BaseModal';
 import { BaseModal } from '../baseModal.component';
-import {AddSettingInfoModalService} from "../addSettingInfoModal/addSettingInfoModal.service"
+import {AddSettingInfoModalService} from "./add-set-up-modal.service"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../../constants';
+import { StickyDirection } from '@angular/cdk/table';
 
 @Component({
-  templateUrl: './addSettingInfoModal.component.html',
-  styleUrls: ['./addSettingInfoModal.component.css']
+  templateUrl: './add-set-up-modal.component.html',
+  styleUrls: ['./add-set-up-modal.component.css']
 })
 export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   constructor(
@@ -36,39 +37,11 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   selectGuidMessage:string = "選択してください"
 
+  //車リスト表示判定
   hasCarList:boolean = true;
 
-  settinInfo:any = {
-    "title":"",
-    "carId":null,
-    "makerId":null,
-    "courseId":null,
-    "abs":false,
-    "powerSteering":0,
-    "diffgear":0,
-    "frontTirePressure":0,
-    "rearTirePressure":0,
-    "tireId":null,
-    "airPressure":10,
-    "gearFinal":2.2,
-    "gearOne":0.5,
-    "gearTwo":0.5,
-    "gearThree":0.5,
-    "gearFour":0.5,
-    "gearFive":0.5,
-    "stabiliserAgo":0.1,
-    "stabiliserAfter":0.1,
-    "maxRudderAngle":40,
-    "ackermannAngle":0.1,
-    "camberAgo":-10,
-    "camberAfter":-10,
-    "breakPower":0.1,
-    "breakBallance":0,
-    "carHigh":10,
-    "offset":0,
-    "hoilesize":-1,
-    "memo":""
-  }
+  //設定情報
+  settinInfo:any = Object.create(this.service.settinInfo);
 
   ngOnInit(): void{
     if(this.data === null) return;
@@ -99,16 +72,19 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       this.hasCarList = false;
 
       if(this.carsList !== null && this.carsList.length !== 0){
-        this.defalutCarId = this.carsList[0]["carId"]
+        this.defalutCarId = this.carsList[0]["carId"];
+        //コースidを設定
+        this.settinInfo["carId"] = this.defalutCarId;
       }
 
+      //メーカーidを設定
       this.settinInfo["makerId"] = makerId
     }
   }
 
   /** ダイアログを閉じる */
-  closeDialog(): void{
-    this.dialogRef.close()
+  closeDialog(result:any = null): void{
+    this.dialogRef.close(result)
   }
 
   /** absの状態を変更した場合 */
@@ -120,14 +96,40 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   /** 登録するボタンをクリックした場合 */
+  addSettingClick(){
+    this.addSettingInfo()  
+  }
+
   async addSettingInfo(){
-    let headers:HttpHeaders = new HttpHeaders();
-    headers.append("Content-Type","application/json");
-    this.service.setUrl(constant.API.URL + constant.API.ADD)
+    this.service.setUrl(constant.API.URL + constant.API.ADD);
     //新規に設定情報を登録する
-    let res = await this.service.addSettingInfo(this.settinInfo,headers);
-    //登録に成功したら、ダイアログを閉じる
-    this.closeDialog();
+    await this.service.addSettingInfo(this.settinInfo)
+    .subscribe({
+      next:(data:any) => {
+        if(data === 1){
+          //登録に成功したら、ダイアログを閉じる
+          this.closeDialog("登録");
+          //設定情報を初期化
+          this.initSettingInfo()
+          alert("登録に成功しました")
+        }
+      },
+      error: (e:any) => {
+        let errors:any = e["error"]["errors"]
+        let errorText:string = "";
+        let errorsLength:number = Object.keys(errors).length;
+        for(let i = 0; i < errorsLength; i++){
+          errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n"
+        }
+
+        alert(errorText);
+      }
+    })
+  }
+
+  //設定情報を初期化
+  initSettingInfo(){
+    this.settinInfo = Object.create(this.service.settinInfo)    
   }
 
   //各種sliderの値を変更した場合
@@ -140,7 +142,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     this.settinInfo[name] = e.target.value;
   }
 
-  selectorChange(e:any,name:string){
-    this.settinInfo[name] = e.target.value;
+  selectorChange(value:any,name:string){
+    this.settinInfo[name] = value;
   }
 }
