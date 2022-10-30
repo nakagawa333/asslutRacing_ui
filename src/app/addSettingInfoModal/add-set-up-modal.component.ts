@@ -40,6 +40,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   //車リスト表示判定
   hasCarList:boolean = true;
 
+  carHigh:number = 10;
+
   //設定情報
   settinInfo:any = Object.create(this.service.settinInfo);
 
