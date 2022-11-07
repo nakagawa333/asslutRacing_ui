@@ -44,7 +44,8 @@ export class AddSettingInfoModalService{
     "carHigh":10,
     "offset":0,
     "hoilesize":-1,
-    "memo":""
+    "memo":"",
+    "userId":null
   };
 
   setUrl(url:string):void{

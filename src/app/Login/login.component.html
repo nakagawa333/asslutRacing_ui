@@ -1,0 +1,20 @@
+<div>
+    <form (ngSubmit)="submitForm()" [formGroup]="loginForm" autocomplete="off">
+        <mat-card>
+            <mat-form-field appearance="fill">
+                <mat-label for="username">ユーザー名: </mat-label>
+                <input id="username" type="text" formControlName="userName">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label for="password">パスワード: </mat-label>
+                <input id="password" type="password" formControlName="password">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <button>ログイン</button>
+            </mat-form-field>
+
+        </mat-card>
+    </form>
+</div>

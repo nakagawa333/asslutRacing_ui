@@ -4,4 +4,9 @@ export class API{
     public static readonly HOME = "/home"
     public static readonly INFOS = "/infos"
     public static readonly ADD = "/add"
+    public static readonly AUTH_USER = "/auth/user"
+}
+
+export class LOCALSTORAGE{
+    public static readonly LOGIN = "ログイン"
 }

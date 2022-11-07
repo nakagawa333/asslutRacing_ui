@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,11 +14,19 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-modal.component';
+import { LoginComponent } from './Login/login.component';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+
+const routes: Routes = [
+  {path:"home",component:AppComponent},
+  {path:"login",component:LoginComponent}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddSettingInfoModalComponent
+    AddSettingInfoModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,8 +39,12 @@ import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-m
     MatFormFieldModule,
     TextFieldModule,
     MatSlideToggleModule,
-    MatTabsModule
+    MatTabsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
+  exports:[RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
