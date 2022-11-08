@@ -10,15 +10,21 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-modal.component';
 import { LoginComponent } from './Login/login.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './Home/home.component';
+import { CookieService } from 'ngx-cookie-service';
+import {MatButtonModule} from '@angular/material/button';
+
 
 const routes: Routes = [
-  {path:"home",component:AppComponent},
+  {path:"home",component:HomeComponent},
+  {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent}
 ]
 
@@ -26,7 +32,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     AddSettingInfoModalComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,15 +44,17 @@ const routes: Routes = [
     MatPaginatorModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatInputModule,
     TextFieldModule,
     MatSlideToggleModule,
     MatTabsModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatButtonModule
   ],
   exports:[RouterModule],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

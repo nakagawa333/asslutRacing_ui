@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import * as constant from "../constants"
+import * as constant from "../constants";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService{
-    constructor(private http: HttpClient){
+    constructor(
+        private http: HttpClient){
 
     }
 

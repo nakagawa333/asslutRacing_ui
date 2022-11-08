@@ -1,4 +1,4 @@
-import { Component,Inject, OnInit,ViewChild} from '@angular/core';
+import { Component,Inject, OnInit,ViewChild,inject} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
@@ -12,11 +12,15 @@ import * as constant from '../constants';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,public service: AppService,private http: HttpClient) {}
+  constructor(
+    public dialog: MatDialog,
+    public service: AppService,
+    private http: HttpClient
+  ) {}
 
   title:string = 'assltRacing_ui';
   dates:any;
