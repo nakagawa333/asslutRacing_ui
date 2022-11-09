@@ -19,10 +19,8 @@ export class AppService{
         this.url = url
     }
 
-    async getAllSettingInfo(){
-        return await this.http.get(constant.API.URL + constant.API.HOME,{
-            responseType:"json"
-        })
+    getAllSettingInfo(options:object){
+        return this.http.get(constant.API.URL + constant.API.HOME,options)
     }
 
     async deleteSettingInfo(body:any){

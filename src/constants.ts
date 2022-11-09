@@ -10,3 +10,8 @@ export class API{
 export class LOCALSTORAGE{
     public static readonly LOGIN = "ログイン"
 }
+
+export class COOKIE{
+    public static readonly USERID = "userId"
+    public static readonly USERNAME = "userName"
+}

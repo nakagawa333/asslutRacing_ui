@@ -7,6 +7,8 @@ import {AddSettingInfoModalComponent} from 'src/app/addSettingInfoModal/add-set-
 import {MatPaginator} from '@angular/material/paginator';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from "../../constants";
+import { AuthService } from '../auth.service';
+
 
 @Component({
     templateUrl: './home.component.html',
@@ -14,7 +16,13 @@ import * as constant from "../../constants";
 })
 
 export class HomeComponent implements OnInit {
-    constructor(public dialog: MatDialog,public service: AppService,private http: HttpClient) {}
+    constructor(
+      private dialog: MatDialog,
+      private service: AppService,
+      private http: HttpClient,
+      private authService: AuthService
+    ) {
+    }
 
     title:string = 'assltRacing_ui';
     dates:any;
@@ -29,10 +37,16 @@ export class HomeComponent implements OnInit {
   
     /** 全設定情報を取得する */
     private async getAllSettingInfo(){
+      let userId = this.authService.getUserId();
+
       this.service.setUrl(constant.API.URL + constant.API.HOME);
-      await this.service.getAllSettingInfo().then((observe:any) => {
-        observe.subscribe({
-          next: (data:any) => {
+      let options = {
+        "params":{"userId":userId},
+        "responseType":"json"
+      }
+      await this.service.getAllSettingInfo(options)
+      .subscribe({
+           next: (data:any) => {
             this.dates = this.service.changeDataToMatTableDataSource(data);
             this.dates.paginator = this.paginator;       
           },
@@ -40,7 +54,6 @@ export class HomeComponent implements OnInit {
           error: (error:any) => {
             alert(error.statusText)
           }
-        })
       })
     }
   

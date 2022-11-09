@@ -3,14 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthService} from "../auth.service";
 import * as constant from "../../constants"
-// import { CookieService } from 'ngx-cookie-service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
+    providers: [CookieService]
 })
+
 
 export class LoginComponent implements OnInit{
     public loginForm = new FormGroup({
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit{
 
     constructor(
         private authService: AuthService, 
-        private router: Router
+        private router: Router,
+        private cookie: CookieService
         ) {}
 
     ngOnInit(){
@@ -35,23 +36,25 @@ export class LoginComponent implements OnInit{
             "password":this.loginForm.get("password")?.value
         }
 
+        let cookie = this.cookie
+
         //ログインする
         await this.authService.login(body)
         .subscribe({
             next:(data:any) => {
                 if(data !== null){
                     //ログイン情報を保持する
-                    // sessionStorage.setItem(constant.LOCALSTORAGE.LOGIN,JSON.stringify(data));
-                    // this.cookieService.set("userId",data["userId"])
-                    // this.cookieService.set("userName",data["userName"])
-                    // this.cookieService.set("password",data["password"])
+                    cookie.set(constant.COOKIE.USERID,data["userId"])
+                    cookie.set(constant.COOKIE.USERNAME,data["userName"])
 
                     //初期画面に遷移
                     this.router.navigate(["/home"])
+                } else {
+                    alert("ログイン認証に失敗しました")
                 }
             },
             error: (e:any) => {
-                console.log(e)
+                alert("ログイン時にエラーが発生しました")
             }
         })
     }
