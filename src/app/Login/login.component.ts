@@ -47,8 +47,13 @@ export class LoginComponent implements OnInit{
                     cookie.set(constant.COOKIE.USERID,data["userId"])
                     cookie.set(constant.COOKIE.USERNAME,data["userName"])
 
+                    //ログイン状態を更新
+                    this.authService.updateIsLoggedIn();
+
                     //初期画面に遷移
                     this.router.navigate(["/home"])
+
+                    alert("")
                 } else {
                     alert("ログイン認証に失敗しました")
                 }
