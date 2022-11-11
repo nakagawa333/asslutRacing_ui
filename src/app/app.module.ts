@@ -20,7 +20,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './Home/home.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const routes: Routes = [
   {path:"home",component:HomeComponent},
@@ -51,7 +51,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ],
   exports:[RouterModule],
   providers: [CookieService],

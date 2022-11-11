@@ -18,17 +18,25 @@ export class LoginComponent implements OnInit{
         password: new FormControl("",Validators.required),
     });
 
+    //ログイン状態保持フラグ
+    private loginStateObserveFlg:boolean
+
     constructor(
         private authService: AuthService, 
         private router: Router,
-        private cookie: CookieService
+        private cookie: CookieService,
         ) {}
 
     ngOnInit(){
 
     }
 
-    async submitForm(){
+    //ログイン状態を保持クリック時
+    loginStateObserve(e:any){
+        this.loginStateObserveFlg = e.target.checked;
+    }
+
+    async submitLoginForm(){
         if(this.loginForm.invalid) return;
 
         let body:Object = {
@@ -43,9 +51,16 @@ export class LoginComponent implements OnInit{
         .subscribe({
             next:(data:any) => {
                 if(data !== null){
-                    //ログイン情報を保持する
-                    cookie.set(constant.COOKIE.USERID,data["userId"])
-                    cookie.set(constant.COOKIE.USERNAME,data["userName"])
+                    //ログイン状態を保持チェック状態がtrue
+                    if(this.loginStateObserveFlg){
+                        //ログイン情報を保持する(無期限)
+                        cookie.set(constant.COOKIE.USERID,data["userId"])
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"])
+                    } else {
+                        //ログイン情報を保持する(1日)
+                        cookie.set(constant.COOKIE.USERID,data["userId"],1)
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"],1)                    
+                    }
 
                     //ログイン状態を更新
                     this.authService.updateIsLoggedIn();
@@ -53,7 +68,7 @@ export class LoginComponent implements OnInit{
                     //初期画面に遷移
                     this.router.navigate(["/home"])
 
-                    alert("")
+                    alert("ログインに成功しました")
                 } else {
                     alert("ログイン認証に失敗しました")
                 }

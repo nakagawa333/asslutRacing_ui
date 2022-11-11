@@ -2,3 +2,16 @@
     margin: 82px auto 32px;
     padding:30px;
 }
+
+/** ログインボタン **/
+#login-button{
+    margin-top:20px;
+}
+
+@media screen and (min-width: 900px){
+    /** ログインフォーム **/
+    #login-form{
+        width:50%;
+        margin:0 auto;
+    }
+}
