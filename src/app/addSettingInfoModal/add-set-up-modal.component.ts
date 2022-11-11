@@ -10,6 +10,8 @@ import {AddSettingInfoModalService} from "./add-set-up-modal.service"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../../constants';
 import { StickyDirection } from '@angular/cdk/table';
+import { AuthService } from "../auth.service";
+
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -20,6 +22,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       public dialogRef: MatDialogRef<AddSettingInfoModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
       private service:AddSettingInfoModalService,
+      private authService:AuthService
   ){}
 
   defalutCarId:number = 0;
@@ -65,6 +68,9 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
         }
       }
     }
+
+    //ユーザーidを設定
+    this.settinInfo["userId"] = this.authService.getUserId();
   }
 
   /** メーカー一覧を選択した場合  */

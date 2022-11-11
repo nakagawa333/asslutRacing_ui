@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {AddSettingInfoModalComponent} from "./add-set-up-modal.component";
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-
 @Injectable({
   providedIn: 'root'
 })
