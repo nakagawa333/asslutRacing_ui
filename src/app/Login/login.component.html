@@ -1,27 +1,61 @@
 <div class="content" role="main">
     <form id="login-form" (ngSubmit)="submitLoginForm()" [formGroup]="loginForm" autocomplete="off" >
         <mat-card>
-            <div>
-                <mat-form-field appearance="fill" style="display: block;">
-                    <mat-label for="username">ユーザー名: </mat-label>
-                    <input matInput id="username" type="text" formControlName="userName">
-                </mat-form-field>
-            </div>
+            <mat-card-title>
+                <h2>タイトル</h2>
+            </mat-card-title>
 
-            <div>
-                <mat-form-field appearance="fill" style="display: block;">
-                    <mat-label for="password">パスワード: </mat-label>
-                    <input matInput id="password" type="password" formControlName="password">                
-                </mat-form-field>
-            </div>
+            <mat-card-content>
+                <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert">
+                    <div *ngIf="userName.errors?.['required']">
+                        ユーザー名もしくはメールアドレスを入力してください。
+                    </div>
 
-            <div>
-                <mat-checkbox (input)="loginStateObserve($event)">ログイン状態を保持</mat-checkbox>
-            </div>
+                    <div *ngIf="userName.errors?.['maxLength']">
+                        ユーザー名の最大文字数は100文字です。
+                    </div>
+                </div>
 
-            <div id="login-button">
-                <button mat-button class="mat-raised-button">ログイン</button>
-            </div>
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="username">ユーザー名orメールアドレス: </mat-label>
+                        <input matInput id="username" type="text" formControlName="userName">
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        パスワードを入力してください。
+                    </div>
+
+                    <div *ngIf="password.errors?.['maxLength']">
+                        パスワードの最大文字数は100文字です。
+                    </div>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="password">パスワード: </mat-label>
+                        <input matInput id="password" type="password" formControlName="password">                
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-checkbox (input)="loginStateObserve($event)">ログイン状態を保持</mat-checkbox>
+                </div>
+
+                <div id="password-forget-message">
+                    <a href="password/reset">パスワードをお忘れの方</a>
+                </div>
+
+                <div id="login-button">
+                    <button mat-button class="mat-raised-button">ログイン</button>
+                </div>
+            </mat-card-content>
+
+            <mat-card-content>
+                <a href="/signup">会員登録はこちら</a>
+            </mat-card-content>
         </mat-card>
     </form>
 </div>

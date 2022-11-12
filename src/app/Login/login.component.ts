@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {AuthService} from "../auth.service";
 import * as constant from "../../constants"
 import { CookieService } from 'ngx-cookie-service';
+import { Location } from '@angular/common';
 
 @Component({
     templateUrl: './login.component.html',
@@ -11,24 +12,41 @@ import { CookieService } from 'ngx-cookie-service';
     providers: [CookieService]
 })
 
-
 export class LoginComponent implements OnInit{
-    public loginForm = new FormGroup({
-        userName: new FormControl("",Validators.required),
-        password: new FormControl("",Validators.required),
-    });
-
-    //ログイン状態保持フラグ
-    private loginStateObserveFlg:boolean
 
     constructor(
         private authService: AuthService, 
         private router: Router,
         private cookie: CookieService,
+        private location: Location,
         ) {}
 
-    ngOnInit(){
+    public loginForm = new FormGroup({
+        userName: new FormControl("",[
+            Validators.required,
+            Validators.maxLength(100)
+        ]),
+        password: new FormControl("",[
+            Validators.required,
+            Validators.maxLength(100)
+        ]),
+    });
 
+    //ユーザー名
+    public userName = this.loginForm.controls.userName
+
+    //パスワード
+    public password = this.loginForm.controls.password
+
+    //ログイン状態保持フラグ
+    private loginStateObserveFlg:boolean
+
+
+    ngOnInit(){
+        //既にログイン済の場合、url履歴を戻す
+        if(this.authService.isLoggedIn.value){
+            this.location.back();
+        }
     }
 
     //ログイン状態を保持クリック時
@@ -70,7 +88,7 @@ export class LoginComponent implements OnInit{
 
                     alert("ログインに成功しました")
                 } else {
-                    alert("ログイン認証に失敗しました")
+                    alert("ユーザー名orメールアドレス、もしくはパスワードが間違えています。")
                 }
             },
             error: (e:any) => {
