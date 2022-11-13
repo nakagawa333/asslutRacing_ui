@@ -57,8 +57,22 @@ export class LoginComponent implements OnInit{
     async submitLoginForm(){
         if(this.loginForm.invalid) return;
 
+        let userName = null;
+        let mail = null;
+
+        let mailRegex = new RegExp(constant.REGEX.MAIL);
+        let val:string = this.loginForm.get("userName")?.value || "";
+
+        //メールアドレスの場合
+        if(mailRegex.test(val)){
+            mail = val
+        } else if(val !== ""){
+            userName = val
+        }
+
         let body:Object = {
-            "userName":this.loginForm.get("userName")?.value,
+            "userName":userName,
+            "mail":mail,
             "password":this.loginForm.get("password")?.value
         }
 

@@ -21,11 +21,13 @@ import { HomeComponent } from './Home/home.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SingupComponent } from './SignUp/signup.component';
 
 const routes: Routes = [
   {path:"home",component:HomeComponent},
   {path:"",component:HomeComponent},
-  {path:"login",component:LoginComponent}
+  {path:"login",component:LoginComponent},
+  {path:"signup",component:SingupComponent}
 ]
 
 @NgModule({
@@ -33,7 +35,8 @@ const routes: Routes = [
     AppComponent,
     AddSettingInfoModalComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SingupComponent
   ],
   imports: [
     BrowserModule,

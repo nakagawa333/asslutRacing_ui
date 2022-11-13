@@ -19,7 +19,7 @@ export class AuthService{
     }
 
     login(body:object){
-        return this.http.post(constant.API.URL + constant.API.AUTH_USER,body)
+        return this.http.post(constant.API.URL + constant.API.LOGIN,body)
     }
 
     logout(){
@@ -37,5 +37,9 @@ export class AuthService{
     updateIsLoggedIn(){
         let userId = this.cookie.get(constant.COOKIE.USERID)
         this.isLoggedIn.next(userId !== "");       
+    }
+
+    signup(body:object){
+        return this.http.post(constant.API.URL + constant.API.SIGNUP,body)
     }
 }
