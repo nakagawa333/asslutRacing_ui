@@ -1,0 +1,95 @@
+<div class="content" role="main">
+    <form id="signup-form" (ngSubmit)="submitSignUpForm()" [formGroup]="signForm">
+        <mat-card>
+            <mat-card-title>
+                <h2>サインアップ</h2>
+            </mat-card-title>
+        
+            <mat-card-content>
+
+                <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert">
+                    <div *ngIf="userName.errors?.['required']">
+                        ユーザー名を入力してください。
+                    </div>
+
+                    <div *ngIf="userName.errors?.['maxLength']">
+                        ユーザー名の最大文字数は100文字です。
+                    </div>
+
+                    <div>
+                        <p>{{userErrorMessage}}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="userName.errors?.['existUserName']" class="alert">
+                    既に入力されたユーザー名は使用されています。
+                </div>
+
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="username">ユーザー名</mat-label>
+                        <input #username matInput id="username" type="text" formControlName="userName" (blur)="userNameBlur(username.value)">
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="mail.invalid && (mail.dirty || mail.touched)" class="alert">
+                    <div *ngIf="mail.errors?.['required']">
+                        メールアドレスを入力してください。
+                    </div>
+
+                    <div *ngIf="mail.errors?.['email']">
+                        正しいメールアドレスではございません。
+                    </div>
+
+                    <div *ngIf="mail.errors?.['maxLength']">
+                        メールアドレスの最大文字数は100文字です。
+                    </div>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="mail">メールアドレス</mat-label>
+                        <input matInput id="mail" type="email" formControlName="mail">
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        パスワードを入力してください。
+                    </div>
+
+                    <div *ngIf="password.errors?.['maxLength']">
+                        パスワードの最大文字数は100文字です。
+                    </div>
+
+                    <div *ngIf="password.errors?.['minLength']">
+                        パスワードは、6文字以上でお願いします。
+                    </div>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="password">パスワード</mat-label>
+                        <input matInput id="password" type="password" formControlName="password">
+                    </mat-form-field>            
+                </div>
+
+                <div *ngIf="reconfirmPassword.errors?.['diffPassword']" class="alert">
+                    入力されたパスワードが異なります。
+                </div>
+
+                <div>
+                    <mat-form-field appearance="fill" style="display: block;">
+                        <mat-label for="reconfirmPassword">パスワード再確認</mat-label>
+                        <input matInput id="reconfirmPassword" type="password" formControlName="reconfirmPassword" (blur)="reconfirmPasswordBlur()">
+                    </mat-form-field>
+                </div>
+
+                <div id="signup-button">
+                    <button mat-button class="mat-raised-button">サインアップ</button>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </form>
+</div>

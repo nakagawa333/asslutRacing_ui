@@ -39,6 +39,10 @@ export class AuthService{
         this.isLoggedIn.next(userId !== "");       
     }
 
+    selectUser(path:String){
+        return this.http.get(constant.API.URL + constant.API.SELECTUSER + path)  
+    }
+
     signup(body:object){
         return this.http.post(constant.API.URL + constant.API.SIGNUP,body)
     }

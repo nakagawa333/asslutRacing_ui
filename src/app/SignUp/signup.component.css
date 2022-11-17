@@ -1,0 +1,21 @@
+.content {
+    margin: 82px auto 32px;
+    padding:30px;
+}
+
+/** ログインボタン **/
+#signup-button{
+    margin-top:20px;
+}
+
+.alert{
+    color:red;
+}
+
+@media screen and (min-width: 900px){
+    /** ログインフォーム **/
+    #signup-form{
+        width:50%;
+        margin:0 auto;
+    }
+}

@@ -7,6 +7,7 @@ export class API{
     public static readonly AUTH_USER = "/auth/user"
     public static readonly SIGNUP = "/signup"
     public static readonly LOGIN = "/login"
+    public static readonly SELECTUSER = "/select/user/"
 }
 
 export class LOCALSTORAGE{
