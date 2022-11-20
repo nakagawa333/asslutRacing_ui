@@ -46,10 +46,14 @@
                     </div>
                 </div>
 
+                <div *ngIf="mail.errors?.['existMail']" class="alert">
+                    既に入力されたメールは使用されています。
+                </div>
+
                 <div>
                     <mat-form-field appearance="fill" style="display: block;">
                         <mat-label for="mail">メールアドレス</mat-label>
-                        <input matInput id="mail" type="email" formControlName="mail">
+                        <input matInput id="mail" type="email" formControlName="mail" (blur)="mailBlur(mail.value)">
                     </mat-form-field>
                 </div>
 

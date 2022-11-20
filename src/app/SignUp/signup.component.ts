@@ -55,11 +55,6 @@ export class SingupComponent{
     async submitSignUpForm(){
         if(this.signForm.invalid) return;
 
-        //パスワードとパスワード再入力の値が異なる場合
-        if(this.checkPassword()){
-            return;
-        }
-
         let body:Object = {
             "userName":this.signForm.get("userName")?.value,
             "mail":this.signForm.get("mail")?.value,
@@ -85,7 +80,12 @@ export class SingupComponent{
 
     //ユーザー名から離した場合
     async userNameBlur(userName:String){
-        await this.authService.selectUser(userName)
+        let body = {
+            "userName":userName,
+            "password":null,
+            "mail":null
+        }
+        await this.authService.selectUser(body)
         .subscribe({
             next:(data:any) => {
                 if(data === 1) {
@@ -93,9 +93,28 @@ export class SingupComponent{
                 }
             },
             error:(e:any) => {
-
+                alert(e.statusText)
             }
         })
+    }
+
+    async mailBlur(mail:String | null){
+        let body = {
+            "userName":null,
+            "password":null,
+            "mail":mail
+        }
+        await this.authService.selectUser(body)
+        .subscribe({
+            next:(data:any) => {
+                if(data === 1) {
+                    this.signForm.controls.mail.setErrors({"existMail":true})
+                }
+            },
+            error:(e:any) => {
+                alert(e.statusText)
+            }
+        })        
     }
 
     checkPassword():boolean{
