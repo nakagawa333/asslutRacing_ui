@@ -16,7 +16,7 @@ export class AppComponent{
     public authService: AuthService,
   ) {
 
-    let notApplicablePathNames:Set<String> = new Set(["/login","/signup","/password/reset"]);
+    let notApplicablePathNames:Set<String> = new Set(["/login","/signup","/password/reset","/verify"]);
 
     //認証されていない場合とログインページでない場合
     if(!this.authService.isLoggedIn.value && !notApplicablePathNames.has(location.pathname)){

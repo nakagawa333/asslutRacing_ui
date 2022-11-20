@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from "../constants";
 import { BehaviorSubject } from "rxjs";
 import { CookieService } from 'ngx-cookie-service';
+import { ObserversModule } from "@angular/cdk/observers";
 
 
 @Injectable({
@@ -18,10 +19,12 @@ export class AuthService{
             this.updateIsLoggedIn();
     }
 
+    //ログイン
     login(body:object){
         return this.http.post(constant.API.URL + constant.API.LOGIN,body)
     }
 
+    //ログアウト
     logout(){
         //セッションに保存しているユーザーIDとユーザー名を削除
         this.cookie.delete(constant.COOKIE.USERID)
@@ -39,11 +42,18 @@ export class AuthService{
         this.isLoggedIn.next(userId !== "");       
     }
 
-    selectUser(path:String){
-        return this.http.get(constant.API.URL + constant.API.SELECTUSER + path)  
+    //ユーザー名から取得
+    selectUser(body:object){
+        return this.http.post(constant.API.URL + constant.API.SELECTUSER,body)  
     }
 
+    //サインアップ
     signup(body:object){
         return this.http.post(constant.API.URL + constant.API.SIGNUP,body)
+    }
+
+    //トークン確認
+    verifyToken(token:String | null){
+        return this.http.post(constant.API.URL + constant.API.VERIFYTOKEN,token)
     }
 }

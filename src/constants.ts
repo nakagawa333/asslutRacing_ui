@@ -8,6 +8,7 @@ export class API{
     public static readonly SIGNUP = "/signup"
     public static readonly LOGIN = "/login"
     public static readonly SELECTUSER = "/select/user/"
+    public static readonly VERIFYTOKEN = "/verify/token"
 }
 
 export class LOCALSTORAGE{
