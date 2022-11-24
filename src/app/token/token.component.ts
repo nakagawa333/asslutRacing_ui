@@ -1,5 +1,5 @@
-import { Router,ActivatedRoute } from '@angular/router';
-import { Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Component} from '@angular/core';
 import { AuthService } from '../auth.service';
 import * as constant from "../../constants";
 
