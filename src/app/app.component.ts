@@ -14,14 +14,21 @@ export class AppComponent{
   constructor(
     private router: Router,
     public authService: AuthService,
+    private lo: Location
   ) {
 
-    let notApplicablePathNames:Set<String> = new Set(["/login","/signup","/password/reset","/verify"]);
+    let notApplicablePathNames:Set<String> = new Set(["/login","/signup","/password/reset","/verify","/verify/mail"]);
 
-    //認証されていない場合とログインページでない場合
+    //ログイン状態を更新
+    this.authService.updateIsLoggedIn();
+
+    //ログイン認証されていない場合
     if(!this.authService.isLoggedIn.value && !notApplicablePathNames.has(location.pathname)){
       //ログイン画面に遷移
       this.router.navigate(["/login"])
+    } else if(this.authService.isLoggedIn.value && notApplicablePathNames.has(location.pathname)){
+      //ログイン認証されている場合
+      this.lo.back();
     }
   }
 
