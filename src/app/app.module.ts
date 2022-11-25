@@ -23,13 +23,17 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SingupComponent } from './SignUp/signup.component';
 import { TokenComponent } from './token/token.component';
+import { SendPasswordResetMailComponent } from './sendPasswordResetMail/sendPasswordResetMail.component';
+import { UpdatePasswordComponent } from './updatePassword/updatePassword.component';
 
-const routes: Routes = [
+const routes: Routes  = [
   {path:"home",component:HomeComponent},
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
   {path:"signup",component:SingupComponent},
-  {path:"verify",component:TokenComponent}
+  {path:"verify",component:TokenComponent},
+  {path:"password/reset",component:SendPasswordResetMailComponent},
+  {path:"verify/mail",component:UpdatePasswordComponent}
 ]
 
 @NgModule({
@@ -38,7 +42,9 @@ const routes: Routes = [
     AddSettingInfoModalComponent,
     LoginComponent,
     HomeComponent,
-    SingupComponent
+    SingupComponent,
+    SendPasswordResetMailComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     BrowserModule,

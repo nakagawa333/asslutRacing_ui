@@ -56,4 +56,14 @@ export class AuthService{
     verifyToken(token:String | null){
         return this.http.post(constant.API.URL + constant.API.VERIFYTOKEN,token)
     }
+
+    //パスワードリセットメール送信
+    sendPasswordResetMail(body:object){
+        return this.http.post(constant.API.URL + constant.API.PASSWORDRESET,body)
+    }
+
+    //パスワードアップデート
+    passwordUpdate(body:object){
+        return this.http.put(constant.API.URL + constant.API.PASSWORDUPDATE,body)
+    }
 }

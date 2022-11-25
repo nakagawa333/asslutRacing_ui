@@ -9,6 +9,25 @@ export class API{
     public static readonly LOGIN = "/login"
     public static readonly SELECTUSER = "/select/user/"
     public static readonly VERIFYTOKEN = "/verify/token"
+    public static readonly PASSWORDRESET = "/password/reset"
+    public static readonly VERIFYMAIL = "/verify/mail"
+    public static readonly PASSWORDUPDATE = "/password/update"
+}
+
+export class PATH{
+    public static readonly DELETE = "/delete"
+    public static readonly HOME = "/home"
+    public static readonly INFOS = "/infos"
+    public static readonly ADD = "/add"
+    public static readonly AUTH_USER = "/auth/user"
+    public static readonly SIGNUP = "/signup"
+    public static readonly LOGIN = "/login"
+    public static readonly SELECTUSER = "/select/user/"
+    public static readonly VERIFYTOKEN = "/verify/token"
+    public static readonly PASSWORDRESET = "/password/reset"
+    public static readonly VERIFYMAIL = "/verify/mail"
+    public static readonly PASSWORDUPDATE = "/password/update"
+    public static readonly VERIFY = "/verify"
 }
 
 export class LOCALSTORAGE{
