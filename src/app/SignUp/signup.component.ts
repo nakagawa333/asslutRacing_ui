@@ -5,6 +5,7 @@ import {AuthService} from "../auth.service";
 import * as constant from "../../constants"
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
+import { User } from 'src/user';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -17,6 +18,8 @@ export class SingupComponent{
         private authService: AuthService, 
         private router: Router
     ){}
+
+    private user: User |undefined;
 
     public signForm = new FormGroup({
         userName: new FormControl("",[
@@ -50,7 +53,7 @@ export class SingupComponent{
     //パスワード再入力
     public reconfirmPassword = this.signForm.controls.reconfirmPassword
     //
-    public userErrorMessage = ""
+    public userErrorMessage:String;
 
     async submitSignUpForm(){
         if(this.signForm.invalid) return;
@@ -85,6 +88,7 @@ export class SingupComponent{
             "password":null,
             "mail":null
         }
+        
         await this.authService.selectUser(body)
         .subscribe({
             next:(data:any) => {
