@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-
+import * as constant from "../constants";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent{
     private lo: Location
   ) {
 
-    let notApplicablePathNames:Set<String> = new Set(["/login","/signup","/password/reset","/verify","/verify/mail"]);
+    let notApplicablePathNames:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL]);
 
     //ログイン状態を更新
     this.authService.updateIsLoggedIn();
@@ -25,16 +25,16 @@ export class AppComponent{
     //ログイン認証されていない場合
     if(!this.authService.isLoggedIn.value && !notApplicablePathNames.has(location.pathname)){
       //ログイン画面に遷移
-      this.router.navigate(["/login"])
+      this.router.navigate([constant.PATH.LOGIN])
     } else if(this.authService.isLoggedIn.value && notApplicablePathNames.has(location.pathname)){
       //ログイン認証されている場合
-      this.lo.back();
+      this.router.navigate([constant.PATH.HOME])
     }
   }
 
   //ログアウトアイコンクリック時
   logoutClick(){
     this.authService.logout();
-    this.router.navigate(["/login"])
+    this.router.navigate([constant.PATH.LOGIN])
   }
 }
