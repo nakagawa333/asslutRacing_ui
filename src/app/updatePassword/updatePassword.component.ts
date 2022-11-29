@@ -22,13 +22,26 @@ export class UpdatePasswordComponent{
         Validators.required,
         Validators.maxLength(100),
         Validators.minLength(7)
-      ])
+      ]),
+      reconfirmPassword: new FormControl("",[
+
+      ])   
     })
 
+    //パスワード
     public password:FormControl<any> = this.updatePasswordForm.controls.password;
+
+    //再確認用パスワード
+    public reconfirmPassword:FormControl<any> = this.updatePasswordForm.controls.reconfirmPassword;
+
 
   ngOnInit(): void{
     this.token = this.activatedRoute.snapshot.queryParamMap.get("token");
+  }
+
+  //パスワード再確認から離した場合
+  reconfirmPasswordBlur(){
+      this.checkPassword();
   }
 
   //送信時
@@ -44,11 +57,22 @@ export class UpdatePasswordComponent{
     this.authService.passwordUpdate(body)
     .subscribe({
       next:(data:any) => {
-        if(data === 1) alert("パスワード更新に成功しました。")
+        if(data === 1) {
+          alert("パスワード更新に成功しました。")
+        }
       },
       error:(e:any) => {
         alert("パスワード送信に失敗しました");
       }
     })
+  }
+
+  //パスワードと再確認用パスワードの値が同じであるかを確認する
+  checkPassword():boolean{
+    if(this.updatePasswordForm.controls.password.value !== this.updatePasswordForm.controls.reconfirmPassword.value){
+        this.updatePasswordForm.controls.reconfirmPassword.setErrors({"diffPassword":true});
+        return false;
+    }
+    return true;
   }
 }
