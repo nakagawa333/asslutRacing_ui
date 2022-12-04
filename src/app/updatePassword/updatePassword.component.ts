@@ -3,6 +3,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from 'src/user';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
+import * as constant from "../../constants";
 
 @Component({
   templateUrl: './updatePassword.component.html',
@@ -59,6 +60,7 @@ export class UpdatePasswordComponent{
       next:(data:any) => {
         if(data === 1) {
           alert("パスワード更新に成功しました。")
+          this.router.navigate([constant.API.LOGIN])
         }
       },
       error:(e:any) => {
