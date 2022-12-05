@@ -9,16 +9,16 @@
         
         <div class="mat-body">
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" style="width: 100%;">
               <mat-label>セッティングネイム</mat-label>
               <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'title')"></textarea>
             </mat-form-field>
           </div>
         
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" style="width: 100%;">
               <mat-label>概要</mat-label>
-              <textarea matInput cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'memo')"></textarea>
+              <textarea matInput rows="5" cols="40" cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'memo')"></textarea>
             </mat-form-field>
           </div>
         </div>
