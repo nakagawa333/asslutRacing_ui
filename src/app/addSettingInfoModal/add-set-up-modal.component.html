@@ -42,7 +42,7 @@
             <div style="width:100%;">
               <mat-label>パワーステリング</mat-label>
               <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
+              step="1" min="0" max="100" aria-label="units" style="width:100%;" [value]="settinInfo['powerSteering']" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
             </div>
           </div>
 
@@ -51,7 +51,7 @@
               <mat-label>デブギア</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="0" max="100" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'diffgear')">
+              step="1" min="0" max="100" aria-label="units" style="width:100%;" [value]="settinInfo['diffgear']" (change)="onSliderChange($event.value,'diffgear')">
             </mat-slider>
           </div>
 
@@ -100,7 +100,7 @@
               <mat-label>フロントタイヤの圧力</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'frontTirePressure')">
+              step="1" min="10" max="45" aria-label="units" style="width:100%;" [value]="settinInfo['frontTirePressure']" (change)="onSliderChange($event.value,'frontTirePressure')">
             </mat-slider>
           </div>
         
@@ -109,7 +109,7 @@
               <mat-label>リアタイヤの圧力</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'rearTirePressure')">
+              step="1" min="10" max="45" aria-label="units" style="width:100%;" [value]="settinInfo['rearTirePressure']" (change)="onSliderChange($event.value,'rearTirePressure')">
             </mat-slider>
           </div>
         </div>
@@ -121,7 +121,7 @@
               <mat-label>ファイナルドライブ</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.01" min="2.2" max="6.1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFinal')">
+              step="0.01" min="2.2" max="6.1" aria-label="units" style="width:100%;" [value]="settinInfo['gearFinal']" (change)="onSliderChange($event.value,'gearFinal')">
             </mat-slider>
           </div>
           
@@ -130,7 +130,7 @@
               <mat-label>1速</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearOne')">
+              step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settinInfo['gearOne']"  (change)="onSliderChange($event.value,'gearOne')">
             </mat-slider>
           </div>
 
@@ -139,7 +139,7 @@
               <mat-label>2速</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearTwo')">
+            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;"  [value]="settinInfo['gearTwo']"  (change)="onSliderChange($event.value,'gearTwo')">
             </mat-slider>
           </div>
 
@@ -148,7 +148,7 @@
               <mat-label>3速</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearThree')">
+            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settinInfo['gearThree']"  (change)="onSliderChange($event.value,'gearThree')">
             </mat-slider>
           </div>
 
@@ -157,7 +157,7 @@
               <mat-label>4速</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFour')">
+            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settinInfo['gearFour']"  (change)="onSliderChange($event.value,'gearFour')">
             </mat-slider>
           </div>
 
@@ -166,7 +166,7 @@
               <mat-label>5速</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'gearFive')">
+            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settinInfo['gearFive']" (change)="onSliderChange($event.value,'gearFive')">
             </mat-slider>
           </div>
         </div>
@@ -178,7 +178,7 @@
               <mat-label>スタビライザー前軸</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'stabiliserAgo')">
+              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settinInfo['stabiliserAgo']" (change)="onSliderChange($event.value,'stabiliserAgo')">
             </mat-slider>
           </div>
 
@@ -187,7 +187,7 @@
               <mat-label>スタビライザー後軸</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'stabiliserAfter')">
+              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settinInfo['stabiliserAfter']" (change)="onSliderChange($event.value,'stabiliserAfter')">
             </mat-slider>
           </div>
 
@@ -196,7 +196,7 @@
               <mat-label>最大舵角</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="40" max="60" aria-label="units" style="width:100%;" >
+              step="1" min="40" max="60" aria-label="units" style="width:100%;" [value]="settinInfo['maxRudderAngle']" (change)="onSliderChange($event.value,'maxRudderAngle')">
             </mat-slider>
           </div>
 
@@ -205,9 +205,28 @@
               <mat-label>アッカーマンアングル</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'ackermannAngle')">
+              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settinInfo['ackermannAngle']" (change)="onSliderChange($event.value,'ackermannAngle')">
             </mat-slider>
           </div>
+
+          <div>
+            <div>
+              <mat-label>フロントネガティブキャンバー</mat-label>
+            </div>
+            <mat-slider thumbLabel tickInterval="1000"
+              step="-0.1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settinInfo['camberAgo']" (change)="onSliderChange($event.value,'camberAgo')">
+            </mat-slider>
+          </div>
+
+          <div>
+            <div>
+              <mat-label>リアネガティブキャンバー</mat-label>
+            </div>
+            <mat-slider thumbLabel tickInterval="1000"
+              step="-0.1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settinInfo['camberAfter']" (change)="onSliderChange($event.value,'camberAfter')">
+            </mat-slider>
+          </div>
+
         </div>
       </mat-tab>
       <mat-tab>
@@ -222,7 +241,7 @@
               <mat-label>BREAKE POWER</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" (change)="onSliderChange($event.value,'breakPower')">
+              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settinInfo['breakPower']" (change)="onSliderChange($event.value,'breakPower')">
             </mat-slider>
           </div>
 
@@ -231,7 +250,7 @@
               <mat-label>ブレーキバランス</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" value="0" (change)="onSliderChange($event.value,'breakBallance')">
+              step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" value="0" [value]="settinInfo['breakBallance']" (change)="onSliderChange($event.value,'breakBallance')">
             </mat-slider>
           </div>
 
@@ -240,7 +259,7 @@
               <mat-label>空気圧</mat-label>
             </div>
             <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10" (change)="onSliderChange($event.value,'airPressure')">
+              step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10" [value]="settinInfo['airPressure']" (change)="onSliderChange($event.value,'airPressure')">
             </mat-slider>
           </div>
 
@@ -259,24 +278,6 @@
             </div>
             <mat-slider thumbLabel tickInterval="1000"
               step="1" min="0" max="10" aria-label="units" style="width:100%;" [value]="settinInfo['offset']" (change)="onSliderChange($event.value,'offset')">
-            </mat-slider>
-          </div>
-    
-          <div>
-            <div>
-              <mat-label>フロントネガティブキャンバー</mat-label>
-            </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="-1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settinInfo['frontTirePressure']" (change)="onSliderChange($event.value,'camberAgo')">
-            </mat-slider>
-          </div>
-
-          <div>
-            <div>
-              <mat-label>リアネガティブキャンバー</mat-label>
-            </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="-1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settinInfo['rearTirePressure']" (change)="onSliderChange($event.value,'camberAfter')">
             </mat-slider>
           </div>
 

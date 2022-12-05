@@ -25,28 +25,28 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private authService:AuthService
   ){}
 
-  defalutCarId:number = 0;
-  absText = "OFF";
+  public defalutCarId:number = 0;
+  public absText = "OFF";
   //車一覧
-  carsList = [];
+  public carsList = [];
   //コース一覧
-  courseList = [];
+  public courseList = [];
   //メーカー一覧
-  makerList = [];
+  public makerList = [];
   //タイヤタイプ一覧
-  tireTypeList = [];
+  public tireTypeList = [];
   /** key:makerId value:object */
-  carsHashMap = new Map();
+  private carsHashMap = new Map();
 
-  selectGuidMessage:string = "選択してください"
+  private selectGuidMessage:string = "選択してください"
 
   //車リスト表示判定
-  hasCarList:boolean = true;
+  public hasCarList:boolean = true;
 
-  carHigh:number = 10;
+  private carHigh:number = 10;
 
   //設定情報
-  settinInfo:any = Object.create(this.service.settinInfo);
+  public settinInfo:any = Object.assign(this.service.settinInfo);
 
   ngOnInit(): void{
     if(this.data === null) return;
@@ -105,7 +105,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   /** 登録するボタンをクリックした場合 */
   addSettingClick(){
-    this.addSettingInfo()  
+    this.addSettingInfo()
   }
 
   async addSettingInfo(){
