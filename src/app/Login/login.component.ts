@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit{
         let mail = null;
 
         let mailRegex = new RegExp(constant.REGEX.MAIL);
-        let val:string = this.loginForm.get("userName")?.value || "";
+        let val:string = this.loginForm.get("userName")?.value?.trim() || "";
 
         //メールアドレスの場合
         if(mailRegex.test(val)){
@@ -69,11 +69,11 @@ export class LoginComponent implements OnInit{
         } else if(val !== ""){
             userName = val
         }
-
+        
         let body:Object = {
             "userName":userName,
             "mail":mail,
-            "password":this.loginForm.get("password")?.value
+            "password":this.loginForm.get("password")?.value?.trim()
         }
 
         let cookie = this.cookie

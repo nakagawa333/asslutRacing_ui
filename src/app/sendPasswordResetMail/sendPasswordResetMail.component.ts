@@ -53,7 +53,7 @@ export class SendPasswordResetMailComponent{
     submitSendPasswordResetMailForm(){
         if(this.sendPasswordResetMailForm.invalid) return;
 
-        let mail = this.sendPasswordResetMailForm.controls.mail.value;
+        let mail = this.sendPasswordResetMailForm.controls.mail.value?.trim();
         let body = {
             "mail":mail,
             "requestUrl":location.origin

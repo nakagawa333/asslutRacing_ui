@@ -59,9 +59,9 @@ export class SingupComponent{
         if(this.signForm.invalid) return;
 
         let body:Object = {
-            "userName":this.signForm.get("userName")?.value,
-            "mail":this.signForm.get("mail")?.value,
-            "password":this.signForm.get("password")?.value,
+            "userName":this.signForm.get("userName")?.value?.trim(),
+            "mail":this.signForm.get("mail")?.value?.trim(),
+            "password":this.signForm.get("password")?.value?.trim(),
             "requestUrl":location.origin
         }
 
