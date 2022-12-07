@@ -123,6 +123,18 @@
     display: block;
   }
 
+  #setting-info-table th{
+    background-color: whitesmoke;
+  }
+
+  #setting-info-table th:nth-child(-n+3){
+    border-right: 1px solid white;
+  }
+
+  #setting-info-table th:not(:nth-child(1)){
+    padding-left:25px;
+  }
+
   /* mat-card{
     width: fit-content;
     max-width: 600px;
