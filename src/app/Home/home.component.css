@@ -129,9 +129,10 @@
 
   #setting-info-table th:nth-child(-n+3){
     border-right: 1px solid white;
+    border-right-color: rgba(0, 0, 0, 0.12);
   }
 
-  #setting-info-table th:not(:nth-child(1)){
+  #setting-info-table th:not(:nth-child(1)),#setting-info-table td:not(:nth-child(1)){
     padding-left:25px;
   }
 

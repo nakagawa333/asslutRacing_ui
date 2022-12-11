@@ -19,7 +19,7 @@ export class AppService{
         this.url = url
     }
 
-    getAllSettingInfo(options:object){
+    public getAllSettingInfo(options:object){
         return this.http.get(constant.API.URL + constant.API.HOME,options)
     }
 

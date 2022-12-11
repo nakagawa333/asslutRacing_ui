@@ -1,0 +1,36 @@
+export interface SettingInfo{
+    id:number;
+    title:String;
+    carName:String;
+    markerName:String;
+    carId:number;
+    makerId:number;
+    courseId:number;
+    course:String;
+    abs:Boolean;
+    powerSteering:number;
+    diffgear:number;
+    frontTirePressure:number;
+    rearTirePressure:number;
+    tireType:String;
+    airPressure:number;
+    gearFinal:number;
+    gearOne:number;
+    gearTwo:number;
+    gearThree:number;
+    gearFour:number;
+    gearFive:number;
+    stabiliserAgo:number;
+    stabiliserAfter:number;
+    maxRudderAngle:number;
+    ackermannAngle:number;
+    camberAgo:number;
+    camberAfter:number;
+    breakPower:number;
+    breakBallance:number;
+    carHigh:number;
+    offset:number;
+    hoilesize:number;
+    memo:String;
+    userId:number;
+}

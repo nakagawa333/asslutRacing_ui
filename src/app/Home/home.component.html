@@ -1,6 +1,22 @@
 <router-outlet>
 <div class="content" role="main">
-    <div>
+    <div style="display:flex;">
+
+      <form id="filter-textbox" class="example-form" [formGroup]="filterSerachForm">
+        <mat-form-field class="example-full-width">
+          <mat-label for="searchName">フィルター </mat-label>
+          <input matInput #filter type="text" id="filter" formControlName="searchName" (input)="filterInput(filter.value)"> 
+        </mat-form-field>
+      </form>
+
+      <mat-form-field appearance="fill">
+        <mat-label>列名</mat-label>
+        <mat-select #columnName [(value)]="selectionColumnName" (selectionChange)="selectorColumnNameChange(columnName.value)">
+          <mat-option [value]="columnName" *ngFor="let columnName of columnNames">{{columnName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <button mat-icon-button id="add_button" (click)="addClick()"  class="mat-mini-fab">
         <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">
           add_box
@@ -12,29 +28,29 @@
     </div>
   
     <div id="setting-info-table">
-      <table mat-table [dataSource]="dates" class="mat-elevation-z8">
+      <table mat-table [dataSource]="settingInfoTableDatas" class="mat-elevation-z8">
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef> セッティングネイム </th>
-          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.title}} </td>
         </ng-container>
   
         <ng-container matColumnDef="carName">
           <th mat-header-cell *matHeaderCellDef> 車名 </th>
-          <td mat-cell *matCellDef="let element"> {{element.carName}} </td>
+          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.carName}} </td>
         </ng-container>
   
         <ng-container matColumnDef="carse">
           <th mat-header-cell *matHeaderCellDef> コース </th>
-          <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.course}} </td>
         </ng-container>
   
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let row">
+          <td mat-cell *matCellDef="let element;" [hidden]="!element.displayFlag">
             <button mat-icon-button class="mat-button-wrapper mat-mini-fab">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">open_in_new</mat-icon>
             </button>
-            <button mat-icon-button (click)="deleteClick(row)" class="mat-button-wrapper mat-mini-fab">
+            <button mat-icon-button (click)="deleteClick(element)" class="mat-button-wrapper mat-mini-fab">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">delete_outline</mat-icon>
             </button> 
           </td>
