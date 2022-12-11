@@ -1,4 +1,5 @@
 import { Component,Inject, OnInit,ViewChild} from '@angular/core';
+import {Sort} from '@angular/material/sort';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
@@ -8,7 +9,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from "../../constants";
 import { AuthService } from '../auth.service';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SettingInfoTableValue } from '../settingInfoTableValue';
+import { SettingInfo } from "../settingInfo";
+import { StickyDirection } from '@angular/cdk/table';
+import { compileClassMetadata } from '@angular/compiler';
 
 @Component({
     templateUrl: './home.component.html',
@@ -24,19 +29,34 @@ export class HomeComponent implements OnInit {
     ) {
     }
 
-    title:string = 'assltRacing_ui';
-    dates:any;
-    displayedColumns:string[] = ["title","carName","carse","actions"]
-    headers:HttpHeaders = new HttpHeaders();
-  
+    public filterSerachForm = new FormGroup({
+      searchName: new FormControl("",[]),
+  });
+
+    public title:string = 'assltRacing_ui';
+
+    //テーブル表示用データ
+    public dataSource:any;
+
+    //設定情報一覧 (key:タイトル,value:設定情報オブジェクト)
+    public settingInfosMap = new Map<String,Object>();
+
+    public displayedColumns:Array<String> = ["title","carName","carse","actions"];
+
+    //列名
+    public columnNames:Array<String> = ["セッティングネイム","車名","コース"];
+
+    //選択中の列名
+    public selectionColumnName:String = "セッティングネイム";
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
     ngOnInit(): void {
       this.getAllSettingInfo();
     }
-  
+
     /** 全設定情報を取得する */
-    private async getAllSettingInfo(){
+    private getAllSettingInfo():void{
       let userId = this.authService.getUserId();
 
       this.service.setUrl(constant.API.URL + constant.API.HOME);
@@ -44,22 +64,92 @@ export class HomeComponent implements OnInit {
         "params":{"userId":userId},
         "responseType":"json"
       }
-      await this.service.getAllSettingInfo(options)
+
+      this.service.getAllSettingInfo(options)
       .subscribe({
-           next: (data:any) => {
-            this.dates = this.service.changeDataToMatTableDataSource(data);
-            this.dates.paginator = this.paginator;       
+          next: (datas:any) => {
+            //設定情報
+            for(let data of datas){
+              this.settingInfosMap.set(data?.title?.trim(),data)
+            }
+
+            let settingInfoTableValueList:Array<SettingInfoTableValue> = [];
+            for(let data of datas){
+               let settingInfoTableValue:SettingInfoTableValue = new SettingInfoTableValue();
+               settingInfoTableValue.id = data?.id
+               settingInfoTableValue.carName = data?.carName
+               settingInfoTableValue.course = data?.course
+               settingInfoTableValue.title = data?.title
+               settingInfoTableValue.displayFlag = true;
+               settingInfoTableValueList.push(settingInfoTableValue)
+            }
+
+            this.dataSource = this.service.changeDataToMatTableDataSource(settingInfoTableValueList);
+            this.dataSource.paginator = this.paginator;
           },
-    
+
           error: (error:any) => {
             alert(error.statusText)
           }
       })
     }
-  
+
+    //フィルターテキストボックスに値を入力した場合
+    public filterInput(value:String):void{
+      let settingInfoTableValueList:Array<SettingInfoTableValue> = this.dataSource.data
+      this.dataSource.filter = "フィルター";
+      this.dataSource.filterPredicate=(data:any,filter:any) => {
+        if(!value) return true;
+        switch(this.selectionColumnName){
+          case "セッティングネイム":
+            let title = data.title
+            //入力値の長さがセッティングネイムの長さよりも短い場合
+            if(value?.length <= title?.length){
+              if(value !== title.substring(0,value.length)){
+                return false;
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          case "車名":
+            let carName = data.carName
+            if(value?.length <= carName?.length){
+              if(value !== carName.substring(0,value.length)){
+                return false;
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          case "コース":
+            let course = data.course
+            if(value?.length <= course?.length){
+              if(value !== course.substring(0,value.length)){
+                return false;
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+        }
+        return true;
+      }
+
+      this.dataSource.paginator = this.paginator;
+    }
+
+    //列名セレクタの選択値を変更した場合
+    public selectorColumnNameChange(columnName:any):void{
+      this.selectionColumnName = columnName;
+    }
+
     //追加ボタンクリック時
-    async addClick(){
-      await this.http.get(constant.API.URL + constant.API.INFOS,{
+    public addClick():void{
+      this.http.get(constant.API.URL + constant.API.INFOS,{
         responseType:"json"
       })
       .subscribe((res) => {
@@ -70,10 +160,10 @@ export class HomeComponent implements OnInit {
           height:"90%",
           maxWidth:"100%"
         }
-  
+
         //ダイアログを開く
         const dialogRef = this.openDialog(AddSettingInfoModalComponent,param)
-  
+
         //ダイアログが閉じられた場合
         dialogRef.afterClosed().subscribe(async(result:any) => {
           if(result === "登録"){
@@ -82,24 +172,24 @@ export class HomeComponent implements OnInit {
         })
       })
     }
-  
+
     //削除ボタンクリック時
-    deleteClick(row:any){
-      this.deleteConfilmOpenDialog(row,this.dates);
+    public deleteClick(row:any){
+      this.deleteConfilmOpenDialog(row,this.dataSource);
     }
-  
+
     //ダイアログボタンクリック時
-    openDialog(component:any,param:object):any{
+    private openDialog(component:any,param:object):any{
       return this.dialog.open(component,param)
     }
-  
-    deleteConfilmOpenDialog(row:any,dates:any):void{
+
+    private deleteConfilmOpenDialog(row:any,dates:any):void{
       const param:object = {
         data:{"row":row,"dates":dates,"title":row.title,"id":row.id},
         id:"delete-confilm-modal"
       }
       const dialogRef = this.openDialog(deleteConfirmModalComponent,param)
-  
+
       dialogRef.afterClosed().subscribe(async(result:any) => {
         const body:object = {"id":result.id}
         if(result.deleteFlag){

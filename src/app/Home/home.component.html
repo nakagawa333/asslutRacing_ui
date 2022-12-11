@@ -5,7 +5,7 @@
       <form id="filter-textbox" class="example-form" [formGroup]="filterSerachForm">
         <mat-form-field class="example-full-width">
           <mat-label for="searchName">フィルター </mat-label>
-          <input matInput #filter type="text" id="filter" formControlName="searchName" (input)="filterInput(filter.value)"> 
+          <input matInput #filter type="text" id="filter" formControlName="searchName" (input)="filterInput(filter.value)">
         </mat-form-field>
       </form>
 
@@ -22,50 +22,49 @@
           add_box
         </mat-icon>
       </button>
-  
+
       <span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round"></span>
       <span class="mat-button-focus-overlay"></span>
     </div>
-  
+
     <div id="setting-info-table">
-      <table mat-table [dataSource]="settingInfoTableDatas" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef> セッティングネイム </th>
-          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.title}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="carName">
           <th mat-header-cell *matHeaderCellDef> 車名 </th>
-          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.carName}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.carName}} </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="carse">
           <th mat-header-cell *matHeaderCellDef> コース </th>
-          <td mat-cell *matCellDef="let element" [hidden]="!element.displayFlag"> {{element.course}} </td>
+          <td mat-cell *matCellDef="let element">{{element.course}}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element;" [hidden]="!element.displayFlag">
+          <td mat-cell *matCellDef="let element;">
             <button mat-icon-button class="mat-button-wrapper mat-mini-fab">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">open_in_new</mat-icon>
             </button>
             <button mat-icon-button (click)="deleteClick(element)" class="mat-button-wrapper mat-mini-fab">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">delete_outline</mat-icon>
-            </button> 
+            </button>
           </td>
         </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-  
+
       <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-          showFirstLastButtons 
+          showFirstLastButtons
           aria-label="Select page of periodic elements">
       </mat-paginator>
     </div>
 </div>
 </router-outlet>
 
-  
