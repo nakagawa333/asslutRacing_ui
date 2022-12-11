@@ -1,15 +1,10 @@
 
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { ContentObserver } from '@angular/cdk/observers';
 import { Component,Inject, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { SafeResourceUrl } from '@angular/platform-browser';
-// import {BaseModal} from '/app/BaseModal';
+import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BaseModal } from '../baseModal.component';
 import {AddSettingInfoModalService} from "./add-set-up-modal.service"
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../../constants';
-import { StickyDirection } from '@angular/cdk/table';
 import { AuthService } from "../auth.service";
 
 
@@ -108,10 +103,10 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     this.addSettingInfo()
   }
 
-  async addSettingInfo(){
+  private addSettingInfo(){
     this.service.setUrl(constant.API.URL + constant.API.ADD);
     //新規に設定情報を登録する
-    await this.service.addSettingInfo(this.settinInfo)
+    this.service.addSettingInfo(this.settinInfo)
     .subscribe({
       next:(data:any) => {
         if(data === 1){

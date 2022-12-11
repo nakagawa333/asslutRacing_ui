@@ -23,10 +23,6 @@ export class deleteConfirmModalComponent{
     this.close(result);
   }
 
-  onClick(val:any){
-    console.log(val)
-  }
-
   close(result:object): void{
     this.dialogRef.close(result);
   }
