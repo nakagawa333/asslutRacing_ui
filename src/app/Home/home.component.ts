@@ -49,6 +49,9 @@ export class HomeComponent implements OnInit {
     //選択中の列名
     public selectionColumnName:String = "セッティングネイム";
 
+    //フィルターの選択中の名称
+    public filterName:String = "";
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     ngOnInit(): void {
@@ -85,19 +88,94 @@ export class HomeComponent implements OnInit {
             }
 
             this.dataSource = this.service.changeDataToMatTableDataSource(settingInfoTableValueList);
-            this.dataSource.paginator = this.paginator;
+            //フィルター処理
+            this.dataSourceFilter(this.filterName);
           },
 
           error: (error:any) => {
-            alert(error.statusText)
+            alert(error)
           }
       })
     }
 
     //フィルターテキストボックスに値を入力した場合
     public filterInput(value:String):void{
-      let settingInfoTableValueList:Array<SettingInfoTableValue> = this.dataSource.data
-      this.dataSource.filter = "フィルター";
+      this.filterName = value;
+      this.dataSourceFilter(value);
+
+      this.dataSource.paginator = this.paginator;
+    }
+
+    //列名セレクタの選択値を変更した場合
+    public selectorColumnNameChange(columnName:any):void{
+      this.selectionColumnName = columnName;
+      //フィルター処理
+      this.dataSourceFilter(this.filterName);
+    }
+
+    //追加ボタンクリック時
+    public addClick():void{
+      this.http.get(constant.API.URL + constant.API.INFOS,{
+        responseType:"json"
+      })
+      .subscribe((res) => {
+        const param:object = {
+          data:{"dates":res},
+          id:"add-modal",
+          width:"90%",
+          height:"90%",
+          maxWidth:"100%"
+        }
+
+        //ダイアログを開く
+        const dialogRef = this.openDialog(AddSettingInfoModalComponent,param)
+
+        //ダイアログが閉じられた場合
+        dialogRef.afterClosed().subscribe(async(result:any) => {
+          if(result === "登録"){
+            this.getAllSettingInfo();
+          }
+        })
+      })
+    }
+
+    //削除ボタンクリック時
+    public deleteClick(row:any){
+      this.deleteConfilmOpenDialog(row,this.dataSource);
+    }
+
+    //ダイアログボタンクリック時
+    private openDialog(component:any,param:object):any{
+      return this.dialog.open(component,param)
+    }
+
+    private deleteConfilmOpenDialog(row:any,dates:any):void{
+      const param:object = {
+        data:{"row":row,"dates":dates,"title":row.title,"id":row.id},
+        id:"delete-confilm-modal"
+      }
+      const dialogRef = this.openDialog(deleteConfirmModalComponent,param)
+
+      let value = this.filterName
+      dialogRef.afterClosed().subscribe(async(result:any) => {
+        const body:object = {"id":result.id}
+        if(result.deleteFlag){
+          //該当idのデータを削除する
+          this.http.put(constant.API.URL + constant.API.DELETE,body)
+          .subscribe((res:any) => {
+            //データの削除に成功した場合
+            if(res == 1){
+              this.getAllSettingInfo();
+            }
+          })
+        }
+      })
+    }
+
+    //テーブル用データフィルター
+    public dataSourceFilter(value:String):void{
+      if(!value) this.getAllSettingInfo();
+      this.dataSource.filter = value;
       this.dataSource.filterPredicate=(data:any,filter:any) => {
         if(!value) return true;
         switch(this.selectionColumnName){
@@ -138,70 +216,5 @@ export class HomeComponent implements OnInit {
         }
         return true;
       }
-
-      this.dataSource.paginator = this.paginator;
-    }
-
-    //列名セレクタの選択値を変更した場合
-    public selectorColumnNameChange(columnName:any):void{
-      this.selectionColumnName = columnName;
-    }
-
-    //追加ボタンクリック時
-    public addClick():void{
-      this.http.get(constant.API.URL + constant.API.INFOS,{
-        responseType:"json"
-      })
-      .subscribe((res) => {
-        const param:object = {
-          data:{"dates":res},
-          id:"add-modal",
-          width:"90%",
-          height:"90%",
-          maxWidth:"100%"
-        }
-
-        //ダイアログを開く
-        const dialogRef = this.openDialog(AddSettingInfoModalComponent,param)
-
-        //ダイアログが閉じられた場合
-        dialogRef.afterClosed().subscribe(async(result:any) => {
-          if(result === "登録"){
-            this.getAllSettingInfo()
-          }
-        })
-      })
-    }
-
-    //削除ボタンクリック時
-    public deleteClick(row:any){
-      this.deleteConfilmOpenDialog(row,this.dataSource);
-    }
-
-    //ダイアログボタンクリック時
-    private openDialog(component:any,param:object):any{
-      return this.dialog.open(component,param)
-    }
-
-    private deleteConfilmOpenDialog(row:any,dates:any):void{
-      const param:object = {
-        data:{"row":row,"dates":dates,"title":row.title,"id":row.id},
-        id:"delete-confilm-modal"
-      }
-      const dialogRef = this.openDialog(deleteConfirmModalComponent,param)
-
-      dialogRef.afterClosed().subscribe(async(result:any) => {
-        const body:object = {"id":result.id}
-        if(result.deleteFlag){
-          //該当idのデータを削除する
-          await this.http.put(constant.API.URL + constant.API.DELETE,body)
-          .subscribe(res => {
-            //データの削除に成功した場合
-            if(res == 1){
-              this.getAllSettingInfo();
-            }
-          })
-        }
-      })
     }
 }
