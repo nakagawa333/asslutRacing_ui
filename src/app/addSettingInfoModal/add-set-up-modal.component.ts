@@ -43,7 +43,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   private carHigh:number = 10;
 
   //設定情報
-  public settinInfo:any = Object.assign(this.service.settinInfo);
+  public settinInfo:any = Object.create(this.service.settinInfo);
 
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
