@@ -6,7 +6,8 @@ import { BaseModal } from '../baseModal.component';
 import {AddSettingInfoModalService} from "./add-set-up-modal.service"
 import * as constant from '../../constants';
 import { AuthService } from "../auth.service";
-
+import {SnackBarConfig} from '../union/snabar';
+import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -17,7 +18,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       public dialogRef: MatDialogRef<AddSettingInfoModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
       private service:AddSettingInfoModalService,
-      private authService:AuthService
+      private authService:AuthService,
+      private snackBar:MatSnackBar
   ){}
 
   public defalutCarId:number = 0;
@@ -42,6 +44,13 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   //設定情報
   public settinInfo:any = Object.assign(this.service.settinInfo);
+
+  //snackBarを開くための設定値
+  private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
+    horizontalPosition:SnackBarConfig?.SnackBarHorizontalPosition?.CENTER,
+    verticalPosition:SnackBarConfig?.SnackBarVerticalPosition?.TOP,
+    duration:SnackBarConfig?.duration
+  }
 
   ngOnInit(): void{
     if(this.data === null) return;
@@ -114,7 +123,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
           this.closeDialog("登録");
           //設定情報を初期化
           this.initSettingInfo()
-          alert("登録に成功しました")
+          this.snackBar.open("登録に成功しました","",this.addSetupModalSnackConfig);
         }
       },
       error: (e:any) => {
@@ -125,14 +134,14 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
           errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n"
         }
 
-        alert(errorText);
+        this.snackBar.open(errorText,"",this.addSetupModalSnackConfig);
       }
     })
   }
 
   //設定情報を初期化
   initSettingInfo(){
-    this.settinInfo = Object.create(this.service.settinInfo)    
+    this.settinInfo = Object.create(this.service.settinInfo)
   }
 
   //各種sliderの値を変更した場合

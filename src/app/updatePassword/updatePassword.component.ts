@@ -4,6 +4,8 @@ import { AuthService } from '../auth.service';
 import { User } from 'src/user';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import * as constant from "../../constants";
+import {SnackBarConfig} from '../union/snabar';
+import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './updatePassword.component.html',
@@ -14,7 +16,9 @@ export class UpdatePasswordComponent{
   constructor(
     private router: Router,
     public authService: AuthService,
-    private activatedRoute: ActivatedRoute  ) {}
+    private activatedRoute: ActivatedRoute,
+    private snackBar:MatSnackBar
+    ) {}
 
     token:String | null;
 
@@ -26,7 +30,7 @@ export class UpdatePasswordComponent{
       ]),
       reconfirmPassword: new FormControl("",[
 
-      ])   
+      ])
     })
 
     //パスワード
@@ -35,6 +39,12 @@ export class UpdatePasswordComponent{
     //再確認用パスワード
     public reconfirmPassword:FormControl<any> = this.updatePasswordForm.controls.reconfirmPassword;
 
+      //snackBarを開くための設定値
+      private sendPasswordUpdateMailSnackConfig:MatSnackBarConfig<any> = {
+        horizontalPosition:SnackBarConfig?.SnackBarHorizontalPosition?.CENTER,
+        verticalPosition:SnackBarConfig?.SnackBarVerticalPosition?.TOP,
+        duration:SnackBarConfig?.duration
+      }
 
   ngOnInit(): void{
     this.token = this.activatedRoute.snapshot.queryParamMap.get("token");
@@ -59,12 +69,12 @@ export class UpdatePasswordComponent{
     .subscribe({
       next:(data:any) => {
         if(data === 1) {
-          alert("パスワード更新に成功しました。")
+          this.snackBar.open("パスワード更新に成功しました。","",this.sendPasswordUpdateMailSnackConfig);
           this.router.navigate([constant.API.LOGIN])
         }
       },
       error:(e:any) => {
-        alert("パスワード送信に失敗しました");
+        this.snackBar.open("パスワード更新に成功しました。","",this.sendPasswordUpdateMailSnackConfig);
       }
     })
   }

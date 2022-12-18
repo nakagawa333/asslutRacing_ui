@@ -6,6 +6,8 @@ import * as constant from "../../constants"
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { User } from 'src/user';
+import {SnackBarConfig} from '../union/snabar';
+import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -15,8 +17,9 @@ import { User } from 'src/user';
 
 export class SingupComponent{
     constructor(
-        private authService: AuthService, 
-        private router: Router
+        private authService: AuthService,
+        private router: Router,
+        private snackBar:MatSnackBar
     ){}
 
     private user: User |undefined;
@@ -49,11 +52,18 @@ export class SingupComponent{
 
     //パスワード
     public password = this.signForm.controls.password
-    
+
     //パスワード再入力
     public reconfirmPassword = this.signForm.controls.reconfirmPassword
     //
     public userErrorMessage:String;
+
+    //snackBarを開くための設定値
+    private signUpSnackConfig:MatSnackBarConfig<any> = {
+        horizontalPosition:SnackBarConfig?.SnackBarHorizontalPosition?.CENTER,
+        verticalPosition:SnackBarConfig?.SnackBarVerticalPosition?.TOP,
+        duration:SnackBarConfig?.duration
+    }
 
     async submitSignUpForm(){
         if(this.signForm.invalid) return;
@@ -71,7 +81,7 @@ export class SingupComponent{
                 console.log(data)
             },
             error: (e:any) => {
-                alert("サインアップ時にエラーが発生しました")
+                this.snackBar.open("サインアップ時にエラーが発生しました","",this.signUpSnackConfig);
             }
         })
     }
@@ -88,7 +98,7 @@ export class SingupComponent{
             "password":null,
             "mail":null
         }
-        
+
         await this.authService.selectUser(body)
         .subscribe({
             next:(data:any) => {
@@ -97,7 +107,7 @@ export class SingupComponent{
                 }
             },
             error:(e:any) => {
-                alert(e.statusText)
+                this.snackBar.open(e?.statusText,"",this.signUpSnackConfig);
             }
         })
     }
@@ -116,9 +126,9 @@ export class SingupComponent{
                 }
             },
             error:(e:any) => {
-                alert(e.statusText)
+                this.snackBar.open(e?.statusText,"",this.signUpSnackConfig);
             }
-        })        
+        })
     }
 
     checkPassword():boolean{
