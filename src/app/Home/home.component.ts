@@ -14,6 +14,7 @@ import { SettingInfoTableValue } from '../settingInfoTableValue';
 import { SettingInfo } from "../settingInfo";
 import { StickyDirection } from '@angular/cdk/table';
 import { compileClassMetadata } from '@angular/compiler';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     templateUrl: './home.component.html',
@@ -53,6 +54,8 @@ export class HomeComponent implements OnInit {
     public filterName:String = "";
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
 
     ngOnInit(): void {
       this.getAllSettingInfo();
@@ -88,12 +91,16 @@ export class HomeComponent implements OnInit {
             }
 
             this.dataSource = this.service.changeDataToMatTableDataSource(settingInfoTableValueList);
+            //paginator
+            this.dataSource.paginator = this.paginator;
+            //ソート
+            this.dataSource.sort = this.sort
             //フィルター処理
-            this.dataSourceFilter(this.filterName);
+            // this.dataSourceFilter(this.filterName);
           },
 
           error: (error:any) => {
-            alert(error)
+            alert(error?.statusText)
           }
       })
     }
@@ -174,7 +181,6 @@ export class HomeComponent implements OnInit {
 
     //テーブル用データフィルター
     public dataSourceFilter(value:String):void{
-      if(!value) this.getAllSettingInfo();
       this.dataSource.filter = value;
       this.dataSource.filterPredicate=(data:any,filter:any) => {
         if(!value) return true;
