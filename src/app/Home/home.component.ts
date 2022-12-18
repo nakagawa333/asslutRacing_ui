@@ -1,5 +1,4 @@
-import { Component,Inject, OnInit,ViewChild} from '@angular/core';
-import {Sort} from '@angular/material/sort';
+import { Component,Inject, OnInit,ViewChild,AfterViewInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
@@ -14,14 +13,14 @@ import { SettingInfoTableValue } from '../settingInfoTableValue';
 import { SettingInfo } from "../settingInfo";
 import { StickyDirection } from '@angular/cdk/table';
 import { compileClassMetadata } from '@angular/compiler';
-import {MatSort} from '@angular/material/sort';
+import {MatSort,Sort} from '@angular/material/sort';
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,AfterViewInit {
     constructor(
       private dialog: MatDialog,
       private service: AppService,
@@ -56,9 +55,12 @@ export class HomeComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-
     ngOnInit(): void {
       this.getAllSettingInfo();
+    }
+
+    ngAfterViewInit():void{
+      this.dataSource.sort = this.sort
     }
 
     /** 全設定情報を取得する */
@@ -93,7 +95,6 @@ export class HomeComponent implements OnInit {
             this.dataSource = this.service.changeDataToMatTableDataSource(settingInfoTableValueList);
             //paginator
             this.dataSource.paginator = this.paginator;
-            //ソート
             this.dataSource.sort = this.sort
             //フィルター処理
             // this.dataSourceFilter(this.filterName);

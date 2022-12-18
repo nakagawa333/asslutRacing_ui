@@ -26,6 +26,7 @@ import { TokenComponent } from './token/token.component';
 import { SendPasswordResetMailComponent } from './sendPasswordResetMail/sendPasswordResetMail.component';
 import { UpdatePasswordComponent } from './updatePassword/updatePassword.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSortModule} from '@angular/material/sort';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -65,7 +66,8 @@ const routes: Routes  = [
     RouterModule.forRoot(routes),
     MatButtonModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSortModule
   ],
   exports:[RouterModule],
   providers: [CookieService],
