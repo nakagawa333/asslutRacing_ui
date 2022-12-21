@@ -43,7 +43,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   private carHigh:number = 10;
 
   //設定情報
-  public settinInfo:any = Object.create(this.service.settinInfo);
+  public settingInfo:any = Object.assign({},this.service.settingInfo);
 
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
@@ -74,7 +74,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     }
 
     //ユーザーidを設定
-    this.settinInfo["userId"] = this.authService.getUserId();
+    this.settingInfo["userId"] = this.authService.getUserId();
   }
 
   /** メーカー一覧を選択した場合  */
@@ -86,11 +86,12 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       if(this.carsList !== null && this.carsList.length !== 0){
         this.defalutCarId = this.carsList[0]["carId"];
         //コースidを設定
-        this.settinInfo["carId"] = this.defalutCarId;
+        this.settingInfo["carId"] = this.defalutCarId;
       }
 
+
       //メーカーidを設定
-      this.settinInfo["makerId"] = makerId
+      this.settingInfo["makerId"] = makerId
     }
   }
 
@@ -104,7 +105,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     const checked = e["checked"]
     this.absText = checked ? "ON" : "OFF";
     //登録用設定情報のabsを変更
-    this.settinInfo["abs"] = checked
+    this.settingInfo["abs"] = checked
   }
 
   /** 登録するボタンをクリックした場合 */
@@ -115,7 +116,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   private addSettingInfo(){
     this.service.setUrl(constant.API.URL + constant.API.ADD);
     //新規に設定情報を登録する
-    this.service.addSettingInfo(this.settinInfo)
+    this.service.addSettingInfo(this.settingInfo)
     .subscribe({
       next:(data:any) => {
         if(data === 1){
@@ -131,7 +132,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
         let errorText:string = "";
         let errorsLength:number = Object.keys(errors).length;
         for(let i = 0; i < errorsLength; i++){
-          errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n"
+          errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
         }
 
         this.snackBar.open(errorText,"",this.addSetupModalSnackConfig);
@@ -141,20 +142,20 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   //設定情報を初期化
   initSettingInfo(){
-    this.settinInfo = Object.create(this.service.settinInfo)
+    this.settingInfo = Object.assign({},this.service.settingInfo)
   }
 
   //各種sliderの値を変更した場合
   onSliderChange(value:any,name:string):void{
-    this.settinInfo[name] = value;
+    this.settingInfo[name] = value;
   }
 
   //各種テキストエリアに文字が入力された場合
   textareaInput(e:any,name:string):void{
-    this.settinInfo[name] = e.target.value;
+    this.settingInfo[name] = e.target.value;
   }
 
   selectorChange(value:any,name:string){
-    this.settinInfo[name] = value;
+    this.settingInfo[name] = value;
   }
 }

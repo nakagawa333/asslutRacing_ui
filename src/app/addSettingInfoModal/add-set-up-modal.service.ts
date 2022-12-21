@@ -14,7 +14,7 @@ export class AddSettingInfoModalService{
 
   private url:string;
 
-  public settinInfo:object = {
+  public settingInfo:object = {
     "title":"",
     "carId":null,
     "makerId":null,
@@ -52,13 +52,13 @@ export class AddSettingInfoModalService{
   }
 
   /** 新規に設定情報を登録する  */
-  addSettingInfo(settinInfo:object){
+  addSettingInfo(settingInfo:object){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':'application/json'
       })
     }
-    return this.http.post(this.url,settinInfo,httpOptions)
+    return this.http.post(this.url,settingInfo,httpOptions)
   }
 
   //数字であるかを判定
