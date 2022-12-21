@@ -1,4 +1,4 @@
-import { Component,Inject, OnInit,ViewChild,AfterViewInit} from '@angular/core';
+import { Component,Inject, OnInit,ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
@@ -10,17 +10,15 @@ import * as constant from "../../constants";
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingInfoTableValue } from '../settingInfoTableValue';
-import { SettingInfo } from "../settingInfo";
-import { StickyDirection } from '@angular/cdk/table';
-import { compileClassMetadata } from '@angular/compiler';
 import {MatSort,Sort} from '@angular/material/sort';
+import { mixinInitialized } from '@angular/material/core';
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit,AfterViewInit {
+export class HomeComponent implements OnInit {
     constructor(
       private dialog: MatDialog,
       private service: AppService,
@@ -59,10 +57,6 @@ export class HomeComponent implements OnInit,AfterViewInit {
       this.getAllSettingInfo();
     }
 
-    ngAfterViewInit():void{
-      this.dataSource.sort = this.sort
-    }
-
     /** 全設定情報を取得する */
     private getAllSettingInfo():void{
       let userId = this.authService.getUserId();
@@ -97,7 +91,7 @@ export class HomeComponent implements OnInit,AfterViewInit {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort
             //フィルター処理
-            // this.dataSourceFilter(this.filterName);
+            this.dataSourceFilter(this.filterName);
           },
 
           error: (error:any) => {
@@ -172,7 +166,7 @@ export class HomeComponent implements OnInit,AfterViewInit {
           this.http.put(constant.API.URL + constant.API.DELETE,body)
           .subscribe((res:any) => {
             //データの削除に成功した場合
-            if(res == 1){
+            if(res){
               this.getAllSettingInfo();
             }
           })
@@ -183,43 +177,31 @@ export class HomeComponent implements OnInit,AfterViewInit {
     //テーブル用データフィルター
     public dataSourceFilter(value:String):void{
       this.dataSource.filter = value;
-      this.dataSource.filterPredicate=(data:any,filter:any) => {
+      this.dataSource.filterPredicate=(data:any) => {
         if(!value) return true;
         switch(this.selectionColumnName){
           case "セッティングネイム":
             let title = data.title
             //入力値の長さがセッティングネイムの長さよりも短い場合
-            if(value?.length <= title?.length){
-              if(value !== title.substring(0,value.length)){
-                return false;
-              } else {
+            if(value?.length <= title?.length
+              && value === title.substring(0,value.length)){
                 return true;
               }
-            } else {
               return false;
-            }
           case "車名":
             let carName = data.carName
-            if(value?.length <= carName?.length){
-              if(value !== carName.substring(0,value.length)){
-                return false;
-              } else {
+            if(value?.length <= carName?.length
+              && value === carName.substring(0,value.length)){
                 return true;
-              }
-            } else {
-              return false;
             }
+            return false;
           case "コース":
             let course = data.course
-            if(value?.length <= course?.length){
-              if(value !== course.substring(0,value.length)){
-                return false;
-              } else {
+            if(value?.length <= course?.length
+               && value === course.substring(0,value.length)){
                 return true;
-              }
-            } else {
-              return false;
             }
+            return false;
         }
         return true;
       }
