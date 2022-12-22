@@ -109,11 +109,11 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   /** 登録するボタンをクリックした場合 */
-  addSettingClick(){
+  addSettingClick():void{
     this.addSettingInfo()
   }
 
-  private addSettingInfo(){
+  private addSettingInfo():void{
     this.service.setUrl(constant.API.URL + constant.API.ADD);
     //新規に設定情報を登録する
     this.service.addSettingInfo(this.settingInfo)
@@ -141,7 +141,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   //設定情報を初期化
-  initSettingInfo(){
+  initSettingInfo():void{
     this.settingInfo = Object.assign({},this.service.settingInfo)
   }
 
@@ -155,7 +155,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     this.settingInfo[name] = e.target.value;
   }
 
-  selectorChange(value:any,name:string){
+  selectorChange(value:any,name:string):void{
     this.settingInfo[name] = value;
   }
 }

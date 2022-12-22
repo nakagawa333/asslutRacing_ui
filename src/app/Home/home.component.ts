@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     }
 
     public filterSerachForm = new FormGroup({
-      searchName: new FormControl("",[]),
+      searchName: new FormControl("",[])
   });
 
     public title:string = 'assltRacing_ui';
