@@ -12,6 +12,8 @@ export class API{
     public static readonly PASSWORDRESET = "/password/reset"
     public static readonly VERIFYMAIL = "/verify/mail"
     public static readonly PASSWORDUPDATE = "/password/update"
+    public static readonly UPDATE = "/update"
+    public static readonly SELECT = "/select?id="
 }
 
 export class PATH{

@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingInfoTableValue } from '../settingInfoTableValue';
 import {MatSort,Sort} from '@angular/material/sort';
-import { mixinInitialized } from '@angular/material/core';
+import { UpdateSettingInfoModalComponent } from '../updateSettingInfoModal/update-setting-info-modal.component';
 
 @Component({
     templateUrl: './home.component.html',
@@ -171,6 +171,29 @@ export class HomeComponent implements OnInit {
             }
           })
         }
+      })
+    }
+
+    //更新ボタンクリック時
+    public updateClick(row:any){
+      //メーカー,車,コースを取得
+      this.http.get(constant.API.URL + constant.API.INFOS,{
+        responseType:"json"
+      })
+      .subscribe((infos) => {
+        this.http.get(constant.API.URL + constant.API.SELECT + row.id,{
+          responseType:"json"
+        })
+        .subscribe((settingInfo) => {
+          const param:object = {
+            data:{"infos":infos,"settingInfo":settingInfo},
+            id:"update-modal",
+            width:"90%",
+            height:"90%",
+            maxWidth:"100%"
+          }
+          const dialogRef = this.openDialog(UpdateSettingInfoModalComponent,param)
+        })
       })
     }
 
