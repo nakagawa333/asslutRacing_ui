@@ -192,7 +192,15 @@ export class HomeComponent implements OnInit {
             height:"90%",
             maxWidth:"100%"
           }
+
           const dialogRef = this.openDialog(UpdateSettingInfoModalComponent,param)
+
+          //ダイアログが閉じられた場合
+          dialogRef.afterClosed().subscribe(async(result:any) => {
+            if(result === "更新"){
+              this.getAllSettingInfo();
+            }
+          })
         })
       })
     }

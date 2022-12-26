@@ -57,7 +57,7 @@ export class UpdateSettingInfoModalService{
         'Content-Type':'application/json'
       })
     }
-    return this.http.post(this.url,settingInfo,httpOptions)
+    return this.http.put(this.url,settingInfo,httpOptions)
   }
 
   //数字であるかを判定

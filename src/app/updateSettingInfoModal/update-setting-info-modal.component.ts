@@ -5,7 +5,7 @@ import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BaseModal } from '../baseModal.component';
 import * as constant from '../../constants';
 import { AuthService } from "../auth.service";
-import {SnackBarConfig} from '../union/snabar';
+import {  SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import {UpdateSettingInfoModalService} from "./update-setting-info-modal.service";
 
@@ -139,22 +139,20 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   /** 登録するボタンをクリックした場合 */
-  addSettingClick():void{
+  updateSettingClick():void{
     this.updateSettingInfo()
   }
 
   private updateSettingInfo():void{
-    this.service.setUrl(constant.API.URL + constant.API.ADD);
-    //新規に設定情報を登録する
+    this.service.setUrl(constant.API.URL + constant.API.UPDATE);
+    //新規に設定情報を更新する
     this.service.updateSettingInfo(this.settingInfo)
     .subscribe({
-      next:(data:any) => {
-        if(data === 1){
-          //登録に成功したら、ダイアログを閉じる
-          this.closeDialog("登録");
-          //設定情報を初期化
-          this.initSettingInfo()
-          this.snackBar.open("登録に成功しました","",this.updateSetupModalSnackConfig);
+      next:(isUpdate:any) => {
+        if(isUpdate){
+          //更新に成功したら、ダイアログを閉じる
+          this.closeDialog("更新");
+          this.snackBar.open("更新に成功しました","",this.updateSetupModalSnackConfig);
         }
       },
       error: (e:any) => {
@@ -168,11 +166,6 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
         this.snackBar.open(errorText,"",this.updateSetupModalSnackConfig);
       }
     })
-  }
-
-  //設定情報を初期化
-  initSettingInfo():void{
-    this.settingInfo = Object.assign({},this.service.settingInfo)
   }
 
   //各種sliderの値を変更した場合
