@@ -12,6 +12,7 @@ import { SettingInfoTableValue } from '../settingInfoTableValue';
 import {MatSort,Sort} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from '../updateSettingInfoModal/update-setting-info-modal.component';
 import { DeleteConfirmModalComponent } from '../deleteConfirmModal/delete-confirm-modal.component';
+import { ModalParam } from '../interface/modalParam';
 
 @Component({
     templateUrl: './home.component.html',
@@ -121,7 +122,7 @@ export class HomeComponent implements OnInit {
         responseType:"json"
       })
       .subscribe((res) => {
-        const param:object = {
+        const param:ModalParam = {
           data:{"dates":res},
           id:"add-modal",
           width:"90%",
@@ -185,7 +186,7 @@ export class HomeComponent implements OnInit {
           responseType:"json"
         })
         .subscribe((settingInfo) => {
-          const param:object = {
+          const param:ModalParam = {
             data:{"infos":infos,"settingInfo":settingInfo},
             id:"update-modal",
             width:"90%",
