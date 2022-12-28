@@ -2,7 +2,6 @@ import { Component,Inject, OnInit,ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
-import {deleteConfirmModalComponent} from 'src/app/deleteConfirmModal/delete-per-modal.component'
 import {AddSettingInfoModalComponent} from 'src/app/addSettingInfoModal/add-set-up-modal.component';
 import {MatPaginator} from '@angular/material/paginator';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -12,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingInfoTableValue } from '../settingInfoTableValue';
 import {MatSort,Sort} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from '../updateSettingInfoModal/update-setting-info-modal.component';
+import { DeleteConfirmModalComponent } from '../deleteConfirmModal/delete-confirm-modal.component';
 
 @Component({
     templateUrl: './home.component.html',
@@ -153,13 +153,13 @@ export class HomeComponent implements OnInit {
 
     private deleteConfilmOpenDialog(row:any,dates:any):void{
       const param:object = {
-        data:{"row":row,"dates":dates,"title":row.title,"id":row.id},
+        data:{"row":row,"dates":dates,"title":row.title + "を削除してもよろしいでしょうか？","id":row.id},
         id:"delete-confilm-modal"
       }
-      const dialogRef = this.openDialog(deleteConfirmModalComponent,param)
+      const dialogRef = this.openDialog(DeleteConfirmModalComponent,param)
 
       let value = this.filterName
-      dialogRef.afterClosed().subscribe(async(result:any) => {
+      dialogRef.afterClosed().subscribe((result:any) => {
         const body:object = {"id":result.id}
         if(result.deleteFlag){
           //該当idのデータを削除する

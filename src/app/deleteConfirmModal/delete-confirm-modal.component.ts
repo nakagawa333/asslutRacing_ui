@@ -4,13 +4,13 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {AppComponent} from 'src/app/app.component'
 
 @Component({
-  templateUrl: './delete-per-modal.component.html',
-  styleUrls: ['./delete-per-modal.component.css']
+  templateUrl: './delete-confirm-modal.component.html',
+  styleUrls: ['./delete-confirm-modal.component.css']
 })
 
-export class deleteConfirmModalComponent{
+export class DeleteConfirmModalComponent{
   constructor(
-      public dialogRef: MatDialogRef<deleteConfirmModalComponent>,
+      public dialogRef: MatDialogRef<DeleteConfirmModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
   ){}
   yes(id:number): void{
