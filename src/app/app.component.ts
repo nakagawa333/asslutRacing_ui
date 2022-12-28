@@ -3,6 +3,9 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import * as constant from "../constants";
+import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
+import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Logout} from './interface/logout';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +17,7 @@ export class AppComponent{
   constructor(
     private router: Router,
     public authService: AuthService,
+    private dialog: MatDialog,
     private lo: Location
   ) {
 
@@ -34,7 +38,26 @@ export class AppComponent{
 
   //ログアウトアイコンクリック時
   logoutClick(){
-    this.authService.logout();
-    this.router.navigate([constant.PATH.LOGIN])
+    this.logoutConfilmOpenDialog();
+  }
+
+
+  private logoutConfilmOpenDialog():void{
+    const param:object = {
+      data:{"title":"ログアウトしてもよろしいでしょうか？"},
+      id:"logout-confilm-modal"
+    }
+    const dialogRef = this.openDialog(LogoutConfirmModalComponent,param)
+
+    dialogRef.afterClosed().subscribe((result:Logout) => {
+      if(result["logoutFlag"]){
+        this.authService.logout();
+        this.router.navigate([constant.PATH.LOGIN])
+      }
+    })
+  }
+
+  private openDialog(component:any,param:object):any{
+    return this.dialog.open(component,param)
   }
 }

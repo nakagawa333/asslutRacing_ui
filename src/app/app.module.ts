@@ -28,6 +28,7 @@ import { UpdatePasswordComponent } from './updatePassword/updatePassword.compone
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from './updateSettingInfoModal/update-setting-info-modal.component';
+import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -48,7 +49,8 @@ const routes: Routes  = [
     SingupComponent,
     SendPasswordResetMailComponent,
     UpdatePasswordComponent,
-    UpdateSettingInfoModalComponent
+    UpdateSettingInfoModalComponent,
+    LogoutConfirmModalComponent
   ],
   imports: [
     BrowserModule,
