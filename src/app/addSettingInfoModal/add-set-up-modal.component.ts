@@ -8,6 +8,7 @@ import * as constant from '../../constants';
 import { AuthService } from "../auth.service";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
+import { SettingInfo } from '../interface/settingInfo';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -43,7 +44,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   private carHigh:number = 10;
 
   //設定情報
-  public settingInfo:any = Object.assign({},this.service.settingInfo);
+  public settingInfo:SettingInfo = Object.assign({},this.service.settingInfo);
 
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
@@ -73,8 +74,12 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       }
     }
 
-    //ユーザーidを設定
-    this.settingInfo["userId"] = this.authService.getUserId();
+    //ユーザーid
+    let userId:string = this.authService.getUserId();
+    if(userId !== null && userId !== null){
+      //ユーザーidを設定
+      this.settingInfo["userId"] = Number(userId)
+    }
   }
 
   /** メーカー一覧を選択した場合  */

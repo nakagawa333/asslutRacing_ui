@@ -9,6 +9,7 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {MessageModalComponent} from "src/app/messageModal/message-modal.component";
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import {SnackBarConfig} from '../union/snabar';
+import { LoginBody } from '../interface/loginBody';
 
 @Component({
     templateUrl: './login.component.html',
@@ -82,7 +83,7 @@ export class LoginComponent implements OnInit{
             userName = val
         }
 
-        let body:Object = {
+        let body:LoginBody = {
             "userName":userName,
             "mail":mail,
             "password":this.loginForm.get("password")?.value?.trim()

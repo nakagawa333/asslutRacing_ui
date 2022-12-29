@@ -8,6 +8,8 @@ import { Location } from '@angular/common';
 import { User } from 'src/user';
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
+import { SignUpBody } from '../interface/signUpBody';
+import { SelectUserBody } from '../interface/selectUserBody';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -65,17 +67,17 @@ export class SingupComponent{
         duration:SnackBarConfig?.duration
     }
 
-    async submitSignUpForm(){
+    submitSignUpForm(){
         if(this.signForm.invalid) return;
 
-        let body:Object = {
+        let body:SignUpBody = {
             "userName":this.signForm.get("userName")?.value?.trim(),
             "mail":this.signForm.get("mail")?.value?.trim(),
             "password":this.signForm.get("password")?.value?.trim(),
             "requestUrl":location.origin
         }
 
-        await this.authService.signup(body)
+        this.authService.signup(body)
         .subscribe({
             next:(data:any) => {
                 console.log(data)
@@ -93,7 +95,7 @@ export class SingupComponent{
 
     //ユーザー名から離した場合
     async userNameBlur(userName:String){
-        let body = {
+        let body:SelectUserBody = {
             "userName":userName,
             "password":null,
             "mail":null
@@ -113,7 +115,7 @@ export class SingupComponent{
     }
 
     async mailBlur(mail:String | null){
-        let body = {
+        let body:SelectUserBody = {
             "userName":null,
             "password":null,
             "mail":mail

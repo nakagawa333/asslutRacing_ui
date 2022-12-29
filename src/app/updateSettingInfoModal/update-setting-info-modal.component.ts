@@ -8,6 +8,8 @@ import { AuthService } from "../auth.service";
 import {  SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import {UpdateSettingInfoModalService} from "./update-setting-info-modal.service";
+import { SettingInfo } from '../interface/settingInfo';
+import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 
 @Component({
   templateUrl: "./update-setting-info-modal.component.html",
@@ -47,12 +49,8 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
 
   private carHigh:number = 10;
 
-  //absフラグ off:false, on:true
-  public absFlag = true;
-
   //設定情報
-  // public settingInfo:any = Object.assign({},this.service.settingInfo);
-  public settingInfo:any = {}
+  public settingInfo:SettingInfo = Object.assign({},this.service.settingInfo);
 
   //snackBarを開くための設定値
   private updateSetupModalSnackConfig:MatSnackBarConfig<any> = {

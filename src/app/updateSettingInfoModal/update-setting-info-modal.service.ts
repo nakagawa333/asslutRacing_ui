@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import * as constant from "../../constants";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SettingInfo } from '../interface/settingInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UpdateSettingInfoModalService{
 
   private url:string;
 
-  public settingInfo:object = {
+  public settingInfo:SettingInfo = {
     "title":"",
     "carId":null,
     "makerId":null,
