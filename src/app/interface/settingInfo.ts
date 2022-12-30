@@ -1,5 +1,3 @@
-import { settingModalComponent } from "../settingModal/set-up-modal.component";
-
 type Nullable<T> = T | undefined | null;
 
 export interface SettingInfo{

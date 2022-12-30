@@ -1,0 +1,19 @@
+<div class="content" role="main">
+    <div id="description">
+        <h2>asslutRacingとは?</h2>
+        <p>こちらのサイトは、asslutRacingの車種の設定を保存できるサイトです。</p>
+    </div>
+
+    <mat-card id="mat-card">
+        <mat-card-title>
+            <h2>お知らせ</h2>
+        </mat-card-title>
+        <div *ngFor="let notification of notifications">
+            <mat-card-content id="mat-card-content">
+                <p id="notification-createTime">{{notification["createTime"]}}</p>
+                <span id="notification-label" class="label label-primary">{{notification["title"]}}</span>
+                <p id="notification-content">{{notification["content"]}}</p>
+            </mat-card-content>
+        </div>
+      </mat-card>
+</div>

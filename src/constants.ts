@@ -14,6 +14,7 @@ export class API{
     public static readonly PASSWORDUPDATE = "/password/update"
     public static readonly UPDATE = "/update"
     public static readonly SELECT = "/select?id="
+    public static readonly SELECTNOTIFICATION = "/select/notification"
 }
 
 export class PATH{
@@ -30,6 +31,7 @@ export class PATH{
     public static readonly VERIFYMAIL = "/verify/mail"
     public static readonly PASSWORDUPDATE = "/password/update"
     public static readonly VERIFY = "/verify"
+    public static readonly TOP = "/"
 }
 
 export class LOCALSTORAGE{

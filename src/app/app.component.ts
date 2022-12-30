@@ -21,7 +21,7 @@ export class AppComponent{
     private lo: Location
   ) {
 
-    let notApplicablePathNames:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL]);
+    let notApplicablePathNames:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
 
     //ログイン状態を更新
     this.authService.updateIsLoggedIn();

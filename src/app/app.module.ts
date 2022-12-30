@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatBadgeModule} from '@angular/material/badge';
 import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-modal.component';
 import { LoginComponent } from './Login/login.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
@@ -29,10 +30,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from './updateSettingInfoModal/update-setting-info-modal.component';
 import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
+import { TopComponent } from './top/top.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
-  {path:"",component:HomeComponent},
+  {path:"",component:TopComponent},
   {path:"login",component:LoginComponent},
   {path:"signup",component:SingupComponent},
   {path:"verify",component:TokenComponent},
@@ -50,7 +52,8 @@ const routes: Routes  = [
     SendPasswordResetMailComponent,
     UpdatePasswordComponent,
     UpdateSettingInfoModalComponent,
-    LogoutConfirmModalComponent
+    LogoutConfirmModalComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ const routes: Routes  = [
     MatButtonModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatSortModule
+    MatSortModule,
+    MatBadgeModule
   ],
   exports:[RouterModule],
   providers: [CookieService],
