@@ -130,4 +130,14 @@ export class LoginComponent implements OnInit{
     private openDialog(component:any,param:object):any{
         return this.dialog.open(component,param)
     }
+
+    //「パスワードをお忘れの方」クリック時
+    public passwordForgetClick():void{
+        this.router.navigate([constant.PATH.PASSWORDRESET])
+    }
+
+    //サインアップクリック時
+    public signUpClick():void{
+        this.router.navigate([constant.PATH.SIGNUP])
+    }
 }

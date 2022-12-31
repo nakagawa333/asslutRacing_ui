@@ -36,7 +36,7 @@
                 <div>
                     <mat-form-field appearance="fill" style="display: block;">
                         <mat-label for="password">パスワード: </mat-label>
-                        <input matInput id="password" type="password" formControlName="password">                
+                        <input matInput id="password" type="password" formControlName="password">
                     </mat-form-field>
                 </div>
 
@@ -45,7 +45,7 @@
                 </div>
 
                 <div id="password-forget-message">
-                    <a href="/password/reset">パスワードをお忘れの方</a>
+                    <a class="href" (click)="passwordForgetClick()">パスワードをお忘れの方</a>
                 </div>
 
                 <div id="login-button">
@@ -54,7 +54,7 @@
             </mat-card-content>
 
             <mat-card-content>
-                <a href="/signup">会員登録はこちら</a>
+                <a class="href" (click)="signUpClick()">会員登録はこちら</a>
             </mat-card-content>
         </mat-card>
     </form>

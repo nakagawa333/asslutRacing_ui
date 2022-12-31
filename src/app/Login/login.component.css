@@ -1,3 +1,4 @@
+
 .content {
     margin: 82px auto 32px;
     padding:30px;
@@ -14,6 +15,11 @@
 
 .alert{
     color:red;
+}
+
+.href{
+    text-decoration: underline;
+    color:blue;
 }
 
 @media screen and (min-width: 900px){
