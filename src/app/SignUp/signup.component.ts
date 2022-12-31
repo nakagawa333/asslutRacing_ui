@@ -140,4 +140,9 @@ export class SingupComponent{
         }
         return true;
     }
+
+    //キャンセルクリック時
+    public cancelClick():void{
+        this.router.navigate([constant.PATH.LOGIN])
+    }
 }

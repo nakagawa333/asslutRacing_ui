@@ -3,13 +3,17 @@
     padding:30px;
 }
 
-/** ログインボタン **/
-#signup-button{
+.alert{
+    color:red;
+}
+
+#button{
+    display: flex;
     margin-top:20px;
 }
 
-.alert{
-    color:red;
+#cancel-button{
+    margin-left:8px;
 }
 
 @media screen and (min-width: 900px){
