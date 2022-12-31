@@ -33,7 +33,7 @@
 
 @media screen and (min-width: 900px){
     /** ログインフォーム **/
-    #mat-card,#description{
+    #detail-content{
         width:80%;
         margin:0 auto;
     }
