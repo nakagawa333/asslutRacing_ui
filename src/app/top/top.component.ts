@@ -4,6 +4,8 @@ import * as constant from '../../constants';
 import { TopService } from './top.component.service';
 import { Notifications } from '../interface/notifications';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+
 
 @Component({
     templateUrl: './top.component.html',
@@ -13,7 +15,8 @@ import { PageEvent } from '@angular/material/paginator';
 export class TopComponent{
     constructor(
         private http: HttpClient,
-        private service:TopService
+        private service:TopService,
+        private router:Router
     ){}
 
     public notifications:Notifications[] | null | undefined;
@@ -75,5 +78,10 @@ export class TopComponent{
             this.pageSize = e.pageSize
             this.getNotifications()
         }
+    }
+
+    //「始める」ボタンクリック時
+    public startClick():void{
+        this.router.navigate([constant.PATH.LOGIN])
     }
 }
