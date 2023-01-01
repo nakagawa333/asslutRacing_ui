@@ -31,6 +31,8 @@ import {MatSortModule} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from './updateSettingInfoModal/update-setting-info-modal.component';
 import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
 import { TopComponent } from './top/top.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -75,7 +77,8 @@ const routes: Routes  = [
     MatCheckboxModule,
     MatSnackBarModule,
     MatSortModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatToolbarModule
   ],
   exports:[RouterModule],
   providers: [CookieService],

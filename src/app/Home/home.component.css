@@ -104,6 +104,12 @@
     width: 1920px;
   }
 
+  #content-header{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+  }
+
   table{
     width:100%;
   }
@@ -146,6 +152,10 @@
     margin-left:10px;
   }
 
+  #mat-header-content{
+    display: none;
+  }
+
   /* mat-card{
     width: fit-content;
     max-width: 600px;
@@ -177,5 +187,31 @@
     svg#rocket-smoke {
       display: none;
       visibility: hidden;
+    }
+
+    td.mat-cell{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      padding: 0.5rem;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .mat-header-row{
+      display:none;
+    }
+
+    #mat-header-cell{
+      border-bottom-width: 5px;
+    }
+
+    #mat-header-content{
+      display: block;
+      text-align: left;
+    }
+
+    /** 更新ボタン**/
+    #update-button{
+      margin-left:auto;
     }
   }

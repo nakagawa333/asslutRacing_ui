@@ -46,3 +46,9 @@ export class COOKIE{
 export class REGEX{
     public static readonly MAIL = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 }
+
+export class COLUMNNAMES{
+    public static readonly SETTINGNAME = "セッティングネイム"
+    public static readonly CARNAME = "車名"
+    public static readonly COURSE = "コース"
+}

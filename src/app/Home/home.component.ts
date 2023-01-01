@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     public displayedColumns:Array<String> = ["title","carName","carse","actions"];
 
     //列名
-    public columnNames:Array<String> = ["セッティングネイム","車名","コース"];
+    public columnNames:Array<String> = [constant.COLUMNNAMES.SETTINGNAME,constant.COLUMNNAMES.CARNAME,constant.COLUMNNAMES.COURSE];
 
     //選択中の列名
     public selectionColumnName:String = "セッティングネイム";
@@ -54,6 +54,18 @@ export class HomeComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
+
+    //セッティングネイム
+    public settingName:String = constant.COLUMNNAMES.SETTINGNAME;
+
+    //車名
+    public carName:String = constant.COLUMNNAMES.CARNAME;
+
+    //コース
+    public course:String = constant.COLUMNNAMES.COURSE;
+
+    public pageSizeOptions:number[] = [5,10,15,20]
+
 
     ngOnInit(): void {
       this.getAllSettingInfo();
