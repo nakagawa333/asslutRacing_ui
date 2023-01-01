@@ -8,8 +8,6 @@ export class SettingInfoTableValue{
   private _carName:String;
   //コース
   private _course:String;
-  //表示フラグ
-  private _displayFlag:Boolean;
 
   public get id(){
     return this._id;
@@ -34,7 +32,7 @@ export class SettingInfoTableValue{
   public set carName(carName:String){
     this._carName = carName;
   }
-  
+
   public get course(){
     return this._course;
   }
@@ -42,13 +40,4 @@ export class SettingInfoTableValue{
   public set course(course:String){
     this._course = course;
   }
-
-  public get displayFlag(){
-    return this._displayFlag;
-  }
-
-  public set displayFlag(displayFlag:Boolean){
-    this._displayFlag = displayFlag;
-  }
-
 }

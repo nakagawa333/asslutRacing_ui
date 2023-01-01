@@ -13,6 +13,7 @@ import {MatSort,Sort} from '@angular/material/sort';
 import { UpdateSettingInfoModalComponent } from '../updateSettingInfoModal/update-setting-info-modal.component';
 import { DeleteConfirmModalComponent } from '../deleteConfirmModal/delete-confirm-modal.component';
 import { ModalParam } from '../interface/modalParam';
+import { SettingInfo } from '../interface/settingInfo';
 
 @Component({
     templateUrl: './home.component.html',
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
     public dataSource:any;
 
     //設定情報一覧 (key:タイトル,value:設定情報オブジェクト)
-    public settingInfosMap = new Map<String,Object>();
+    public settingInfosMap = new Map<String,SettingInfo>();
 
     public displayedColumns:Array<String> = ["title","carName","carse","actions"];
 
@@ -76,14 +77,13 @@ export class HomeComponent implements OnInit {
               this.settingInfosMap.set(data?.title?.trim(),data)
             }
 
-            let settingInfoTableValueList:Array<SettingInfoTableValue> = [];
+            let settingInfoTableValueList:SettingInfoTableValue[] = [];
             for(let data of datas){
                let settingInfoTableValue:SettingInfoTableValue = new SettingInfoTableValue();
                settingInfoTableValue.id = data?.id
                settingInfoTableValue.carName = data?.carName
                settingInfoTableValue.course = data?.course
                settingInfoTableValue.title = data?.title
-               settingInfoTableValue.displayFlag = true;
                settingInfoTableValueList.push(settingInfoTableValue)
             }
 
