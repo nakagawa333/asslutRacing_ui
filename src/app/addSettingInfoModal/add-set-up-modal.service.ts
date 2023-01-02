@@ -33,6 +33,7 @@ export class AddSettingInfoModalService{
     "gearThree":0.5,
     "gearFour":0.5,
     "gearFive":0.5,
+    "gearSix":0.5,
     "stabiliserAgo":0.1,
     "stabiliserAfter":0.1,
     "maxRudderAngle":40,

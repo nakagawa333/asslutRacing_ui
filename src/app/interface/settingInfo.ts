@@ -18,6 +18,7 @@ export interface SettingInfo{
     gearThree:Nullable<number>,
     gearFour:Nullable<number>,
     gearFive:Nullable<number>,
+    gearSix:Nullable<number>,
     stabiliserAgo:Nullable<number>,
     stabiliserAfter:Nullable<number>,
     maxRudderAngle:Nullable<number>,
