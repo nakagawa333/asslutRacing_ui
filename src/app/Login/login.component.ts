@@ -98,9 +98,9 @@ export class LoginComponent implements OnInit{
                 if(data !== null){
                     //ログイン状態を保持チェック状態がtrue
                     if(this.loginStateObserveFlg){
-                        //ログイン情報を保持する(10日)
-                        cookie.set(constant.COOKIE.USERID,data["userId"],10)
-                        cookie.set(constant.COOKIE.USERNAME,data["userName"],10)
+                        //ログイン情報を保持する
+                        cookie.set(constant.COOKIE.USERID,data["userId"])
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"])
                     } else {
                         //ログイン情報を保持する(1日)
                         cookie.set(constant.COOKIE.USERID,data["userId"],1)
