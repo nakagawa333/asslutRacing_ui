@@ -3,7 +3,7 @@
     <div id="content-header" style="display:flex;">
 
       <form id="filter-textbox" class="example-form" [formGroup]="filterSerachForm">
-        <mat-form-field class="example-full-width">
+        <mat-form-field appearance="fill" class="example-full-width">
           <mat-label for="searchName">フィルター </mat-label>
           <input matInput #filter type="text" id="filter" formControlName="searchName" (input)="filterInput(filter.value)">
         </mat-form-field>

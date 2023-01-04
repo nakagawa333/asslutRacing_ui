@@ -142,11 +142,6 @@
     padding-left:25px;
   }
 
-  /** 列名の背景色 白色**/
-  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: white;
-  }
-
    /** 列名 **/
   .mat-form-field{
     margin-left:10px;
