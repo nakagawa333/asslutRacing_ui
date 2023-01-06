@@ -32,7 +32,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: red;
     color: white;
     font-weight: 600;
   }
@@ -104,16 +104,46 @@
     width: 1920px;
   }
 
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   table{
     width:100%;
+  }
+
+  #menu-button{
+    padding-left:30px;
+    display: none;
   }
 
   #header-title{
     padding-left:30px;
   }
 
-  #toolbar{
+  #logout-button{
+    margin-right:30px;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
     background-color: red;
+    color: white;
+    font-weight: 600;
+  }
+
+  #footer-content{
+    margin:0 auto;
   }
 
 
@@ -144,9 +174,19 @@
     }
   }
 
-  @media screen and (max-width: 575px) {
+  @media screen and (max-width: 599.98px) {
     svg#rocket-smoke {
       display: none;
       visibility: hidden;
     }
+
+    #menu-button{
+      display:block;
+      padding-left:10px;
+    }
+
+    #header-title{
+      padding-left:10px;
+    }
+
   }
