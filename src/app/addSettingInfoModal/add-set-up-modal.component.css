@@ -1,3 +1,12 @@
 .mat-body{
     margin-top:20px;
 }
+
+#add-modal-content{
+    height: 90%;
+    overflow-y: auto;
+}
+
+#add-modal-footer{
+    height: 10%;
+}
