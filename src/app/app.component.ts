@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -6,6 +6,8 @@ import * as constant from "../constants";
 import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Logout} from './interface/logout';
+import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
+import {MatButtonToggle} from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-root',
@@ -21,23 +23,30 @@ export class AppComponent{
     private lo: Location
   ) {
 
-    let notApplicablePathNames:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
+    //アプリ内にあるパス一覧
+    let notApplicablePathNames:Set<string> = new Set([constant.PATH.HOME,constant.PATH.LOGIN,
+      constant.PATH.SIGNUP,constant.PATH.VERIFY,constant.PATH.PASSWORDRESET,constant.PATH.VERIFYMAIL,
+      constant.PATH.TOP]);
+
+    let isLoggedAuthPaths:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
 
     //ログイン状態を更新
     this.authService.updateIsLoggedIn();
 
-    //ログイン認証されていない場合
-    if(!this.authService.isLoggedIn.value && !notApplicablePathNames.has(location.pathname)){
-      //ログイン画面に遷移
-      this.router.navigate([constant.PATH.LOGIN])
-    } else if(this.authService.isLoggedIn.value && notApplicablePathNames.has(location.pathname)){
-      //ログイン認証されている場合
-      this.router.navigate([constant.PATH.HOME])
+    if(notApplicablePathNames.has(location.pathname)){
+      //ログイン認証されていない場合
+      if(!this.authService.isLoggedIn.value && !isLoggedAuthPaths.has(location.pathname)){
+        //ログイン画面に遷移
+        this.router.navigate([constant.PATH.LOGIN])
+      } else if(this.authService.isLoggedIn.value && isLoggedAuthPaths.has(location.pathname)){
+        //ログイン認証されている場合
+        this.router.navigate([constant.PATH.HOME])
+      }
     }
   }
 
   //ログアウトアイコンクリック時
-  logoutClick(){
+  public logoutClick():void{
     this.logoutConfilmOpenDialog();
   }
 

@@ -32,7 +32,9 @@ import { UpdateSettingInfoModalComponent } from './updateSettingInfoModal/update
 import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
 import { TopComponent } from './top/top.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {LayoutModule} from '@angular/cdk/layout';
+import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -41,7 +43,8 @@ const routes: Routes  = [
   {path:"signup",component:SingupComponent},
   {path:"verify",component:TokenComponent},
   {path:"password/reset",component:SendPasswordResetMailComponent},
-  {path:"verify/mail",component:UpdatePasswordComponent}
+  {path:"verify/mail",component:UpdatePasswordComponent},
+  {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
 
 @NgModule({
@@ -55,7 +58,8 @@ const routes: Routes  = [
     UpdatePasswordComponent,
     UpdateSettingInfoModalComponent,
     LogoutConfirmModalComponent,
-    TopComponent
+    TopComponent,
+    NotFoundErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ const routes: Routes  = [
     MatSnackBarModule,
     MatSortModule,
     MatBadgeModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSidenavModule,
+    LayoutModule
   ],
   exports:[RouterModule],
   providers: [CookieService],
