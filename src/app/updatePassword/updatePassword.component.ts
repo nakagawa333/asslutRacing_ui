@@ -67,8 +67,8 @@ export class UpdatePasswordComponent{
     //パスワードリセット処理
     this.authService.passwordUpdate(body)
     .subscribe({
-      next:(data:any) => {
-        if(data === 1) {
+      next:(passwordUpdateSucessFlag:any) => {
+        if(passwordUpdateSucessFlag) {
           this.snackBar.open("パスワード更新に成功しました。","",this.sendPasswordUpdateMailSnackConfig);
           this.router.navigate([constant.API.LOGIN])
         }

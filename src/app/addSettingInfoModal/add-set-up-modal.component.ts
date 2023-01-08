@@ -123,8 +123,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     //新規に設定情報を登録する
     this.service.addSettingInfo(this.settingInfo)
     .subscribe({
-      next:(data:any) => {
-        if(data === 1){
+      next:(addSettingInfoFlag:any) => {
+        if(addSettingInfoFlag){
           //登録に成功したら、ダイアログを閉じる
           this.closeDialog("登録");
           //設定情報を初期化
