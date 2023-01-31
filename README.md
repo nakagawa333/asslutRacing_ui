@@ -1,6 +1,9 @@
 # asslutRacing_ui
 asslutRacingで、車の設定を保存するシステム UI部分
 
+Angularのバージョンは、14.2.4
+nodeのバージョンは、
+
 Angular install
 @angular-devkit/architect       0.1402.4
 @angular-devkit/build-angular   14.2.4
@@ -11,3 +14,5 @@ Angular install
 @schematics/angular             14.2.4
 rxjs                            7.5.7
 typescript                      4.7.4
+
+
