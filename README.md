@@ -15,7 +15,8 @@ nodeのバージョンを管理するための環境構築
 
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash`
 
-最後に以下のサイトからリンクをnvmのファイルをインストール
+最後に以下のサイトから(nvm-setup.zip)をインストール
+
 `https://github.com/coreybutler/nvm-windows/releases`
 
 
