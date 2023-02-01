@@ -1,11 +1,12 @@
 # asslutRacing_ui
 asslutRacingで、車の設定を保存するシステム UI部分
 
+# 各種バージョン
 Angularのバージョンは、14.2.4
 
 nodeのバージョンは、16.10.0
 
-nodeのバージョンを管理するための環境構築
+# nodeのバージョンを管理するための環境構築
 
 ①下記コマンドでwindows11にリナックス環境を構築。そのあと再起動
 
@@ -29,8 +30,13 @@ nodeのバージョンを管理するための環境構築
 
 `nvm use 16.10.0`
 
+# Angular インストール手順
 
-Angular install
+①以下コマンドを実行
+
+`Angular install`
+
+②Angular listを実行し、以下が表示されたら成功
 
 @angular-devkit/architect       0.1402.4
 
