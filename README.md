@@ -3,21 +3,31 @@ asslutRacingで、車の設定を保存するシステム UI部分
 
 Angularのバージョンは、14.2.4
 
-nodeのバージョンは、
+nodeのバージョンは、16.10.0
 
 nodeのバージョンを管理するための環境構築
 
-下記コマンドでwindows11にリナックス環境を構築。そのあと再起動
+①下記コマンドでwindows11にリナックス環境を構築。そのあと再起動
 
 `wsl --install`
 
-そのあと、下記を実行
+②そのあと、下記を実行
 
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash`
 
-最後に以下のサイトから(nvm-setup.zip)をインストール
+③以下のサイトから(nvm-setup.zip)をインストール
 
 `https://github.com/coreybutler/nvm-windows/releases`
+
+④zipを展開し、展開したexeファイルを実行し再起動
+
+⑤nvmがインストールされたことが確認できた場合、以下コマンドを実行
+
+`nvm install 16.10.0`
+
+⑥最後に以下コマンド実行
+
+`nvm use 16.10.0`
 
 
 Angular install
