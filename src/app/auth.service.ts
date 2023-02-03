@@ -39,12 +39,17 @@ export class AuthService{
     //ログイン状態を更新
     updateIsLoggedIn(){
         let userId = this.cookie.get(constant.COOKIE.USERID)
-        this.isLoggedIn.next(userId !== "");       
+        this.isLoggedIn.next(userId !== "");
     }
 
     //ユーザー名から取得
-    selectUser(body:object){
-        return this.http.post(constant.API.URL + constant.API.SELECTUSER,body)  
+    selectUserByUserName(userName:string){
+        return this.http.post(constant.API.URL + constant.API.SELECTUSERBYUSERNAME,userName)
+    }
+
+    //メールから取得
+    selectUserByMail(mail:string){
+        return this.http.post(constant.API.URL + constant.API.SELECTUSERBYMAIL,mail)
     }
 
     //サインアップ

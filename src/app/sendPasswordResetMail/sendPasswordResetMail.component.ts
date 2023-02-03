@@ -42,12 +42,12 @@ export class SendPasswordResetMailComponent{
     }
 
     //記入されたメールアドレスが既に登録されているか確認する
-    mailBlur(mail:String){
+    mailBlur(mail:string){
         if(this.sendPasswordResetMailForm.invalid) return;
 
         let user = new User();
         user.mail = mail;user
-        this.authService.selectUser(user)
+        this.authService.selectUserByMail(mail)
         .subscribe({
             next:(data:any) => {
                 if(data < 1){

@@ -99,14 +99,8 @@ export class SingupComponent{
     }
 
     //ユーザー名から離した場合
-    async userNameBlur(userName:String){
-        let body:SelectUserBody = {
-            "userName":userName,
-            "password":null,
-            "mail":null
-        }
-
-        await this.authService.selectUser(body)
+    async userNameBlur(userName:string){
+        await this.authService.selectUserByUserName(userName)
         .subscribe({
             next:(data:any) => {
                 if(data === 1) {
@@ -119,13 +113,9 @@ export class SingupComponent{
         })
     }
 
-    async mailBlur(mail:String | null){
-        let body:SelectUserBody = {
-            "userName":null,
-            "password":null,
-            "mail":mail
-        }
-        await this.authService.selectUser(body)
+    async mailBlur(mail:string | null){
+        if(!mail) return;
+        await this.authService.selectUserByMail(mail)
         .subscribe({
             next:(data:any) => {
                 if(data === 1) {
