@@ -1,5 +1,5 @@
 <div id="add-modal-content">
-  <div>
+  <form id="" [formGroup]="addSetupForm">
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>
@@ -8,10 +8,12 @@
         </ng-template>
 
         <div class="mat-body">
+          <div class="alert">{{settingNameErrorMessage}}</div>
+
           <div>
             <mat-form-field appearance="fill" style="width: 100%;">
               <mat-label>セッティングネイム</mat-label>
-              <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'title')"></textarea>
+              <input formControlName="settingName" matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" (change)="textareaInput($event,'title')">
             </mat-form-field>
           </div>
 
@@ -55,40 +57,48 @@
             </mat-slider>
           </div>
 
+          <div class="alert">{{makerErrorMessage}}</div>
+
           <div>
             <mat-form-field appearance="fill">
               <mat-label>メーカー </mat-label>
-              <mat-select #maker (selectionChange)="makerSelectBoxChange(maker.value)">
+              <mat-select formControlName="maker" #maker (selectionChange)="makerSelectBoxChange(maker.value)">
                 <mat-option [value]="maker['makerId']" *ngFor="let maker of makerList">{{maker["makerName"]}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
+          <div class="alert">{{carErrorMessage}}</div>
+
           <div>
             <mat-form-field appearance="fill">
               <mat-label>車</mat-label>
-              <mat-select #car [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange(car.value,'carId')">
+              <mat-select formControlName="car" #car [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange(car.value,'carId')">
                 <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
+          <div class="alert">{{courseErrorMessage}}</div>
+
           <div>
             <mat-form-field appearance="fill">
               <mat-label>コース</mat-label>
-              <mat-select #course (selectionChange)="selectorChange(course.value,'courseId')">
+              <mat-select formControlName="course" #course (selectionChange)="selectorChange(course.value,'courseId')">
                 <mat-option [value]="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
       </mat-tab>
+
       <mat-tab label="タイヤ">
         <div class="mat-body">
+          <div class="alert">{{tireTypeErrorMessage}}</div>
           <div>
             <mat-form-field appearance="fill">
               <mat-label>タイヤの種類</mat-label>
-              <mat-select #tireType (selectionChange)="selectorChange(tireType.value,'tireId')">
+              <mat-select formControlName="tireType" #tireType (selectionChange)="selectorChange(tireType.value,'tireId')">
                 <mat-option [value]="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
                 </mat-option>
               </mat-select>
@@ -301,10 +311,10 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
-</div>
 
-<div id="add-modal-footer" mat-dialog-actions>
-  <button mat-button class="mat-raised-button" (click)="addSettingClick()" >登録する</button>
-  <button mat-button class="mat-raised-button" (click)="closeDialog()">閉じる</button>
+    <div id="add-modal-footer" mat-dialog-actions>
+      <button mat-button class="mat-raised-button" (click)="addSettingClick()">登録する</button>
+      <button mat-button class="mat-raised-button" (click)="closeDialog()">閉じる</button>
+    </div>
+   </form>
 </div>

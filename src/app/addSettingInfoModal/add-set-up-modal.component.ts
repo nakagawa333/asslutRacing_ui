@@ -1,6 +1,7 @@
 
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { Component,Inject, OnInit} from '@angular/core';
+import { FormControl, FormGroup, Validators,ValidationErrors } from '@angular/forms';
 import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BaseModal } from '../baseModal.component';
 import {AddSettingInfoModalService} from "./add-set-up-modal.service"
@@ -43,6 +44,56 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   private carHigh:number = 10;
 
+  public addSetupForm = new FormGroup({
+    settingName: new FormControl("",[
+      Validators.required,
+      Validators.maxLength(100)
+    ]),
+    maker: new FormControl("",[
+      Validators.required
+    ]),
+    car: new FormControl("",[
+      Validators.required
+    ]),
+    course: new FormControl("",[
+      Validators.required
+    ]),
+    tireType:new FormControl("",[
+      Validators.required
+    ])
+  })
+
+  //セッティングネイムエラーメッセージ
+  public settingNameErrorMessage = "";
+
+  //メーカーエラーメッセージ
+  public makerErrorMessage = "";
+
+  //車エラーメッセージ
+  public carErrorMessage = "";
+
+  //コースエラーメッセージ
+  public courseErrorMessage = "";
+
+  //タイヤの種類エラーメッセージ
+  public tireTypeErrorMessage = "";
+
+  //セッティングネイム
+  public settingName = this.addSetupForm.controls.settingName;
+
+  //メーカー
+  public maker = this.addSetupForm.controls.maker;
+
+  //車
+  public car = this.addSetupForm.controls.car;
+
+  //コース
+  public course = this.addSetupForm.controls.course;
+
+  //タイヤの種類
+  public tireType = this.addSetupForm.controls.course;
+
+
   //設定情報
   public settingInfo:SettingInfo = Object.assign({},this.service.settingInfo);
 
@@ -80,6 +131,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       //ユーザーidを設定
       this.settingInfo["userId"] = Number(userId)
     }
+
+    this.settingNameValueChanges();
   }
 
   /** メーカー一覧を選択した場合  */
@@ -119,17 +172,60 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   private addSettingInfo():void{
-    this.service.setUrl(constant.API.URL + constant.API.ADD);
+    let self = this;
+
+    //エラーメッセージを初期化
+    self.initSettingErrorMessage();
+    
+    if(self.addSetupForm.invalid) {
+
+      let snackBarText = "";
+
+      //セッティングネイムが入力されていない場合
+      if(self.settingName.invalid){
+        self.settingNameErrorMessage = "セッティングネイムを入力してください。";
+        snackBarText += "セッティングネイムを入力してください。\n";
+      }
+
+      //車が選択されていなかった場合
+      if(self.car.invalid){
+        self.carErrorMessage = "車を選択してください。";
+        snackBarText += "車を選択してください。";
+      }
+
+      //メーカーが選択されていなかった場合
+      if(self.maker.invalid){
+        self.makerErrorMessage = "メーカーを選択してください。";
+        snackBarText += "メーカーを選択してください。";
+      }
+
+      //コースが選択されていなかった場合
+      if(self.course.invalid){
+        self.courseErrorMessage = "コースを選択してください。";
+        snackBarText += "コースを選択してください。";
+      }
+
+      //タイヤの種類が選択されていない場合
+      if(self.tireType.invalid){
+        self.tireTypeErrorMessage = "タイヤの種類を選択してください。";
+        snackBarText += "タイヤの種類を選択してください。";
+      }
+
+      //snackBarを開く
+      let addSetupSnackBar:MatSnackBarRef<any> = this.snackBar.open(snackBarText,"",this.addSetupModalSnackConfig);
+      return;
+    }
+
     //新規に設定情報を登録する
-    this.service.addSettingInfo(this.settingInfo)
+    self.service.addSettingInfo(self.settingInfo)
     .subscribe({
       next:(addSettingInfoFlag:any) => {
         if(addSettingInfoFlag){
           //登録に成功したら、ダイアログを閉じる
-          this.closeDialog("登録");
+          self.closeDialog("登録");
           //設定情報を初期化
-          this.initSettingInfo()
-          this.snackBar.open("登録に成功しました","",this.addSetupModalSnackConfig);
+          self.initSettingInfo()
+          self.snackBar.open("登録に成功しました","",self.addSetupModalSnackConfig);
         }
       },
       error: (e:any) => {
@@ -140,7 +236,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
           errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
         }
 
-        this.snackBar.open(errorText,"",this.addSetupModalSnackConfig);
+        self.snackBar.open(errorText,"",self.addSetupModalSnackConfig);
       }
     })
   }
@@ -162,5 +258,29 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   selectorChange(value:any,name:string):void{
     this.settingInfo[name] = value;
+  }
+
+  //セッティングネイムに値を入力時
+  settingNameValueChanges():void{
+    let self = this;
+    self.settingName.valueChanges.subscribe((v) => {
+      if(!v){
+        self.settingNameErrorMessage = "セッティングネイムを入力してください。"
+      } else if(100 < v.length){
+        self.settingNameErrorMessage = "セッティングネイムの最大文字数は100文字です。";
+      } else {
+        self.settingNameErrorMessage = "";
+      }
+    })
+  }
+
+  //エラーメッセージを初期化
+  initSettingErrorMessage():void{
+    let self = this;
+    self.settingNameErrorMessage = "";
+    self.carErrorMessage = "";
+    self.makerErrorMessage = "";
+    self.courseErrorMessage = "";
+    self.tireTypeErrorMessage = "";
   }
 }
