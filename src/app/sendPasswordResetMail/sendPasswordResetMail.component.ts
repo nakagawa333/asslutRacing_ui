@@ -74,10 +74,10 @@ export class SendPasswordResetMailComponent{
         this.authService.sendPasswordResetMail(body)
         .subscribe({
             next:(data:any) => {
-                this.snackBar.open("パスワードリセット用のメールを送信致しました","",this.sendPasswordResetMailSnackConfig);
+                this.snackBar.open("パスワードリセット用のメールを送信致しました","OK",this.sendPasswordResetMailSnackConfig);
             },
             error:(e:any) => {
-                this.snackBar.open("メール送信に失敗しました","",this.sendPasswordResetMailSnackConfig);
+                this.snackBar.open("メール送信に失敗しました","OK",this.sendPasswordResetMailSnackConfig);
             }
         })
     }

@@ -82,13 +82,13 @@ export class SingupComponent{
             next:(authSignupFlag:any) => {
                 //仮登録の
                 if(authSignupFlag){
-                    this.snackBar.open("ユーザー登録用のメールアドレスを送信しましたので、ご確認をお願い致します","",this.signUpSnackConfig);
+                    this.snackBar.open("ユーザー登録用のメールアドレスを送信しましたので、ご確認をお願い致します","OK",this.signUpSnackConfig);
                 } else {
-                    this.snackBar.open("サインアップ時に原因不明のエラーが発生しました。お手数をおかけしますが、サインアップをやり直してください。","",this.signUpSnackConfig);
+                    this.snackBar.open("サインアップ時に原因不明のエラーが発生しました。お手数をおかけしますが、サインアップをやり直してください。","OK",this.signUpSnackConfig);
                 }
             },
             error: (e:any) => {
-                this.snackBar.open("サインアップ時に原因不明のエラーが発生しました。お手数をおかけしますが、サインアップをやり直してください。","",this.signUpSnackConfig);
+                this.snackBar.open("サインアップ時に原因不明のエラーが発生しました。お手数をおかけしますが、サインアップをやり直してください。","OK",this.signUpSnackConfig);
             }
         })
     }
@@ -108,7 +108,7 @@ export class SingupComponent{
                 }
             },
             error:(e:any) => {
-                this.snackBar.open(e?.statusText,"",this.signUpSnackConfig);
+                this.snackBar.open(e?.statusText,"OK",this.signUpSnackConfig);
             }
         })
     }
@@ -123,7 +123,7 @@ export class SingupComponent{
                 }
             },
             error:(e:any) => {
-                this.snackBar.open(e?.statusText,"",this.signUpSnackConfig);
+                this.snackBar.open(e?.statusText,"OK",this.signUpSnackConfig);
             }
         })
     }

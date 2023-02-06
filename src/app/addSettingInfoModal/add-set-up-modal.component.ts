@@ -186,18 +186,18 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       //セッティングネイムが入力されていない場合
       if(self.settingName.invalid){
         self.settingNameErrorMessage = "セッティングネイムを入力してください。";
-        snackBarText += "セッティングネイムを入力してください。\n";
+        snackBarText += "セッティングネイムを入力してください。";
       }
 
       //車が選択されていなかった場合
       if(self.car.invalid){
-        self.carErrorMessage = "車を選択してください。";
+        self.carErrorMessage = "車を選択してください。\n";
         snackBarText += "車を選択してください。";
       }
 
       //メーカーが選択されていなかった場合
       if(self.maker.invalid){
-        self.makerErrorMessage = "メーカーを選択してください。";
+        self.makerErrorMessage = "メーカーを選択してください。\n";
         snackBarText += "メーカーを選択してください。";
       }
 
@@ -214,7 +214,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       }
 
       //snackBarを開く
-      let addSetupSnackBar:MatSnackBarRef<any> = this.snackBar.open(snackBarText,"",this.addSetupModalSnackConfig);
+      let addSetupSnackBar:MatSnackBarRef<any> = this.snackBar.open(snackBarText,"OK",this.addSetupModalSnackConfig);
       return;
     }
 

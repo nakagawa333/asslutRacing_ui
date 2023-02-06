@@ -36,14 +36,14 @@ export class TokenComponent{
                 //ユーザー登録に成功した場合
                 if(userAddSucessFlag){
                     //snackBarを開く
-                    this.snackBar.open("ユーザー登録に成功しました","",this.regitSucessSnackConfig);
+                    this.snackBar.open("ユーザー登録に成功しました","OK",this.regitSucessSnackConfig);
                     this.router.navigate([constant.API.LOGIN])
                 } else {
-                    this.snackBar.open("ユーザー登録に失敗しました","",this.regitSucessSnackConfig);
+                    this.snackBar.open("ユーザー登録に失敗しました","OK",this.regitSucessSnackConfig);
                 }
             },
             error:(e:any) => {
-                this.snackBar.open("ユーザー登録に失敗しました","",this.regitSucessSnackConfig);
+                this.snackBar.open("ユーザー登録に失敗しました","OK",this.regitSucessSnackConfig);
             }
         })
     }

@@ -150,7 +150,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
         if(isUpdate){
           //更新に成功したら、ダイアログを閉じる
           this.closeDialog("更新");
-          this.snackBar.open("更新に成功しました","",this.updateSetupModalSnackConfig);
+          this.snackBar.open("更新に成功しました","OK",this.updateSetupModalSnackConfig);
         }
       },
       error: (e:any) => {
@@ -161,7 +161,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
           errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
         }
 
-        this.snackBar.open(errorText,"",this.updateSetupModalSnackConfig);
+        this.snackBar.open(errorText,"OK",this.updateSetupModalSnackConfig);
       }
     })
   }

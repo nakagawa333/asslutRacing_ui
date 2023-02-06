@@ -69,12 +69,12 @@ export class UpdatePasswordComponent{
     .subscribe({
       next:(passwordUpdateSucessFlag:any) => {
         if(passwordUpdateSucessFlag) {
-          this.snackBar.open("パスワード更新に成功しました。","",this.sendPasswordUpdateMailSnackConfig);
+          this.snackBar.open("パスワード更新に成功しました。","OK",this.sendPasswordUpdateMailSnackConfig);
           this.router.navigate([constant.API.LOGIN])
         }
       },
       error:(e:any) => {
-        this.snackBar.open("パスワード更新に成功しました。","",this.sendPasswordUpdateMailSnackConfig);
+        this.snackBar.open("パスワード更新に成功しました。","OK",this.sendPasswordUpdateMailSnackConfig);
       }
     })
   }

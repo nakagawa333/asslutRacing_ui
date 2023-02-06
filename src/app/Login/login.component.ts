@@ -114,15 +114,15 @@ export class LoginComponent implements OnInit{
                     this.router.navigate(["/home"])
 
                     //snackBarを開く
-                    let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログインしました。","",this.loginSnackConfig);
+                    let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログインしました。","OK",this.loginSnackConfig);
 
                 } else {
                     //snackBarを開く
-                    let loginFailSnackBar:MatSnackBarRef<any> = this.snackBar.open("ユーザー名orメールアドレス、もしくはパスワードが間違えています。","",this.loginSnackConfig);
+                    let loginFailSnackBar:MatSnackBarRef<any> = this.snackBar.open("ユーザー名orメールアドレス、もしくはパスワードが間違えています。","OK",this.loginSnackConfig);
                 }
             },
             error: (e:any) => {
-                let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログイン時にエラーが発生しました","",this.loginSnackConfig);
+                let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログイン時にエラーが発生しました","OK",this.loginSnackConfig);
             }
         })
     }
