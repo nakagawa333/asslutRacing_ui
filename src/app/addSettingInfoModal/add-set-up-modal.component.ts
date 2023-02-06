@@ -91,7 +91,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   public course = this.addSetupForm.controls.course;
 
   //タイヤの種類
-  public tireType = this.addSetupForm.controls.course;
+  public tireType = this.addSetupForm.controls.tireType;
 
 
   //設定情報
@@ -137,19 +137,21 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   /** メーカー一覧を選択した場合  */
   makerSelectBoxChange(makerId:any){
-    if(this.service.isNumber(makerId)){
-      this.carsList = this.carsHashMap.get(Number(makerId));
-      this.hasCarList = false;
+    let self = this;
+    if(self.service.isNumber(makerId)){
+      self.carsList = self.carsHashMap.get(Number(makerId));
+      self.hasCarList = false;
 
-      if(this.carsList !== null && this.carsList.length !== 0){
-        this.defalutCarId = this.carsList[0]["carId"];
+      if(self.carsList !== null && self.carsList.length !== 0){
+        self.defalutCarId = self.carsList[0]["carId"];
         //コースidを設定
-        this.settingInfo["carId"] = this.defalutCarId;
+        self.settingInfo["carId"] = self.defalutCarId;
       }
 
-
+      self.makerErrorMessage = "";
+      self.carErrorMessage = "";
       //メーカーidを設定
-      this.settingInfo["makerId"] = makerId
+      self.settingInfo["makerId"] = makerId
     }
   }
 
@@ -176,7 +178,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
     //エラーメッセージを初期化
     self.initSettingErrorMessage();
-    
+
     if(self.addSetupForm.invalid) {
 
       let snackBarText = "";
@@ -257,6 +259,15 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   selectorChange(value:any,name:string):void{
+    let self = this
+
+    if(name === "courseId"){
+      //コース選択時
+      self.courseErrorMessage = "";
+    } else if(name === "tireId"){
+      //タイヤの種類選択時
+      self.tireTypeErrorMessage = "";
+    }
     this.settingInfo[name] = value;
   }
 
