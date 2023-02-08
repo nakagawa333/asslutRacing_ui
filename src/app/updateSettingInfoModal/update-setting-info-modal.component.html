@@ -1,5 +1,5 @@
 <div id="update-modal-content">
-    <div>
+    <form id="" [formGroup]="updateSettingInfoForm">
       <mat-tab-group>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -8,10 +8,12 @@
           </ng-template>
 
           <div class="mat-body">
+
+            <div class="alert">{{settingNameErrorMessage}}</div>
             <div>
               <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>セッティングネイム</mat-label>
-                <textarea matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [value]="settingInfo['title']" (change)="textareaInput($event,'title')"></textarea>
+                <input formControlName="settingName" matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [value]="settingInfo['title']" (change)="textareaInput($event,'title')">
               </mat-form-field>
             </div>
 
@@ -306,10 +308,10 @@
           </div>
         </mat-tab>
       </mat-tab-group>
-    </div>
-  </div>
-
-<div id="update-modal-footer" mat-dialog-actions>
-  <button mat-button class="mat-raised-button" (click)="updateSettingClick()" >更新する</button>
-  <button mat-button class="mat-raised-button" (click)="closeDialog()">閉じる</button>
+    
+      <div id="update-modal-footer" mat-dialog-actions>
+        <button mat-button class="mat-raised-button" (click)="updateSettingClick()" >更新する</button>
+        <button mat-button class="mat-raised-button" (click)="closeDialog()">閉じる</button>
+      </div>
+    </form>
 </div>

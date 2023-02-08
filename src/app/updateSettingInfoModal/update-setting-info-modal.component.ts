@@ -10,6 +10,9 @@ import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/sn
 import {UpdateSettingInfoModalService} from "./update-setting-info-modal.service";
 import { SettingInfo } from '../interface/settingInfo';
 import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
+import { FormControl, FormGroup,Validators } from '@angular/forms';
+
+type Nullable<T> = T | undefined | null;
 
 @Component({
   templateUrl: "./update-setting-info-modal.component.html",
@@ -59,6 +62,27 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
     duration:SnackBarConfig?.duration
   }
 
+  public updateSettingInfoForm = new FormGroup({
+    settingName:new FormControl("",[
+      Validators.required,
+      Validators.maxLength(100)
+    ])
+  })
+
+  /**
+   * セッティングネイムに値を挿入する
+   * @param settingName セッティングネイム
+   */
+  public setSettingName(settingName:string){
+    this.updateSettingInfoForm.controls.settingName.setValue(settingName);
+  }
+
+  //セッティングネイム
+  public settingName = this.updateSettingInfoForm.controls.settingName;
+
+  //設定情報エラーメッセージ
+  public settingNameErrorMessage:String = "";
+
   ngOnInit(): void{
     if(this.data === null) return;
     let infos = this.data?.infos;
@@ -80,6 +104,8 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
           }
         }
       }
+
+      this.settingNameValueChanges();
     }
 
     let settingInfo = this.data?.settingInfo;
@@ -99,6 +125,10 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
 
       //車一覧を設定
       this.carsList = this.carsHashMap.get(Number(this.defaultMakerId));
+    }
+
+    if(this.settingInfo["title"]){
+      this.setSettingName(this.settingInfo["title"]);
     }
   }
 
@@ -142,15 +172,23 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
   }
 
   private updateSettingInfo():void{
-    this.service.setUrl(constant.API.URL + constant.API.UPDATE);
+    let self = this;
+
+    if(self.settingName.invalid){
+      self.settingNameErrorMessage = "セッティングネイムを入力してください。";
+      self.snackBar.open("セッティングネイムを入力してください。","OK",self.updateSetupModalSnackConfig);
+      return
+    }
+
+    self.service.setUrl(constant.API.URL + constant.API.UPDATE);
     //新規に設定情報を更新する
-    this.service.updateSettingInfo(this.settingInfo)
+    self.service.updateSettingInfo(self.settingInfo)
     .subscribe({
       next:(isUpdate:any) => {
         if(isUpdate){
           //更新に成功したら、ダイアログを閉じる
-          this.closeDialog("更新");
-          this.snackBar.open("更新に成功しました","OK",this.updateSetupModalSnackConfig);
+          self.closeDialog("更新");
+          self.snackBar.open("更新に成功しました","OK",self.updateSetupModalSnackConfig);
         }
       },
       error: (e:any) => {
@@ -161,7 +199,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
           errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
         }
 
-        this.snackBar.open(errorText,"OK",this.updateSetupModalSnackConfig);
+        self.snackBar.open(errorText,"OK",self.updateSetupModalSnackConfig);
       }
     })
   }
@@ -178,5 +216,20 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
 
   selectorChange(value:any,name:string):void{
     this.settingInfo[name] = value;
+  }
+
+  //セッティングネイムに値を入力時
+  //セッティングネイムに値を入力時
+  settingNameValueChanges():void{
+    let self = this;
+    self.settingName.valueChanges.subscribe((v) => {
+      if(!v){
+        self.settingNameErrorMessage = "セッティングネイムを入力してください。"
+      } else if(100 < v.length){
+        self.settingNameErrorMessage = "セッティングネイムの最大文字数は100文字です。";
+      } else {
+        self.settingNameErrorMessage = "";
+      }
+    })
   }
 }
