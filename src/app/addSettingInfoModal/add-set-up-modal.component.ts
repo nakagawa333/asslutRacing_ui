@@ -218,6 +218,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       return;
     }
 
+    self.service.setUrl(constant.API.URL + constant.API.ADD);
+
     //新規に設定情報を登録する
     self.service.addSettingInfo(self.settingInfo)
     .subscribe({
