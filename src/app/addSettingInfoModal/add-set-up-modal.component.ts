@@ -10,6 +10,7 @@ import { AuthService } from "../auth.service";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SettingInfo } from '../interface/settingInfo';
+import { ErrorService } from 'src/error.service';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -21,7 +22,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       @Inject(MAT_DIALOG_DATA) public data: any,
       private service:AddSettingInfoModalService,
       private authService:AuthService,
-      private snackBar:MatSnackBar
+      private snackBar:MatSnackBar,
+      private errorService:ErrorService
   ){}
 
   public defalutCarId:number = 0;
@@ -170,7 +172,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   /** 登録するボタンをクリックした場合 */
   addSettingClick():void{
-    this.addSettingInfo()
+    this.addSettingInfo();
   }
 
   private addSettingInfo():void{
@@ -233,14 +235,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
         }
       },
       error: (e:any) => {
-        let errors:any = e["error"]["errors"]
-        let errorText:string = "";
-        let errorsLength:number = Object.keys(errors).length;
-        for(let i = 0; i < errorsLength; i++){
-          errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
-        }
-
-        self.snackBar.open(errorText,"",self.addSetupModalSnackConfig);
+        self.errorService.openSnackBar(e);
       }
     })
   }
