@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <!-- <mat-icon id="menu-button" (click)="menuClick()">menu</mat-icon> -->
-  <span id="header-title">asslutRacing</span>
+  <span id="header-title" routerLink="/login">asslutRacing</span>
     <div class="spacer"></div>
     <!-- <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/arjp_official" title="Twitter">
       <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
@@ -20,6 +20,7 @@
       <mat-drawer mode="side" opened>Drawer content</mat-drawer>
       <mat-drawer-content>Main content</mat-drawer-content>
     </mat-drawer-container> -->
+    <mat-icon id="" routerLink="/settings/account">account_circle</mat-icon>
 
     <mat-icon id="logout-button" *ngIf="authService.isLoggedIn.value" (click)="logoutClick()">logout</mat-icon>
 </div>

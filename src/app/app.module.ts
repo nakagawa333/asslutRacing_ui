@@ -35,6 +35,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {LayoutModule} from '@angular/cdk/layout';
 import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
+import { SettingsAccountComponent } from './settingsAccount/settings-account.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -44,6 +45,7 @@ const routes: Routes  = [
   {path:"verify",component:TokenComponent},
   {path:"password/reset",component:SendPasswordResetMailComponent},
   {path:"verify/mail",component:UpdatePasswordComponent},
+  {path:"settings/account",component:SettingsAccountComponent},
   {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
 
@@ -59,6 +61,7 @@ const routes: Routes  = [
     UpdateSettingInfoModalComponent,
     LogoutConfirmModalComponent,
     TopComponent,
+    SettingsAccountComponent,
     NotFoundErrorComponent
   ],
   imports: [

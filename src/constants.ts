@@ -1,5 +1,7 @@
 export class API{
     public static readonly URL = "http://localhost:8080"
+    //本番環境のurl
+    // public static readonly URL = "";
     public static readonly DELETE = "/delete"
     public static readonly HOME = "/home"
     public static readonly INFOS = "/infos"
@@ -17,6 +19,7 @@ export class API{
     public static readonly UPDATE = "/update"
     public static readonly SELECT = "/select?id="
     public static readonly SELECTNOTIFICATION = "/select/notification"
+    public static readonly SETTINGSACCOUNT = "/settings/account?userId="
 }
 
 export class PATH{
@@ -33,6 +36,7 @@ export class PATH{
     public static readonly VERIFYMAIL = "/verify/mail"
     public static readonly PASSWORDUPDATE = "/password/update"
     public static readonly VERIFY = "/verify"
+    public static readonly SETTINGSACCOUNT = "/settings/account"
     public static readonly TOP = "/"
 }
 

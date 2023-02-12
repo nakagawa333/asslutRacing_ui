@@ -1,0 +1,31 @@
+<router-outlet>
+    <div class="content" role="main">
+        <div id="account-settings">
+            <mat-card>
+                <mat-card-title>
+                    <h2>アカウント情報</h2>
+                </mat-card-title>
+    
+                <mat-card-content>
+                    <div>
+                        <div>
+                            <h3>ユーザー名</h3>
+                            <p>{{userName}}</p>
+                        </div>
+    
+                        <div>
+                            <h3>メールアドレス</h3>
+                            <p>{{mail}}</p>
+                        </div>
+    
+                        <div>
+                            <h3>パスワード</h3>
+                            <p>{{asteriskPassword}}</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+    
+            </mat-card>
+        </div>
+    </div>
+</router-outlet>

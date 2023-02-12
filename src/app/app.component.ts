@@ -26,9 +26,10 @@ export class AppComponent{
     //アプリ内にあるパス一覧
     let notApplicablePathNames:Set<string> = new Set([constant.PATH.HOME,constant.PATH.LOGIN,
       constant.PATH.SIGNUP,constant.PATH.VERIFY,constant.PATH.PASSWORDRESET,constant.PATH.VERIFYMAIL,
-      constant.PATH.TOP]);
+      constant.PATH.TOP,constant.PATH.SETTINGSACCOUNT]);
 
-    let isLoggedAuthPaths:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
+    let isLoggedAuthPaths:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,
+      constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
 
     //ログイン状態を更新
     this.authService.updateIsLoggedIn();

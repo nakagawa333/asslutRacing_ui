@@ -27,10 +27,15 @@ export class ErrorService{
           let errorsLength:number = Object.keys(errors).length;
           for(let i = 0; i < errorsLength; i++){
             errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
-          }
+          }  
         } else {
             errorText = "原因不明のエラーが発生しました";
         }
         self.snackBar.open(errorText,"OK",self.modalSnackConfig);
+    }
+
+    openSnackBarForErrorMessage(errorMessage:string){
+        let self = this;
+        self.snackBar.open(errorMessage,"OK",self.modalSnackConfig);
     }
 }
