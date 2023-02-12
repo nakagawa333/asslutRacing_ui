@@ -17,7 +17,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-icon-button id="add_button" (click)="addClick()"  class="mat-mini-fab">
+      <button mat-icon-button id="add_button" (click)="addClick()"  class="mat-mini-fab" matTooltip="設定情報追加">
         <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">
           add_box
         </mat-icon>
@@ -56,10 +56,10 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
           <td id="mat-header-cell"  mat-cell *matCellDef="let element;">
-            <button mat-icon-button (click)="updateClick(element)" id="update-button" class="mat-button-wrapper mat-mini-fab">
+            <button mat-icon-button (click)="updateClick(element)" id="update-button" class="mat-button-wrapper mat-mini-fab" matTooltip="設定情報更新">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">open_in_new</mat-icon>
             </button>
-            <button mat-icon-button (click)="deleteClick(element)" class="mat-button-wrapper mat-mini-fab">
+            <button mat-icon-button (click)="deleteClick(element)" class="mat-button-wrapper mat-mini-fab" matTooltip="設定情報削除">
               <mat-icon class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color">delete_outline</mat-icon>
             </button>
           </td>

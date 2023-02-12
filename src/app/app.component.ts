@@ -6,6 +6,8 @@ import * as constant from "../constants";
 import { LogoutConfirmModalComponent } from './logoutConfirmModal/logout-confirm-modal.component';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Logout} from './interface/logout';
+import {TooltipPosition} from '@angular/material/tooltip';
+import {FormControl} from '@angular/forms';
 import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
 import {MatButtonToggle} from '@angular/material/button-toggle';
 
@@ -45,6 +47,9 @@ export class AppComponent{
       }
     }
   }
+  
+  public positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
+  public position = new FormControl(this.positionOptions[0]);
 
   //ログアウトアイコンクリック時
   public logoutClick():void{

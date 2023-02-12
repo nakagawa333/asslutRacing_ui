@@ -129,6 +129,10 @@
     margin-right:30px;
   }
 
+  #account-settings-button{
+    margin-right:10px;
+  }
+
   .footer {
     position: absolute;
     bottom: 0;

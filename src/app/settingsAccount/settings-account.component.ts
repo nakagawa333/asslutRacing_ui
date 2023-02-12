@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { AuthService } from '../auth.service';
 import { SettingsAccountService } from './settings-account.service';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
-import { ErrorService } from 'src/error.service';
+import { ErrorService } from 'src/app/error.service';
 
 
 @Component({

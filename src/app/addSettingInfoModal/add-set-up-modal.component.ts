@@ -10,7 +10,7 @@ import { AuthService } from "../auth.service";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SettingInfo } from '../interface/settingInfo';
-import { ErrorService } from 'src/error.service';
+import { ErrorService } from 'src/app/error.service';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',

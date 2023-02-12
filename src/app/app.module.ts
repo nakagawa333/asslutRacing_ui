@@ -36,6 +36,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {LayoutModule} from '@angular/cdk/layout';
 import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
 import { SettingsAccountComponent } from './settingsAccount/settings-account.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -87,6 +90,8 @@ const routes: Routes  = [
     MatBadgeModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatDividerModule,
+    MatTooltipModule,
     LayoutModule
   ],
   exports:[RouterModule],
