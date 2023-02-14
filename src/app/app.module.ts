@@ -38,6 +38,7 @@ import { NotFoundErrorComponent } from './notFoundError/not-found-error.componen
 import { SettingsAccountComponent } from './settingsAccount/settings-account.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { SettingsAccountUserNameComponent } from './settingsAccountUserName/settings-account-username.component';
 
 
 const routes: Routes  = [
@@ -49,6 +50,7 @@ const routes: Routes  = [
   {path:"password/reset",component:SendPasswordResetMailComponent},
   {path:"verify/mail",component:UpdatePasswordComponent},
   {path:"settings/account",component:SettingsAccountComponent},
+  {path:"settings/account/username",component:SettingsAccountUserNameComponent},
   {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
 
@@ -65,6 +67,7 @@ const routes: Routes  = [
     LogoutConfirmModalComponent,
     TopComponent,
     SettingsAccountComponent,
+    SettingsAccountUserNameComponent,
     NotFoundErrorComponent
   ],
   imports: [

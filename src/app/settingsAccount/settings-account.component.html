@@ -11,19 +11,22 @@
                 </mat-divider>
                 <mat-card-content id="mat-card-content">
                     <div>
-                        <div>
+                        <div class="mat-card-contents">
                             <h3>ユーザー名</h3>
-                            <p>{{userName}}</p>
+                            <p class="mat-card-value">{{userName}}</p>
+                            <p class="mat-card-value" routerLink="/settings/account/username">変更する</p>
                         </div>
     
-                        <div>
+                        <div class="mat-card-contents">
                             <h3>メールアドレス</h3>
-                            <p>{{mail}}</p>
+                            <p class="mat-card-value">{{mail}}</p>
+                            <p class="mat-card-value">変更する</p>
                         </div>
     
-                        <div>
+                        <div class="mat-card-contents">
                             <h3>パスワード</h3>
-                            <p>{{asteriskPassword}}</p>
+                            <p class="mat-card-value">{{asteriskPassword}}</p>
+                            <p class="mat-card-value">変更する</p>
                         </div>
                     </div>
                 </mat-card-content>

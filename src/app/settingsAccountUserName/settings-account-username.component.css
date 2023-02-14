@@ -18,6 +18,14 @@
     margin-top: 3px;
 }
 
+.alert{
+    color:red;
+}
+
+#cancel-button{
+    margin-left:10px;
+}
+
 /* .mat-card-contents p{
     margin-left: auto;
 } */

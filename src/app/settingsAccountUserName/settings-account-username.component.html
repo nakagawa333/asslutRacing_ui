@@ -1,0 +1,45 @@
+<router-outlet>
+    <div class="content" role="main">
+        <form id="" [formGroup]="settingsAccountUserNameForm">
+            <div id="account-settings">
+                <mat-card>
+                    <mat-card-title>
+                        <h2>ユーザー名を変更する</h2>
+                    </mat-card-title>
+    
+                    <mat-divider>
+    
+                    </mat-divider>
+                    <mat-card-content id="mat-card-content">
+                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert">
+                            <div *ngIf="userName.errors?.['required']">
+                                ユーザー名もしくはメールアドレスを入力してください。
+                            </div>
+        
+                            <div *ngIf="userName.errors?.['maxLength']">
+                                ユーザー名の最大文字数は100文字です。
+                            </div>
+                        </div>
+
+                        <div *ngIf="userName.errors?.['existUserName']" class="alert">
+                            既に入力されたユーザー名は使用されています。
+                        </div>
+
+                        <div>
+                            <mat-form-field appearance="fill" style="display: block;">
+                                <mat-label for="username">ユーザー名: </mat-label>
+                                <input #username matInput id="username" type="text" formControlName="userName" (blur)="userNameBlur(username.value)">
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-content>
+                        <button class="mat-raised-button" mat-button (click)="changeUserNameButtonClick()">変更</button>
+                        <button id="cancel-button" class="mat-raised-button" mat-button routerLink="/settings/account">キャンセル</button>
+                    </mat-card-content>
+        
+                </mat-card>
+            </div>
+        </form>
+    </div>
+</router-outlet>

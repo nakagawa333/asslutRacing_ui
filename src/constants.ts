@@ -20,6 +20,7 @@ export class API{
     public static readonly SELECT = "/select?id="
     public static readonly SELECTNOTIFICATION = "/select/notification"
     public static readonly SETTINGSACCOUNT = "/settings/account?userId="
+    public static readonly UPDATEUSERUSERNAME = "/update/user/username"
 }
 
 export class PATH{
