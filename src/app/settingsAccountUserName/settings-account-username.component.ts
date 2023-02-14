@@ -3,11 +3,13 @@ import { Component,Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
-import { ErrorService } from 'src/app/error.service';
+import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsAccountUserNameService } from './settings-account-username.service';
 import { UpdateUsername } from '../updateUsername';
 import { SnackBarService } from '../snackBar.service';
+import { Router } from '@angular/router'
+
 
 @Component({
   templateUrl: './settings-account-username.component.html',
@@ -17,9 +19,10 @@ export class SettingsAccountUserNameComponent implements OnInit{
 
   constructor(
     private authService:AuthService,
-    private errorService:ErrorService,
+    private errorSnackService:ErrorSnackService,
     private snackBarService:SnackBarService,
-    private service:SettingsAccountUserNameService
+    private service:SettingsAccountUserNameService,
+    private router: Router
   ){}
 
   public settingsAccountUserNameForm = new FormGroup({
@@ -48,7 +51,7 @@ export class SettingsAccountUserNameComponent implements OnInit{
         }
       },
       error:(e:any) => {
-        self.errorService.openSnackBarForErrorMessage("原因不明のエラーが発生しました");
+        self.errorSnackService.openSnackBarForErrorMessage("原因不明のエラーが発生しました");
       }
     })
   }
@@ -65,17 +68,33 @@ export class SettingsAccountUserNameComponent implements OnInit{
       userName:userName
     }
 
-    self.service.updateUserName(updateUsername)
+    //ユーザー名からユーザー情報取得
+    self.authService.selectUserByUserName(userName)
     .subscribe({
-      next:(userUpdateSucessFlag:any) => {
-        if(userUpdateSucessFlag){
-          self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
+      next:(userNum:any) => {
+        //入力したユーザー名が存在する場合
+        if(1 <= userNum){
+          self.settingsAccountUserNameForm.controls.userName.setErrors({"existUserName":true})
         } else {
-
+          //ユーザー名更新処理
+          self.service.updateUserName(updateUsername)
+          .subscribe({
+            next:(userUpdateSucessFlag:any) => {
+              if(userUpdateSucessFlag){
+                self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
+                self.router.navigate(["settings/account"]);
+              } else {
+                self.errorSnackService.openSnackBar("ユーザー名の変更に失敗しました");
+              }
+            },
+            error:(error:any) => {
+              self.errorSnackService.openSnackBar(error);
+            }
+          })
         }
       },
-      error:(error:any) => {
-
+      error:(e:any) => {
+        self.errorSnackService.openSnackBarForErrorMessage("原因不明のエラーが発生しました");
       }
     })
   }

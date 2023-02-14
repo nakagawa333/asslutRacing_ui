@@ -10,7 +10,7 @@ import { AuthService } from "../auth.service";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SettingInfo } from '../interface/settingInfo';
-import { ErrorService } from 'src/app/error.service';
+import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -23,7 +23,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private service:AddSettingInfoModalService,
       private authService:AuthService,
       private snackBar:MatSnackBar,
-      private errorService:ErrorService
+      private errorSnackService:ErrorSnackService
   ){}
 
   public defalutCarId:number = 0;
@@ -235,7 +235,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
         }
       },
       error: (e:any) => {
-        self.errorService.openSnackBar(e);
+        self.errorSnackService.openSnackBar(e);
       }
     })
   }

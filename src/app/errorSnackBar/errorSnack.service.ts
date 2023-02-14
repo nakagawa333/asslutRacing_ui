@@ -1,13 +1,13 @@
 import { Injectable,OnInit } from "@angular/core";
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
-import * as constant from '../constants';
-import { SnackBarConfig } from "./union/snabar";
+import * as constant from '../../constants';
+import { SnackBarConfig } from "../union/snabar";
 
 @Injectable({
     providedIn: 'root',
 })
 
-export class ErrorService{
+export class ErrorSnackService{
     constructor(
         private snackBar:MatSnackBar
     ){}
