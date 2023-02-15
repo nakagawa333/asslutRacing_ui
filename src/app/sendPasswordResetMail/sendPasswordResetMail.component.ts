@@ -6,6 +6,7 @@ import { User } from 'src/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
+import { SnackBarService } from '../snackBar.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class SendPasswordResetMailComponent{
     constructor(
        private activatedRoute: ActivatedRoute,
        private authService: AuthService,
+       private snackBarService: SnackBarService,
        private router: Router,
        private snackBar:MatSnackBar
     ){}
@@ -74,7 +76,7 @@ export class SendPasswordResetMailComponent{
         this.authService.sendPasswordResetMail(body)
         .subscribe({
             next:(data:any) => {
-                this.snackBar.open("パスワードリセット用のメールを送信致しました","OK",this.sendPasswordResetMailSnackConfig);
+                this.snackBarService.openSnackBar("パスワードリセット用のメールを送信致しました");
             },
             error:(e:any) => {
                 this.snackBar.open("メール送信に失敗しました","OK",this.sendPasswordResetMailSnackConfig);

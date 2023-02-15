@@ -10,6 +10,7 @@ import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SignUpBody } from '../interface/signUpBody';
 import { SelectUserBody } from '../interface/selectUserBody';
+import { SnackBarService } from '../snackBar.service';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -17,10 +18,12 @@ import { SelectUserBody } from '../interface/selectUserBody';
     providers: [CookieService]
 })
 
+
 export class SingupComponent{
     constructor(
         private authService: AuthService,
         private router: Router,
+        private snackBarService: SnackBarService,
         private snackBar:MatSnackBar
     ){}
 
@@ -82,7 +85,7 @@ export class SingupComponent{
             next:(authSignupFlag:any) => {
                 //仮登録の
                 if(authSignupFlag){
-                    this.snackBar.open("ユーザー登録用のメールアドレスを送信しましたので、ご確認をお願い致します","OK",this.signUpSnackConfig);
+                    this.snackBarService.openSnackBar("ユーザー登録用のメールアドレスを送信しましたので、ご確認をお願い致します");
                 } else {
                     this.snackBar.open("サインアップ時に原因不明のエラーが発生しました。お手数をおかけしますが、サインアップをやり直してください。","OK",this.signUpSnackConfig);
                 }

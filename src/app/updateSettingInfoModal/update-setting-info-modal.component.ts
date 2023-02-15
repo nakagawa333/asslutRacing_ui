@@ -11,6 +11,7 @@ import {UpdateSettingInfoModalService} from "./update-setting-info-modal.service
 import { SettingInfo } from '../interface/settingInfo';
 import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { SnackBarService } from '../snackBar.service';
 
 type Nullable<T> = T | undefined | null;
 
@@ -24,6 +25,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       @Inject(MAT_DIALOG_DATA) public data: any,
       private authService:AuthService,
       private snackBar:MatSnackBar,
+      private snackBarService: SnackBarService,
       private service:UpdateSettingInfoModalService
   ){}
 
@@ -188,7 +190,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
         if(isUpdate){
           //更新に成功したら、ダイアログを閉じる
           self.closeDialog("更新");
-          self.snackBar.open("更新に成功しました","OK",self.updateSetupModalSnackConfig);
+          self.snackBarService.openSnackBar("更新に成功しました");
         }
       },
       error: (e:any) => {

@@ -5,6 +5,7 @@ import * as constant from "../../constants";
 import { NotificationService } from "../../notification.service";
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SnackBarConfig } from '../union/snabar';
+import { SnackBarService } from '../snackBar.service';
 
 @Component({
     templateUrl: './token.component.html'
@@ -14,6 +15,7 @@ export class TokenComponent{
        private activatedRoute: ActivatedRoute,
        private authService: AuthService,
        private router: Router,
+       private snackBarService: SnackBarService,
        private snackBar: MatSnackBar
     ){}
 
@@ -36,7 +38,7 @@ export class TokenComponent{
                 //ユーザー登録に成功した場合
                 if(userAddSucessFlag){
                     //snackBarを開く
-                    this.snackBar.open("ユーザー登録に成功しました","OK",this.regitSucessSnackConfig);
+                    this.snackBarService.openSnackBar("ユーザー登録に成功しました");
                     this.router.navigate([constant.API.LOGIN])
                 } else {
                     this.snackBar.open("ユーザー登録に失敗しました","OK",this.regitSucessSnackConfig);

@@ -6,6 +6,7 @@ import { FormControl, FormGroup,Validators } from '@angular/forms';
 import * as constant from "../../constants";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
+import { SnackBarService } from '../snackBar.service';
 
 @Component({
   templateUrl: './updatePassword.component.html',
@@ -17,6 +18,7 @@ export class UpdatePasswordComponent{
     private router: Router,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute,
+    private snackBarService: SnackBarService,
     private snackBar:MatSnackBar
     ) {}
 
@@ -69,7 +71,7 @@ export class UpdatePasswordComponent{
     .subscribe({
       next:(passwordUpdateSucessFlag:any) => {
         if(passwordUpdateSucessFlag) {
-          this.snackBar.open("パスワード更新に成功しました。","OK",this.sendPasswordUpdateMailSnackConfig);
+          this.snackBarService.openSnackBar("パスワード更新に成功しました。");
           this.router.navigate([constant.API.LOGIN])
         }
       },

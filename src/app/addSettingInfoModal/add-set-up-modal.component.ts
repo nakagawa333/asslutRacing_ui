@@ -11,6 +11,7 @@ import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SettingInfo } from '../interface/settingInfo';
 import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
+import { SnackBarService } from '../snackBar.service';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -23,6 +24,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private service:AddSettingInfoModalService,
       private authService:AuthService,
       private snackBar:MatSnackBar,
+      private snackBarService:SnackBarService,
       private errorSnackService:ErrorSnackService
   ){}
 
@@ -103,7 +105,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
     horizontalPosition:SnackBarConfig?.SnackBarHorizontalPosition?.CENTER,
     verticalPosition:SnackBarConfig?.SnackBarVerticalPosition?.TOP,
-    duration:SnackBarConfig?.duration
+    // duration:SnackBarConfig?.duration,
+    panelClass: ['success-snackbar']
   }
 
   ngOnInit(): void{
@@ -188,13 +191,13 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       //セッティングネイムが入力されていない場合
       if(self.settingName.invalid){
         self.settingNameErrorMessage = "セッティングネイムを入力してください。";
-        snackBarText += "セッティングネイムを入力してください。";
+        snackBarText += "セッティングネイムを入力してください。\n";
       }
 
       //車が選択されていなかった場合
       if(self.car.invalid){
         self.carErrorMessage = "車を選択してください。\n";
-        snackBarText += "車を選択してください。";
+        snackBarText += "車を選択してください。\n";
       }
 
       //メーカーが選択されていなかった場合
@@ -231,7 +234,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
           self.closeDialog("登録");
           //設定情報を初期化
           self.initSettingInfo()
-          self.snackBar.open("登録に成功しました","",self.addSetupModalSnackConfig);
+          self.snackBarService.openSnackBar("登録に成功しました");
         }
       },
       error: (e:any) => {

@@ -10,6 +10,7 @@ import {MessageModalComponent} from "src/app/messageModal/message-modal.componen
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import {SnackBarConfig} from '../union/snabar';
 import { LoginBody } from '../interface/loginBody';
+import { SnackBarService } from '../snackBar.service';
 
 @Component({
     templateUrl: './login.component.html',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit{
 
     constructor(
         private authService: AuthService,
+        private snackBarService:SnackBarService,
         private router: Router,
         private cookie: CookieService,
         private location: Location,
@@ -114,7 +116,7 @@ export class LoginComponent implements OnInit{
                     this.router.navigate(["/home"])
 
                     //snackBarを開く
-                    let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログインしました。","OK",this.loginSnackConfig);
+                    this.snackBarService.openSnackBar("ログインしました。");
 
                 } else {
                     //snackBarを開く
