@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { AuthService } from '../auth.service';
 import { SettingsAccountService } from './settings-account.service';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
-import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class SettingsAccountComponent implements OnInit{
   constructor(
     private service:SettingsAccountService,
     private authService:AuthService,
-    private errorSnackService:ErrorSnackService
+    private errorSnackBarService:ErrorSnackBarService
   ){}
 
   //ユーザー名
@@ -53,11 +53,11 @@ export class SettingsAccountComponent implements OnInit{
           self.asteriskPassword = "*".repeat(datas["passwordLetters"] !== null ? datas["passwordLetters"] : 0);
           self.mail = datas["mail"];
         } else {
-          self.errorSnackService.openSnackBarForErrorMessage("アカウント情報が見つかりませんでした。");
+          self.errorSnackBarService.openSnackBarForErrorMessage(["アカウント情報が見つかりませんでした。"]);
         }
       },
       error:(error:any) => {
-        self.errorSnackService.openSnackBar(error);
+        self.errorSnackBarService.openSnackBar(error);
       }
     })
 

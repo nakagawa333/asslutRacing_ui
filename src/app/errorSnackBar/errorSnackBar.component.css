@@ -1,0 +1,10 @@
+::ng-deep .error-snackbar{
+    white-space: pre-wrap;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    color: #721c24;
+}
+
+#dismiss-button{
+    color: hotpink;
+}

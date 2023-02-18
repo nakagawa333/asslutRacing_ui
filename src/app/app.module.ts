@@ -39,6 +39,7 @@ import { SettingsAccountComponent } from './settingsAccount/settings-account.com
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SettingsAccountUserNameComponent } from './settingsAccountUserName/settings-account-username.component';
+import { ErrorSnackBarComponent } from './errorSnackBar/errorSnackBar.component';
 
 
 const routes: Routes  = [
@@ -68,6 +69,7 @@ const routes: Routes  = [
     TopComponent,
     SettingsAccountComponent,
     SettingsAccountUserNameComponent,
+    ErrorSnackBarComponent,
     NotFoundErrorComponent
   ],
   imports: [

@@ -1,6 +1,6 @@
 
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { Component,Inject, OnInit} from '@angular/core';
+import { Component,Inject, OnInit, ViewChild, ViewChildren,ContentChild	} from '@angular/core';
 import { FormControl, FormGroup, Validators,ValidationErrors } from '@angular/forms';
 import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BaseModal } from '../baseModal.component';
@@ -10,8 +10,8 @@ import { AuthService } from "../auth.service";
 import {SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { SettingInfo } from '../interface/settingInfo';
-import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
 import { SnackBarService } from '../snackBar.service';
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -24,8 +24,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private service:AddSettingInfoModalService,
       private authService:AuthService,
       private snackBar:MatSnackBar,
+      private errorSnackBarService:ErrorSnackBarService,
       private snackBarService:SnackBarService,
-      private errorSnackService:ErrorSnackService
   ){}
 
   public defalutCarId:number = 0;
@@ -109,6 +109,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     panelClass: ['success-snackbar']
   }
 
+
   ngOnInit(): void{
     if(this.data === null) return;
     let dates = this.data.dates
@@ -132,12 +133,16 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
     //ユーザーid
     let userId:string = this.authService.getUserId();
-    if(userId !== null && userId !== null){
+    if(userId !== null){
       //ユーザーidを設定
       this.settingInfo["userId"] = Number(userId)
     }
 
     this.settingNameValueChanges();
+  }
+
+  ngAfterViewChecked(){
+    let self = this;
   }
 
   /** メーカー一覧を選択した場合  */
@@ -185,41 +190,40 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     self.initSettingErrorMessage();
 
     if(self.addSetupForm.invalid) {
-
-      let snackBarText = "";
+      let errorMessageList:string[] = [];
 
       //セッティングネイムが入力されていない場合
       if(self.settingName.invalid){
         self.settingNameErrorMessage = "セッティングネイムを入力してください。";
-        snackBarText += "セッティングネイムを入力してください。\n";
+        errorMessageList.push("・セッティングネイムを入力してください。");
       }
 
       //車が選択されていなかった場合
       if(self.car.invalid){
-        self.carErrorMessage = "車を選択してください。\n";
-        snackBarText += "車を選択してください。\n";
+        self.carErrorMessage = "車を選択してください。";
+        errorMessageList.push("・車を選択してください。");
       }
 
       //メーカーが選択されていなかった場合
       if(self.maker.invalid){
-        self.makerErrorMessage = "メーカーを選択してください。\n";
-        snackBarText += "メーカーを選択してください。";
+        self.makerErrorMessage = "メーカーを選択してください。";
+        errorMessageList.push("・メーカーを選択してください。");
       }
 
       //コースが選択されていなかった場合
       if(self.course.invalid){
         self.courseErrorMessage = "コースを選択してください。";
-        snackBarText += "コースを選択してください。";
+        errorMessageList.push("・コースを選択してください。");
       }
 
       //タイヤの種類が選択されていない場合
       if(self.tireType.invalid){
         self.tireTypeErrorMessage = "タイヤの種類を選択してください。";
-        snackBarText += "タイヤの種類を選択してください。";
+        errorMessageList.push("・タイヤの種類を選択してください。");
       }
-
+      
       //snackBarを開く
-      let addSetupSnackBar:MatSnackBarRef<any> = this.snackBar.open(snackBarText,"OK",this.addSetupModalSnackConfig);
+      self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);
       return;
     }
 
@@ -238,7 +242,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
         }
       },
       error: (e:any) => {
-        self.errorSnackService.openSnackBar(e);
+        self.errorSnackBarService.openSnackBar(e);
       }
     })
   }

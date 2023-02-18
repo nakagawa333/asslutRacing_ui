@@ -14,3 +14,8 @@
 .alert{
     color:red;
 }
+
+::ng-deep .success-snackbar{
+    background-color: pink;
+    white-space: pre-wrap;
+}

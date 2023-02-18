@@ -1,0 +1,8 @@
+<span matSnackBarLabel>
+    <ng-container *ngFor="let errorMessage of errorMessageList">
+        {{errorMessage}}
+    </ng-container>
+</span>
+<span matSnackBarActions>
+    <button id="dismiss-button" mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">OK</button>
+</span>

@@ -3,12 +3,12 @@ import { Component,Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
-import { ErrorSnackService } from 'src/app/errorSnackBar/errorSnack.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsAccountUserNameService } from './settings-account-username.service';
 import { UpdateUsername } from '../updateUsername';
 import { SnackBarService } from '../snackBar.service';
 import { Router } from '@angular/router'
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 
 
 @Component({
@@ -19,9 +19,9 @@ export class SettingsAccountUserNameComponent implements OnInit{
 
   constructor(
     private authService:AuthService,
-    private errorSnackService:ErrorSnackService,
     private snackBarService:SnackBarService,
     private service:SettingsAccountUserNameService,
+    private errorSnackBarService:ErrorSnackBarService,
     private router: Router
   ){}
 
@@ -51,7 +51,7 @@ export class SettingsAccountUserNameComponent implements OnInit{
         }
       },
       error:(e:any) => {
-        self.errorSnackService.openSnackBarForErrorMessage("原因不明のエラーが発生しました");
+        self.errorSnackBarService.openSnackBarForErrorMessage(["原因不明のエラーが発生しました"]);
       }
     })
   }
@@ -84,17 +84,17 @@ export class SettingsAccountUserNameComponent implements OnInit{
                 self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
                 self.router.navigate(["settings/account"]);
               } else {
-                self.errorSnackService.openSnackBar("ユーザー名の変更に失敗しました");
+                self.errorSnackBarService.openSnackBarForErrorMessage(["ユーザー名の変更に失敗しました"]);
               }
             },
             error:(error:any) => {
-              self.errorSnackService.openSnackBar(error);
+              self.errorSnackBarService.openSnackBar(error);
             }
           })
         }
       },
       error:(e:any) => {
-        self.errorSnackService.openSnackBarForErrorMessage("原因不明のエラーが発生しました");
+        self.errorSnackBarService.openSnackBarForErrorMessage(["原因不明のエラーが発生しました"]);
       }
     })
   }
