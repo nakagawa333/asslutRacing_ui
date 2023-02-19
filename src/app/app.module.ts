@@ -40,6 +40,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SettingsAccountUserNameComponent } from './settingsAccountUserName/settings-account-username.component';
 import { ErrorSnackBarComponent } from './errorSnackBar/errorSnackBar.component';
+import { SettingsAccountMailComponent } from './settingsAccountMail/settings-account-mail.component';
 
 
 const routes: Routes  = [
@@ -52,6 +53,7 @@ const routes: Routes  = [
   {path:"verify/mail",component:UpdatePasswordComponent},
   {path:"settings/account",component:SettingsAccountComponent},
   {path:"settings/account/username",component:SettingsAccountUserNameComponent},
+  {path:"settings/account/mail",component:SettingsAccountMailComponent},
   {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
 
@@ -70,6 +72,7 @@ const routes: Routes  = [
     SettingsAccountComponent,
     SettingsAccountUserNameComponent,
     ErrorSnackBarComponent,
+    SettingsAccountMailComponent,
     NotFoundErrorComponent
   ],
   imports: [

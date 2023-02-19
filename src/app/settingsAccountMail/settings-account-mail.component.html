@@ -1,0 +1,49 @@
+<router-outlet>
+    <div class="content" role="main">
+        <form id="" [formGroup]="settingsAccountMailForm">
+            <div id="account-settings">
+                <mat-card>
+                    <mat-card-title>
+                        <h2>メールアドレスを変更する</h2>
+                    </mat-card-title>
+    
+                    <mat-divider>
+                        
+                    </mat-divider>
+                    <mat-card-content id="mat-card-content">
+                        <div *ngIf="mail.invalid && (mail.dirty || mail.touched)" class="alert">
+                            <div *ngIf="mail.errors?.['required']">
+                                メールアドレスを入力してください。
+                            </div>
+        
+                            <div *ngIf="mail.errors?.['maxLength']">
+                                メールアドレスの最大文字数は100文字です。
+                            </div>
+
+                            <div *ngIf="mail.errors?.['email']">
+                                正しいメールアドレスではございません。
+                            </div>
+                        </div>
+
+                        <div *ngIf="mail.errors?.['existMail']" class="alert">
+                            既に入力されたメールアドレスは使用されています。
+                        </div>
+
+                        <div>
+                            <mat-form-field appearance="fill" style="display: block;">
+                                <mat-label for="mail">メールアドレス:</mat-label>
+                                <input #Mail matInput id="mail" type="text" formControlName="mail" (blur)="mailBlur(Mail.value)">
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-content>
+                        <button class="mat-raised-button" mat-button (click)="changeMailButtonClick()">変更</button>
+                        <button id="cancel-button" class="mat-raised-button" mat-button routerLink="/settings/account">キャンセル</button>
+                    </mat-card-content>
+        
+                </mat-card>
+            </div>
+        </form>
+    </div>
+</router-outlet>

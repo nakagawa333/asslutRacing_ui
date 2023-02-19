@@ -21,6 +21,7 @@ export class API{
     public static readonly SELECTNOTIFICATION = "/select/notification"
     public static readonly SETTINGSACCOUNT = "/settings/account?userId="
     public static readonly UPDATEUSERUSERNAME = "/update/user/username"
+    public static readonly SENDMAILUPDATEMAIL = "/send/mail/update/mail"
 }
 
 export class PATH{
