@@ -22,10 +22,10 @@ export class SettingsAccountMailComponent implements OnInit{
 
   constructor(
     private authService:AuthService,
-    private snackBarService:SnackBarService,
     private service:SettingsAccountMailService,
     private errorSnackBarService:ErrorSnackBarService,
     private httpErrorResponseService:HttpErrorResponseService,
+    private snackBarService:SnackBarService,
     private router: Router
   ){}
 
@@ -47,7 +47,7 @@ export class SettingsAccountMailComponent implements OnInit{
   public mailBlur(mail:string):void{
     if(!mail) return;
     let self = this;
-    self.authService.selectUserByMail(mail)
+    self.authService.selectUserByMail(mail.trim())
     .subscribe({
       next:(userNum:any) => {
         //入力したメールが存在する場合
@@ -55,7 +55,7 @@ export class SettingsAccountMailComponent implements OnInit{
           self.settingsAccountMailForm.controls.mail.setErrors({"existMail":true})
         }
       },
-      error:(e:any) => {
+      error:(e:HttpErrorResponse) => {
         //エラーレスポンスからエラーメッセージリストを作成
         let errorMessageList:string[] = self.httpErrorResponseService.createErrorMessageList(e);
         self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);
@@ -68,7 +68,7 @@ export class SettingsAccountMailComponent implements OnInit{
     let self = this;
     if(self.settingsAccountMailForm.invalid) return;
     let userId = self.authService.getUserId();
-    let mail = self.mail.value !== null ? self.mail.value : ""
+    let mail = self.mail.value !== null ? self.mail.value.trim() : ""
 
     let updateMail:UpdateMail = {
       userId:Number(userId),
@@ -87,13 +87,9 @@ export class SettingsAccountMailComponent implements OnInit{
           //メール更新用メール送信
           self.service.sendMailUpdateMail(updateMail)
           .subscribe({
-            next:(userUpdateSucessFlag:any) => {
-              if(userUpdateSucessFlag){
-                self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
-                self.router.navigate(["settings/account"]);
-              } else {
-                self.errorSnackBarService.openSnackBarForErrorMessage(["ユーザー名の変更に失敗しました"]);
-              }
+            next:(res:any) => {
+              let message:string = res["mail"] + "にメールを送信しましたので、ご確認をお願いします。有効期限は24時間です。";
+              self.snackBarService.openSnackBar(message);
             },
             error:(e:HttpErrorResponse) => {
               //エラーレスポンスからエラーメッセージリストを作成
