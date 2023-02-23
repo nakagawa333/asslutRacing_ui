@@ -1,0 +1,16 @@
+.content {
+  margin: 82px auto 32px;
+  padding:30px;
+}
+
+.alert{
+  color:red;
+}
+
+@media screen and (min-width: 900px){
+  /** ログインフォーム **/
+  #updatePassword-form{
+    width:50%;
+    margin:0 auto;
+  }
+}

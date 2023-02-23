@@ -22,6 +22,7 @@ export class API{
     public static readonly SETTINGSACCOUNT = "/settings/account?userId="
     public static readonly UPDATEUSERUSERNAME = "/update/user/username"
     public static readonly SENDMAILUPDATEMAIL = "/send/mail/update/mail"
+    public static readonly UPDATEMAIL = "/mail/update"
 }
 
 export class PATH{
@@ -40,6 +41,7 @@ export class PATH{
     public static readonly VERIFY = "/verify"
     public static readonly SETTINGSACCOUNT = "/settings/account"
     public static readonly TOP = "/"
+    public static readonly UPDATEMAIL = "/update/mail"
 }
 
 export class LOCALSTORAGE{
