@@ -63,6 +63,10 @@ export class SettingsAccountUserNameComponent implements OnInit{
     let userId = self.authService.getUserId();
     let userName = self.userName.value !== null ? self.userName.value : ""
 
+    if(userId === ""){
+      self.errorSnackBarService.openSnackBarForErrorMessage(["不正なアクセスです。ログインしなおしてください。"]);
+    }
+
     let updateUsername:UpdateUsername = {
       userId:Number(userId),
       userName:userName

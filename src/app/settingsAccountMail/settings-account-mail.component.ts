@@ -70,6 +70,10 @@ export class SettingsAccountMailComponent implements OnInit{
     let userId = self.authService.getUserId();
     let mail = self.mail.value !== null ? self.mail.value.trim() : ""
 
+    if(userId === ""){
+      self.errorSnackBarService.openSnackBarForErrorMessage(["不正なアクセスです。ログインしなおしてください。"]);
+    }
+
     let updateMail:UpdateMail = {
       userId:Number(userId),
       mail:mail,
