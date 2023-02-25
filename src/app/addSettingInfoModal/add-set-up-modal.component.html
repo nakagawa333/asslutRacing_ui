@@ -43,8 +43,8 @@
           <div>
             <div style="width:100%;">
               <mat-label>パワーステリング:  {{settingInfo['powerSteering']}}</mat-label>
-              <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="0" max="100" aria-label="units" style="width:100%;" [value]="settingInfo['powerSteering']" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
+              <mat-slider thumbLabel tickInterval={{MatSliderValue.PowerSteering.TICKINTERVAL}} 
+              step={{MatSliderValue.PowerSteering.STEP}} min={{MatSliderValue.PowerSteering.MIN}} max={{MatSliderValue.PowerSteering.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['powerSteering']" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
             </div>
           </div>
 
@@ -52,8 +52,8 @@
             <div>
               <mat-label>デブギア: {{settingInfo['diffgear']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="0" max="100" aria-label="units" style="width:100%;" [value]="settingInfo['diffgear']" (change)="onSliderChange($event.value,'diffgear')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.Diffgear.TICKINTERVAL}}
+              step={{MatSliderValue.Diffgear.STEP}}  min={{MatSliderValue.Diffgear.MIN}} max={{MatSliderValue.Diffgear.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['diffgear']" (change)="onSliderChange($event.value,'diffgear')">
             </mat-slider>
           </div>
 
@@ -109,8 +109,8 @@
             <div>
               <mat-label>フロントタイヤの圧力: {{settingInfo['frontTirePressure']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" [value]="settingInfo['frontTirePressure']" (change)="onSliderChange($event.value,'frontTirePressure')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.FrontTirePressure.TICKINTERVAL}}
+              step={{MatSliderValue.FrontTirePressure.STEP}} min={{MatSliderValue.FrontTirePressure.MIN}} max={{MatSliderValue.FrontTirePressure.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['frontTirePressure']" (change)="onSliderChange($event.value,'frontTirePressure')">
             </mat-slider>
           </div>
 
@@ -118,8 +118,8 @@
             <div>
               <mat-label>リアタイヤの圧力: {{settingInfo['rearTirePressure']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" [value]="settingInfo['rearTirePressure']" (change)="onSliderChange($event.value,'rearTirePressure')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.RearTirePressure.TICKINTERVAL}}
+              step={{MatSliderValue.RearTirePressure.STEP}} min={{MatSliderValue.RearTirePressure.MIN}} max={{MatSliderValue.RearTirePressure.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['rearTirePressure']" (change)="onSliderChange($event.value,'rearTirePressure')">
             </mat-slider>
           </div>
         </div>
@@ -130,8 +130,8 @@
             <div>
               <mat-label>ファイナルドライブ: {{settingInfo['gearFinal']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.01" min="2.2" max="6.1" aria-label="units" style="width:100%;" [value]="settingInfo['gearFinal']" (change)="onSliderChange($event.value,'gearFinal')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearFinal.TICKINTERVAL}}
+              step={{MatSliderValue.GearFinal.STEP}} min={{MatSliderValue.GearFinal.MIN}} max={{MatSliderValue.GearFinal.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearFinal']" (change)="onSliderChange($event.value,'gearFinal')">
             </mat-slider>
           </div>
 
@@ -139,8 +139,8 @@
             <div>
               <mat-label>1速: {{settingInfo['gearOne']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settingInfo['gearOne']"  (change)="onSliderChange($event.value,'gearOne')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearOne.TICKINTERVAL}}
+              step={{MatSliderValue.GearOne.STEP}} min={{MatSliderValue.GearOne.MIN}}  max={{MatSliderValue.GearOne.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearOne']"  (change)="onSliderChange($event.value,'gearOne')">
             </mat-slider>
           </div>
 
@@ -148,8 +148,8 @@
             <div>
               <mat-label>2速: {{settingInfo['gearTwo']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;"  [value]="settingInfo['gearTwo']"  (change)="onSliderChange($event.value,'gearTwo')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearTwo.TICKINTERVAL}}
+            step={{MatSliderValue.GearTwo.STEP}} min={{MatSliderValue.GearTwo.MIN}} max={{MatSliderValue.GearTwo.MAX}} aria-label="units" style="width:100%;"  [value]="settingInfo['gearTwo']"  (change)="onSliderChange($event.value,'gearTwo')">
             </mat-slider>
           </div>
 
@@ -157,8 +157,8 @@
             <div>
               <mat-label>3速: {{settingInfo['gearThree']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settingInfo['gearThree']"  (change)="onSliderChange($event.value,'gearThree')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearThree.TICKINTERVAL}}
+            step={{MatSliderValue.GearThree.STEP}} min={{MatSliderValue.GearThree.MIN}} max={{MatSliderValue.GearThree.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearThree']"  (change)="onSliderChange($event.value,'gearThree')">
             </mat-slider>
           </div>
 
@@ -166,8 +166,8 @@
             <div>
               <mat-label>4速: {{settingInfo['gearFour']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settingInfo['gearFour']"  (change)="onSliderChange($event.value,'gearFour')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearFour.TICKINTERVAL}}
+            step={{MatSliderValue.GearFour.STEP}} min={{MatSliderValue.GearFour.MIN}} max={{MatSliderValue.GearFour.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearFour']"  (change)="onSliderChange($event.value,'gearFour')">
             </mat-slider>
           </div>
 
@@ -175,8 +175,8 @@
             <div>
               <mat-label>5速: {{settingInfo['gearFive']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settingInfo['gearFive']" (change)="onSliderChange($event.value,'gearFive')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearFive.TICKINTERVAL}}
+            step={{MatSliderValue.GearFive.STEP}} min={{MatSliderValue.GearFive.MIN}} max={{MatSliderValue.GearFive.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearFive']" (change)="onSliderChange($event.value,'gearFive')">
             </mat-slider>
           </div>
 
@@ -184,8 +184,8 @@
             <div>
               <mat-label>6速: {{settingInfo['gearSix']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-            step="0.01" min="0.5" max="6" aria-label="units" style="width:100%;" [value]="settingInfo['gearSix']" (change)="onSliderChange($event.value,'gearSix')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.GearSix.TICKINTERVAL}}
+            step={{MatSliderValue.GearSix.STEP}} min={{MatSliderValue.GearSix.MIN}} max={{MatSliderValue.GearSix.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['gearSix']" (change)="onSliderChange($event.value,'gearSix')">
             </mat-slider>
           </div>
         </div>
@@ -196,8 +196,9 @@
             <div>
               <mat-label>スタビライザー前軸: {{settingInfo['stabiliserAgo']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settingInfo['stabiliserAgo']" (change)="onSliderChange($event.value,'stabiliserAgo')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.StabiliserAgo.TICKINTERVAL}}
+              step={{MatSliderValue.StabiliserAgo.STEP}} min={{MatSliderValue.StabiliserAgo.MIN}} 
+                 max={{MatSliderValue.StabiliserAgo.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['stabiliserAgo']" (change)="onSliderChange($event.value,'stabiliserAgo')">
             </mat-slider>
           </div>
 
@@ -205,8 +206,9 @@
             <div>
               <mat-label>スタビライザー後軸: {{settingInfo['stabiliserAfter']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settingInfo['stabiliserAfter']" (change)="onSliderChange($event.value,'stabiliserAfter')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.StabiliserAfter.TICKINTERVAL}}
+              step={{MatSliderValue.StabiliserAfter.STEP}} min={{MatSliderValue.StabiliserAfter.MIN}} 
+              max={{MatSliderValue.StabiliserAfter.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['stabiliserAfter']" (change)="onSliderChange($event.value,'stabiliserAfter')">
             </mat-slider>
           </div>
 
@@ -214,8 +216,9 @@
             <div>
               <mat-label>最大舵角: {{settingInfo['maxRudderAngle']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="40" max="60" aria-label="units" style="width:100%;" [value]="settingInfo['maxRudderAngle']" (change)="onSliderChange($event.value,'maxRudderAngle')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.MaxRudderAngle.TICKINTERVAL}}
+              step={{MatSliderValue.MaxRudderAngle.STEP}} min={{MatSliderValue.MaxRudderAngle.MIN}}
+              max={{MatSliderValue.MaxRudderAngle.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['maxRudderAngle']" (change)="onSliderChange($event.value,'maxRudderAngle')">
             </mat-slider>
           </div>
 
@@ -223,8 +226,9 @@
             <div>
               <mat-label>アッカーマンアングル: {{settingInfo['ackermannAngle']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settingInfo['ackermannAngle']" (change)="onSliderChange($event.value,'ackermannAngle')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.AckermannAngle.TICKINTERVAL}}
+              step={{MatSliderValue.AckermannAngle.STEP}} min={{MatSliderValue.AckermannAngle.MIN}}
+                max={{MatSliderValue.AckermannAngle.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['ackermannAngle']" (change)="onSliderChange($event.value,'ackermannAngle')">
             </mat-slider>
           </div>
 
@@ -232,8 +236,9 @@
             <div>
               <mat-label>フロントネガティブキャンバー: {{settingInfo['camberAgo']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="-0.1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settingInfo['camberAgo']" (change)="onSliderChange($event.value,'camberAgo')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.CamberAgo.TICKINTERVAL}}
+              step={{MatSliderValue.CamberAgo.STEP}} min={{MatSliderValue.CamberAgo.MIN}} 
+              max={{MatSliderValue.CamberAgo.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['camberAgo']" (change)="onSliderChange($event.value,'camberAgo')">
             </mat-slider>
           </div>
 
@@ -241,8 +246,9 @@
             <div>
               <mat-label>リアネガティブキャンバー: {{settingInfo['camberAfter']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="-0.1" min="-10" max="0" aria-label="units" style="width:100%;" [value]="settingInfo['camberAfter']" (change)="onSliderChange($event.value,'camberAfter')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.CamberAfter.TICKINTERVAL}}
+              step={{MatSliderValue.CamberAfter.STEP}} min={{MatSliderValue.CamberAfter.MIN}}
+              max={{MatSliderValue.CamberAfter.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['camberAfter']" (change)="onSliderChange($event.value,'camberAfter')">
             </mat-slider>
           </div>
 
@@ -259,8 +265,9 @@
             <div>
               <mat-label>BREAKE POWER: {{settingInfo['breakPower']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="0.1" max="1" aria-label="units" style="width:100%;" [value]="settingInfo['breakPower']" (change)="onSliderChange($event.value,'breakPower')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.BreakPower.TICKINTERVAL}}
+              step={{MatSliderValue.BreakPower.STEP}} min={{MatSliderValue.BreakPower.MIN}}
+              max={{MatSliderValue.BreakPower.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['breakPower']" (change)="onSliderChange($event.value,'breakPower')">
             </mat-slider>
           </div>
 
@@ -268,8 +275,9 @@
             <div>
               <mat-label>ブレーキバランス: {{settingInfo['breakBallance']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" value="0" [value]="settingInfo['breakBallance']" (change)="onSliderChange($event.value,'breakBallance')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.BreakBallance.TICKINTERVAL}}
+              step={{MatSliderValue.BreakBallance.STEP}} min={{MatSliderValue.BreakBallance.MIN}}
+              max={{MatSliderValue.BreakBallance.MAX}} aria-label="units" style="width:100%;" value="0" [value]="settingInfo['breakBallance']" (change)="onSliderChange($event.value,'breakBallance')">
             </mat-slider>
           </div>
 
@@ -277,8 +285,9 @@
             <div>
               <mat-label>空気圧: {{settingInfo['airPressure']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="10" max="45" aria-label="units" style="width:100%;" value="10" [value]="settingInfo['airPressure']" (change)="onSliderChange($event.value,'airPressure')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.AirPressure.TICKINTERVAL}}
+              step={{MatSliderValue.AirPressure.STEP}} min={{MatSliderValue.AirPressure.MIN}}
+              max={{MatSliderValue.AirPressure.MAX}} aria-label="units" style="width:100%;" value="10" [value]="settingInfo['airPressure']" (change)="onSliderChange($event.value,'airPressure')">
             </mat-slider>
           </div>
 
@@ -286,8 +295,9 @@
             <div>
               <mat-label>車高: {{settingInfo['carHigh']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="5" max="20" aria-label="units" style="width:100%;" [value]="settingInfo['carHigh']" (change)="onSliderChange($event.value,'carHigh')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.CarHigh.TICKINTERVAL}}
+              step={{MatSliderValue.CarHigh.STEP}} min={{MatSliderValue.CarHigh.MIN}}
+              max={{MatSliderValue.CarHigh.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['carHigh']" (change)="onSliderChange($event.value,'carHigh')">
             </mat-slider>
           </div>
 
@@ -295,8 +305,9 @@
             <div>
               <mat-label>オフセット: {{settingInfo['offset']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="1" min="0" max="10" aria-label="units" style="width:100%;" [value]="settingInfo['offset']" (change)="onSliderChange($event.value,'offset')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.Offset.TICKINTERVAL}}
+              step={{MatSliderValue.Offset.STEP}} min={{MatSliderValue.Offset.MIN}}
+              max={{MatSliderValue.Offset.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['offset']" (change)="onSliderChange($event.value,'offset')">
             </mat-slider>
           </div>
 
@@ -304,8 +315,9 @@
             <div>
               <mat-label>ホイールサイズ: {{settingInfo['hoilesize']}}</mat-label>
             </div>
-            <mat-slider thumbLabel tickInterval="1000"
-              step="0.1" min="-1" max="1" aria-label="units" style="width:100%;" [value]="settingInfo['hoilesize']" (change)="onSliderChange($event.value,'hoilesize')">
+            <mat-slider thumbLabel tickInterval={{MatSliderValue.Hoilesize.TICKINTERVAL}}
+              step={{MatSliderValue.Hoilesize.STEP}} min={{MatSliderValue.Hoilesize.MIN}}
+              max={{MatSliderValue.Hoilesize.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['hoilesize']" (change)="onSliderChange($event.value,'hoilesize')">
             </mat-slider>
           </div>
         </div>
