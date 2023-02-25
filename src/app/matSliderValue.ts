@@ -116,7 +116,7 @@ export const MatSliderValue = {
 
     //アッカーマンアングル
     AckermannAngle:{
-        TICKINTERVAL:10,
+        TICKINTERVAL:1,
         STEP:0.1,
         MIN:0.1,
         MAX:1        
