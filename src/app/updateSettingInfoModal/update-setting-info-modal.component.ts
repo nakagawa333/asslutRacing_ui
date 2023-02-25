@@ -12,6 +12,7 @@ import { SettingInfo } from '../interface/settingInfo';
 import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { SnackBarService } from '../snackBar.service';
+import { MatSliderValue } from '../matSliderValue';
 
 type Nullable<T> = T | undefined | null;
 
@@ -70,6 +71,8 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       Validators.maxLength(100)
     ])
   })
+
+  public MatSliderValue = MatSliderValue;
 
   /**
    * セッティングネイムに値を挿入する
