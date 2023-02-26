@@ -13,6 +13,7 @@ import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { SnackBarService } from '../snackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 
 type Nullable<T> = T | undefined | null;
 
@@ -27,6 +28,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       private authService:AuthService,
       private snackBar:MatSnackBar,
       private snackBarService: SnackBarService,
+      private errorSnackBarService:ErrorSnackBarService,
       private service:UpdateSettingInfoModalService
   ){}
 
@@ -180,8 +182,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
     let self = this;
 
     if(self.settingName.invalid){
-      self.settingNameErrorMessage = "セッティングネイムを入力してください。";
-      self.snackBar.open("セッティングネイムを入力してください。","OK",self.updateSetupModalSnackConfig);
+      self.errorSnackBarService.openSnackBarForErrorMessage(["セッティングネイムを入力してください。"]);
       return
     }
 
@@ -197,14 +198,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
         }
       },
       error: (e:any) => {
-        let errors:any = e["error"]["errors"]
-        let errorText:string = "";
-        let errorsLength:number = Object.keys(errors).length;
-        for(let i = 0; i < errorsLength; i++){
-          errorText += errors[i]["field"] + " " + errors[i]["defaultMessage"] + "\n "
-        }
-
-        self.snackBar.open(errorText,"OK",self.updateSetupModalSnackConfig);
+        self.errorSnackBarService.openSnackBar(e);
       }
     })
   }
@@ -223,7 +217,6 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
     this.settingInfo[name] = value;
   }
 
-  //セッティングネイムに値を入力時
   //セッティングネイムに値を入力時
   settingNameValueChanges():void{
     let self = this;
