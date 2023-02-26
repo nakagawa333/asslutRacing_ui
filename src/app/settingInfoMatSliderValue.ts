@@ -1,7 +1,25 @@
 /**
  * 
  */
-export const MatSliderValue = {
+export const SettingInfoMatSliderValue = {
+
+    //セッティングネイム
+    SettingName:{
+        MAXLENGTH:100,
+        CDKAUTOSIZEMINROWS:1,
+        CDKAUTOSIZEMAXROWS:5
+    },
+
+    //概要
+    Outline:{
+        MAXLENGTH:700,
+        CDKTEXTAREAAUTOSIZE:700,
+        ROWS:5,
+        COLS:40,
+        CDKAUTOSIZEMINROWS:1,
+        CDKAUTOSIZEMAXROWS:5       
+    },
+
     //パワーステリング
     PowerSteering:{
         TICKINTERVAL:10,
@@ -124,7 +142,7 @@ export const MatSliderValue = {
 
     //フロントネガティブキャンバー
     CamberAgo:{
-        TICKINTERVAL:-1,
+        TICKINTERVAL:-5,
         STEP:-0.1,
         MIN:-10,
         MAX:0           
@@ -132,7 +150,7 @@ export const MatSliderValue = {
 
     //リアネガティブキャンバー
     CamberAfter:{
-        TICKINTERVAL:-1,
+        TICKINTERVAL:-5,
         STEP:-0.1,
         MIN:-10,
         MAX:0         

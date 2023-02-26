@@ -12,7 +12,7 @@ import { SettingInfo } from '../interface/settingInfo';
 import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { SnackBarService } from '../snackBar.service';
-import { MatSliderValue } from '../matSliderValue';
+import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 
 type Nullable<T> = T | undefined | null;
 
@@ -72,7 +72,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
     ])
   })
 
-  public MatSliderValue = MatSliderValue;
+  public MatSliderValue = SettingInfoMatSliderValue;
 
   /**
    * セッティングネイムに値を挿入する

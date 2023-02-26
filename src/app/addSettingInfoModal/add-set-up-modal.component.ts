@@ -12,7 +12,7 @@ import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/sn
 import { SettingInfo } from '../interface/settingInfo';
 import { SnackBarService } from '../snackBar.service';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
-import { MatSliderValue } from '../matSliderValue';
+import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 
 
 @Component({
@@ -103,7 +103,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
   //設定情報
   public settingInfo:SettingInfo = Object.assign({},this.service.settingInfo);
 
-  public MatSliderValue = MatSliderValue
+  public MatSliderValue = SettingInfoMatSliderValue
 
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {

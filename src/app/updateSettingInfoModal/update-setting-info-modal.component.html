@@ -13,14 +13,23 @@
             <div>
               <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>セッティングネイム</mat-label>
-                <input formControlName="settingName" matInput cdkTextareaAutosize maxlength="100" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [value]="settingInfo['title']" (change)="textareaInput($event,'title')">
+                <input formControlName="settingName" 
+                matInput maxlength={{MatSliderValue.SettingName.MAXLENGTH}}
+                [value]="settingInfo['title']" 
+                (change)="textareaInput($event,'title')">
               </mat-form-field>
             </div>
 
             <div>
               <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>概要</mat-label>
-                <textarea matInput rows="5" cols="40" cdkTextareaAutosize maxlength="700" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [value]="settingInfo['memo']" (change)="textareaInput($event,'memo')"></textarea>
+                <textarea matInput rows={{MatSliderValue.Outline.ROWS}} 
+                cols={{MatSliderValue.Outline.COLS}}
+                maxlength="700"
+                cdkTextareaAutosize={{MatSliderValue.Outline.CDKTEXTAREAAUTOSIZE}}
+                cdkAutosizeMinRows={{MatSliderValue.Outline.CDKAUTOSIZEMINROWS}}  
+                cdkAutosizeMaxRows={{MatSliderValue.Outline.CDKAUTOSIZEMAXROWS}}  
+                [value]="settingInfo['memo']" (change)="textareaInput($event,'memo')"></textarea>
               </mat-form-field>
             </div>
           </div>
@@ -44,7 +53,7 @@
 
             <div>
               <div style="width:100%;">
-                <mat-label>パワーステリング: {{settingInfo['powerSteering']}}</mat-label>
+                <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
                 <mat-slider thumbLabel tickInterval={{MatSliderValue.PowerSteering.TICKINTERVAL}}
                 step={{MatSliderValue.PowerSteering.STEP}} min={{MatSliderValue.PowerSteering.MIN}}
                 max={{MatSliderValue.PowerSteering.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['powerSteering']" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
@@ -53,7 +62,7 @@
 
             <div>
               <div>
-                <mat-label>デブギア: : {{settingInfo['diffgear']}}</mat-label>
+                <mat-label>デブギア: {{settingInfo['diffgear']}}</mat-label>
               </div>
 
               <mat-slider thumbLabel tickInterval={{MatSliderValue.Diffgear.TICKINTERVAL}}
