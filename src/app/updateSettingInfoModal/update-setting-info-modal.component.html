@@ -25,7 +25,7 @@
                 <mat-label>概要</mat-label>
                 <textarea matInput rows={{MatSliderValue.Outline.ROWS}} 
                 cols={{MatSliderValue.Outline.COLS}}
-                maxlength="700"
+                maxlength="700" 
                 cdkTextareaAutosize={{MatSliderValue.Outline.CDKTEXTAREAAUTOSIZE}}
                 cdkAutosizeMinRows={{MatSliderValue.Outline.CDKAUTOSIZEMINROWS}}  
                 cdkAutosizeMaxRows={{MatSliderValue.Outline.CDKAUTOSIZEMAXROWS}}  
@@ -52,8 +52,19 @@
             </div>
 
             <div>
+
               <div style="width:100%;">
-                <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
+                <div style="display:flex;">
+                  <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
+                  <mat-form-field appearance="fill">
+                    <input matInput type="number" [value]="settingInfo['powerSteering']" min={{MatSliderValue.PowerSteering.MIN}} 
+                    max={{MatSliderValue.PowerSteering.MAX}}
+                    step={{MatSliderValue.PowerSteering.STEP}}
+                    (change)="changeInput($event,'powerSteering')"
+                    (keydown)="keyDownValidation($event,3)" 
+                    >
+                  </mat-form-field>
+                </div>
                 <mat-slider thumbLabel tickInterval={{MatSliderValue.PowerSteering.TICKINTERVAL}}
                 step={{MatSliderValue.PowerSteering.STEP}} min={{MatSliderValue.PowerSteering.MIN}}
                 max={{MatSliderValue.PowerSteering.MAX}} aria-label="units" style="width:100%;" [value]="settingInfo['powerSteering']" (change)="onSliderChange($event.value,'powerSteering')"></mat-slider>
@@ -64,6 +75,16 @@
               <div>
                 <mat-label>デブギア: {{settingInfo['diffgear']}}</mat-label>
               </div>
+
+              <mat-form-field appearance="fill">
+                <input matInput type="number" [value]="settingInfo['diffgear']" 
+                min={{MatSliderValue.Diffgear.MIN}} 
+                max={{MatSliderValue.Diffgear.MAX}}
+                step={{MatSliderValue.Diffgear.STEP}}
+                (change)="changeInput($event,'diffgear')"
+                (keydown)="keyDownValidation($event,3)"
+                >
+              </mat-form-field>
 
               <mat-slider thumbLabel tickInterval={{MatSliderValue.Diffgear.TICKINTERVAL}}
                 step={{MatSliderValue.Diffgear.STEP}} min={{MatSliderValue.Diffgear.MIN}}
@@ -116,6 +137,15 @@
             <div>
               <div>
                 <mat-label>フロントタイヤの圧力: {{settingInfo['frontTirePressure']}}</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" [value]="settingInfo['frontTirePressure']" 
+                  min={{MatSliderValue.FrontTirePressure.MIN}}
+                  max={{MatSliderValue.FrontTirePressure.MAX}}
+                  step={{MatSliderValue.FrontTirePressure.STEP}}
+                  (change)="changeInput($event,'frontTirePressure')"
+                  (keydown)="keyDownValidation($event,2)"
+                  >
+                </mat-form-field>
               </div>
               <mat-slider thumbLabel tickInterval={{MatSliderValue.FrontTirePressure.TICKINTERVAL}}
                 step={{MatSliderValue.FrontTirePressure.STEP}} min={{MatSliderValue.FrontTirePressure.MIN}} 
@@ -126,6 +156,15 @@
             <div>
               <div>
                 <mat-label>リアタイヤの圧力: {{settingInfo['rearTirePressure']}}</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" [value]="settingInfo['rearTirePressure']" 
+                  min={{MatSliderValue.RearTirePressure.MIN}} 
+                  max={{MatSliderValue.RearTirePressure.MAX}}
+                  step={{MatSliderValue.RearTirePressure.STEP}}
+                  (change)="changeInput($event,'rearTirePressure')"
+                  (keydown)="keyDownValidation($event,2)"
+                  >
+                </mat-form-field>
               </div>
               <mat-slider thumbLabel tickInterval={{MatSliderValue.RearTirePressure.TICKINTERVAL}}
                 step={{MatSliderValue.RearTirePressure.STEP}} min={{MatSliderValue.RearTirePressure.MIN}}
@@ -139,6 +178,15 @@
             <div>
               <div>
                 <mat-label>ファイナルドライブ: {{settingInfo['gearFinal']}}</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" [value]="settingInfo['gearFinal']"
+                  min={{MatSliderValue.GearFinal.MIN}} 
+                  max={{MatSliderValue.GearFinal.MAX}}
+                  step={{MatSliderValue.GearFinal.STEP}} 
+                  (change)="changeInput($event,'gearFinal')"
+                  (keydown)="keyDownValidation($event,4)"
+                  >
+                </mat-form-field>
               </div>
               <mat-slider thumbLabel tickInterval={{MatSliderValue.GearFinal.TICKINTERVAL}}
                 step={{MatSliderValue.GearFinal.STEP}} min={{MatSliderValue.GearFinal.MIN}} 
