@@ -197,6 +197,15 @@
             <div>
               <div>
                 <mat-label>1速: {{settingInfo['gearOne']}}</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" [value]="settingInfo['gearOne']"
+                  min={{MatSliderValue.GearOne.MIN}} 
+                  max={{MatSliderValue.GearOne.MAX}}
+                  step={{MatSliderValue.GearOne.STEP}} 
+                  (change)="changeInput($event,'gearOne')"
+                  (keydown)="keyDownValidation($event,4)"
+                  >
+                </mat-form-field>
               </div>
               <mat-slider thumbLabel tickInterval={{MatSliderValue.GearOne.TICKINTERVAL}}
                 step={{MatSliderValue.GearOne.STEP}} min={{MatSliderValue.GearOne.MIN}}
