@@ -53,17 +53,21 @@
 
             <div>
 
-              <div style="width:100%;">
-                <div style="display:flex;">
-                  <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
-                  <mat-form-field appearance="fill">
-                    <input matInput type="number" [value]="settingInfo['powerSteering']" min={{MatSliderValue.PowerSteering.MIN}} 
-                    max={{MatSliderValue.PowerSteering.MAX}}
-                    step={{MatSliderValue.PowerSteering.STEP}}
-                    (change)="changeInput($event,'powerSteering')"
-                    (keydown)="keyDownValidation($event,3)" 
-                    >
-                  </mat-form-field>
+              <div>
+                <div class="mat-items">
+                  <div>
+                    <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
+                  </div>
+                  <div>
+                    <mat-form-field class="input-number-field" appearance="fill">
+                      <input matInput type="number" [value]="settingInfo['powerSteering']" min={{MatSliderValue.PowerSteering.MIN}} 
+                      max={{MatSliderValue.PowerSteering.MAX}}
+                      step={{MatSliderValue.PowerSteering.STEP}}
+                      (change)="changeInput($event,'powerSteering')"
+                      (keydown)="keyDownValidation($event,3)" 
+                      >
+                    </mat-form-field>
+                  </div>
                 </div>
                 <mat-slider thumbLabel tickInterval={{MatSliderValue.PowerSteering.TICKINTERVAL}}
                 step={{MatSliderValue.PowerSteering.STEP}} min={{MatSliderValue.PowerSteering.MIN}}
@@ -72,19 +76,18 @@
             </div>
 
             <div>
-              <div>
+              <div class="mat-items">
                 <mat-label>デブギア: {{settingInfo['diffgear']}}</mat-label>
+                <mat-form-field class="input-number-field" appearance="fill">
+                  <input matInput type="number" [value]="settingInfo['diffgear']" 
+                  min={{MatSliderValue.Diffgear.MIN}} 
+                  max={{MatSliderValue.Diffgear.MAX}}
+                  step={{MatSliderValue.Diffgear.STEP}}
+                  (change)="changeInput($event,'diffgear')"
+                  (keydown)="keyDownValidation($event,3)"
+                  >
+                </mat-form-field>
               </div>
-
-              <mat-form-field appearance="fill">
-                <input matInput type="number" [value]="settingInfo['diffgear']" 
-                min={{MatSliderValue.Diffgear.MIN}} 
-                max={{MatSliderValue.Diffgear.MAX}}
-                step={{MatSliderValue.Diffgear.STEP}}
-                (change)="changeInput($event,'diffgear')"
-                (keydown)="keyDownValidation($event,3)"
-                >
-              </mat-form-field>
 
               <mat-slider thumbLabel tickInterval={{MatSliderValue.Diffgear.TICKINTERVAL}}
                 step={{MatSliderValue.Diffgear.STEP}} min={{MatSliderValue.Diffgear.MIN}}
