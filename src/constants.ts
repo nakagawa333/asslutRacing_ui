@@ -12,6 +12,7 @@ export class API{
     public static readonly SELECTUSER = "/select/user"
     public static readonly SELECTUSERBYUSERNAME = "/select/user/username"
     public static readonly SELECTUSERBYMAIL = "/select/user/mail"
+    public static readonly SELECTUSERBYPASSWORD = "/select/user/password"
     public static readonly VERIFYTOKEN = "/verify/token"
     public static readonly PASSWORDRESET = "/password/reset"
     public static readonly VERIFYMAIL = "/verify/mail"
@@ -61,4 +62,8 @@ export class COLUMNNAMES{
     public static readonly SETTINGNAME = "セッティングネイム"
     public static readonly CARNAME = "車名"
     public static readonly COURSE = "コース"
+}
+
+export class MESSAGE{
+    public static readonly UNAUTHORISEDACCESS = "不正なアクセスです。ログインしなおしてください。";
 }

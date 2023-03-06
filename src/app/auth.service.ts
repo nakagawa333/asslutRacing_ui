@@ -11,6 +11,7 @@ import { ObserversModule } from "@angular/cdk/observers";
 })
 
 export class AuthService{
+    //ログイン状態
     public isLoggedIn = new BehaviorSubject<boolean>(false);
 
     constructor(

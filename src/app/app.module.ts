@@ -42,6 +42,7 @@ import { SettingsAccountUserNameComponent } from './settingsAccountUserName/sett
 import { ErrorSnackBarComponent } from './errorSnackBar/errorSnackBar.component';
 import { SettingsAccountMailComponent } from './settingsAccountMail/settings-account-mail.component';
 import { UpdateMailComponent } from './updateMail/updateMail.component';
+import { SettingsAccountPasswordComponent } from './settingsAccountPassword/settings-account-password.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent},
@@ -54,6 +55,7 @@ const routes: Routes  = [
   {path:"settings/account",component:SettingsAccountComponent},
   {path:"settings/account/username",component:SettingsAccountUserNameComponent},
   {path:"settings/account/mail",component:SettingsAccountMailComponent},
+  {path:"settings/account/password",component:SettingsAccountPasswordComponent},
   {path:"update/mail",component:UpdateMailComponent},
   {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
@@ -75,6 +77,7 @@ const routes: Routes  = [
     ErrorSnackBarComponent,
     SettingsAccountMailComponent,
     UpdateMailComponent,
+    SettingsAccountPasswordComponent,
     NotFoundErrorComponent
   ],
   imports: [
