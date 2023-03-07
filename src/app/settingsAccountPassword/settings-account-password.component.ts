@@ -30,7 +30,7 @@ export class SettingsAccountPasswordComponent implements OnInit{
   ){}
 
   public settingsAccountPasswordForm = new FormGroup({
-    password:new FormControl("",[
+    oldPassword:new FormControl("",[
       Validators.required,
       Validators.maxLength(100),
     ]),
@@ -47,8 +47,8 @@ export class SettingsAccountPasswordComponent implements OnInit{
   //新しいパスワード
   public newPassword:FormControl<string | null> = this.settingsAccountPasswordForm.controls.newPassword;
   
-  //パスワード
-  public password:FormControl<string | null> = this.settingsAccountPasswordForm.controls.password;
+  //前のパスワード
+  public oldPassword:FormControl<string | null> = this.settingsAccountPasswordForm.controls.oldPassword;
 
   //新しいパスワードの再入力
   public reenterNewPassword:FormControl<string | null> = this.settingsAccountPasswordForm.controls.reenterNewPassword;
@@ -67,8 +67,8 @@ export class SettingsAccountPasswordComponent implements OnInit{
   }
 
   //パスワードからカーソルを離した場合
-  public passwordBlur(password:string):void{
-    if(!password) return;
+  public oldPasswordBlur(oldPassword:string):void{
+    if(!oldPassword) return;
     let self = this;
 
     //ログイン状態でない場合
@@ -80,12 +80,12 @@ export class SettingsAccountPasswordComponent implements OnInit{
     }
 
     let userId = Number(self.authService.getUserId());
-    self.service.selectUserByPassword(password.trim(),userId)
+    self.service.selectUserByPassword(oldPassword.trim(),userId)
     .subscribe({
       next:(isvValidityPasswordFlag:any) => {
         //入力したパスワードが間違っている場合
         if(!isvValidityPasswordFlag){
-          self.settingsAccountPasswordForm.controls.password.setErrors({"noPassword":true})
+          self.settingsAccountPasswordForm.controls.oldPassword.setErrors({"noPassword":true})
         }
       },
       error:(e:HttpErrorResponse) => {
@@ -139,11 +139,17 @@ export class SettingsAccountPasswordComponent implements OnInit{
   }
   
   /**
-   * パスワード更新ボタンクリック
+   * パスワード更新ボタンクリックイベント
    * @returns 
    */
   public changePasswordButtonClick():void{
     let self = this;
+
+    //新しいパスワードと
+    if(self.newPassword.value !== self.reenterNewPassword.value){
+      self.settingsAccountPasswordForm.controls.reenterNewPassword.setErrors({"notSameNewPassword":true})
+    }
+
     if(self.settingsAccountPasswordForm.invalid) return;
 
     //ログイン状態でない場合
@@ -154,8 +160,28 @@ export class SettingsAccountPasswordComponent implements OnInit{
       return;
     }
 
-    let userId = self.authService.getUserId();
+    let userId = Number(self.authService.getUserId());
     let newPassword = self.newPassword.value !== null ? self.newPassword.value.trim() : ""
+    let oldPassword = self.oldPassword.value !== null ? self.oldPassword.value.trim() : ""
 
+    self.service.currentPassword(oldPassword,newPassword,userId)
+    .subscribe({
+      next:(updateSucessFlag:any) => {
+        //更新失敗時
+        if(!updateSucessFlag){
+          let errorMessageList:string[] = [];
+          errorMessageList.push(constant.MESSAGE.PASSWORDUPDAREFAILED);
+          self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);
+        } else {
+          self.snackBarService.openSnackBar(constant.MESSAGE.PASSWORDUPDATESUCESS);
+          self.router.navigate(["settings/account"]);
+        }
+      },
+      error:(e:HttpErrorResponse) => {
+        //エラーレスポンスからエラーメッセージリストを作成
+        let errorMessageList:string[] = self.httpErrorResponseService.createErrorMessageList(e);
+        self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);        
+      }
+    })
   }
 }

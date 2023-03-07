@@ -24,6 +24,7 @@ export class API{
     public static readonly UPDATEUSERUSERNAME = "/update/user/username"
     public static readonly SENDMAILUPDATEMAIL = "/send/mail/update/mail"
     public static readonly UPDATEMAIL = "/mail/update"
+    public static readonly PASSWORDCURRENT = "/password/current"
 }
 
 export class PATH{
@@ -66,4 +67,7 @@ export class COLUMNNAMES{
 
 export class MESSAGE{
     public static readonly UNAUTHORISEDACCESS = "不正なアクセスです。ログインしなおしてください。";
+    public static readonly PASSWORDUPDAREFAILED = "パスワード更新に失敗しました";
+    public static readonly PASSWORDUPDATESUCESS = "パスワード更新に成功しました";
+
 }

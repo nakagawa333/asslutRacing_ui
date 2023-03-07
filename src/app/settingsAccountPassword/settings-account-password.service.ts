@@ -39,6 +39,30 @@ export class SettingsAccountPasswordService{
       userId:userId,
       password:password
     }
-    return this.http.post(constant.API.URL + constant.API.SELECTUSERBYPASSWORD,selectUserPassword);
+    return self.http.post(constant.API.URL + constant.API.SELECTUSERBYPASSWORD,selectUserPassword);
+  }
+
+  /**
+   * パスワード最新化
+   * @param oldPassword 前のパスワード
+   * @param newPassword 新しいパスワード
+   * @param userId ユーザーid
+   * @returns 
+   */
+  currentPassword(oldPassword:string,newPassword:string,userId:number):Observable<Object>{
+    let self = this;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }
+
+    let currentPassword = {
+      userId:userId,
+      oldPassword:oldPassword,
+      newPassword:newPassword
+    }
+    
+    return self.http.put(constant.API.URL + constant.API.PASSWORDCURRENT,currentPassword)
   }
 }
