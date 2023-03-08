@@ -144,12 +144,7 @@ export class SettingsAccountPasswordComponent implements OnInit{
    */
   public changePasswordButtonClick():void{
     let self = this;
-
-    //新しいパスワードと
-    if(self.newPassword.value !== self.reenterNewPassword.value){
-      self.settingsAccountPasswordForm.controls.reenterNewPassword.setErrors({"notSameNewPassword":true})
-    }
-
+    //エラー項目がある場合、処理中止
     if(self.settingsAccountPasswordForm.invalid) return;
 
     //ログイン状態でない場合
