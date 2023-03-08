@@ -142,18 +142,18 @@ export const SettingInfoMatSliderValue = {
 
     //フロントネガティブキャンバー
     CamberAgo:{
-        TICKINTERVAL:-5,
-        STEP:-0.1,
+        TICKINTERVAL:5,
+        STEP:0.1,
         MIN:-10,
-        MAX:0           
+        MAX:0
     },
 
     //リアネガティブキャンバー
     CamberAfter:{
-        TICKINTERVAL:-5,
-        STEP:-0.1,
+        TICKINTERVAL:5,
+        STEP:0.1,
         MIN:-10,
-        MAX:0         
+        MAX:0
     },
 
     //BREAKE POWER
