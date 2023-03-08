@@ -293,6 +293,63 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     })
   }
 
+  /**
+   * 
+   * @param e Event
+   * @param name キー名
+   * @returns 
+   */
+  changeInput(e:any,name:string):void{
+    let self = this;
+    let num:number = Number(e.target?.value);
+    let max:number = Number(e.target?.max);
+    let min:number = Number(e.target?.min);
+
+    if(self.isNumber(num)){
+      //入力した値が最小値よりも小さい、もしくは最大値よりも大きい場合
+      if(self.isValidate(min,max,num)){
+        //処理終了
+        e.preventDefault();
+        return;
+      }
+      self.settingInfo[name] = num
+    } else {
+      e.preventDefault();
+      return;     
+    }
+  }
+
+  /**
+   * 
+   * @param e KeyboardEvent 
+   */
+  keyDownValidation(e:any,length:number):void{
+    let self = this;
+    let key:any = e.key;
+    let value:string = e.target?.value
+
+    let valueLength = value.length;
+
+    if(key !== "Backspace" && length <= valueLength){
+      e.preventDefault();
+      return;
+    }
+  }
+
+  isValidate(min:number,max:number,num:number):boolean{
+    return(num < min || max < num);
+  }
+
+  /**
+   * 値が数字であるか
+   * @param value 値
+   * @returns 数字であるかの真偽値
+   */
+  isNumber(value:any):boolean{
+    let regex = /^([+-])?([0-9]+)(\.)?([0-9]+)?$/;
+    return regex.test(value);
+  }
+
   //エラーメッセージを初期化
   initSettingErrorMessage():void{
     let self = this;
