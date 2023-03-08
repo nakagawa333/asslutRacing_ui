@@ -11,7 +11,7 @@
           <div class="alert">{{settingNameErrorMessage}}</div>
 
           <div>
-            <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-form-field appearance="outline" style="width: 100%;">
               <mat-label>セッティングネイム</mat-label>
               <input formControlName="settingName" 
               matInput maxlength={{MatSliderValue.SettingName.MAXLENGTH}}
@@ -21,7 +21,7 @@
           </div>
 
           <div>
-            <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-form-field appearance="outline" style="width: 100%;">
               <mat-label>概要</mat-label>
               <textarea matInput rows={{MatSliderValue.Outline.ROWS}}
               cols={{MatSliderValue.Outline.COLS}}
@@ -69,7 +69,7 @@
           <div class="alert">{{makerErrorMessage}}</div>
 
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>メーカー </mat-label>
               <mat-select formControlName="maker" #maker (selectionChange)="makerSelectBoxChange(maker.value)">
                 <mat-option [value]="maker['makerId']" *ngFor="let maker of makerList">{{maker["makerName"]}}</mat-option>
@@ -80,7 +80,7 @@
           <div class="alert">{{carErrorMessage}}</div>
 
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>車</mat-label>
               <mat-select formControlName="car" #car [disabled]="hasCarList" [(value)]="defalutCarId" (selectionChange)="selectorChange(car.value,'carId')">
                 <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
@@ -91,7 +91,7 @@
           <div class="alert">{{courseErrorMessage}}</div>
 
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>コース</mat-label>
               <mat-select formControlName="course" #course (selectionChange)="selectorChange(course.value,'courseId')">
                 <mat-option [value]="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
@@ -105,7 +105,7 @@
         <div class="mat-body">
           <div class="alert">{{tireTypeErrorMessage}}</div>
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>タイヤの種類</mat-label>
               <mat-select formControlName="tireType" #tireType (selectionChange)="selectorChange(tireType.value,'tireId')">
                 <mat-option [value]="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}

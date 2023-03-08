@@ -11,7 +11,7 @@
 
             <div class="alert">{{settingNameErrorMessage}}</div>
             <div>
-              <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>セッティングネイム</mat-label>
                 <input formControlName="settingName" 
                 matInput maxlength={{MatSliderValue.SettingName.MAXLENGTH}}
@@ -21,7 +21,7 @@
             </div>
 
             <div>
-              <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>概要</mat-label>
                 <textarea matInput rows={{MatSliderValue.Outline.ROWS}} 
                 cols={{MatSliderValue.Outline.COLS}}
@@ -59,7 +59,7 @@
                     <mat-label>パワーステアリング : {{settingInfo['powerSteering']}}</mat-label>
                   </div>
                   <div>
-                    <mat-form-field class="input-number-field" appearance="fill">
+                    <mat-form-field class="input-number-field" appearance="outline">
                       <input matInput type="number" [value]="settingInfo['powerSteering']" min={{MatSliderValue.PowerSteering.MIN}} 
                       max={{MatSliderValue.PowerSteering.MAX}}
                       step={{MatSliderValue.PowerSteering.STEP}}
@@ -81,7 +81,7 @@
                   <mat-label>デブギア: {{settingInfo['diffgear']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field class="input-number-field" appearance="fill">
+                  <mat-form-field class="input-number-field" appearance="outline">
                     <input matInput type="number" [value]="settingInfo['diffgear']" 
                     min={{MatSliderValue.Diffgear.MIN}} 
                     max={{MatSliderValue.Diffgear.MAX}}
@@ -100,7 +100,7 @@
             </div>
 
             <div>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="outline">
                 <mat-label>メーカー</mat-label>
                 <mat-select #maker [(value)]="defaultMakerId" (selectionChange)="makerSelectBoxChange(maker.value)">
                   <mat-option [value]="maker['makerId']" *ngFor="let maker of makerList">
@@ -111,7 +111,7 @@
             </div>
 
             <div>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="outline">
                 <mat-label>車</mat-label>
                 <mat-select #car [(value)]="defalutCarId" (selectionChange)="selectorChange(car.value,'carId')">
                   <mat-option [value]="car['carId']" *ngFor="let car of carsList">{{car["carName"]}}</mat-option>
@@ -120,7 +120,7 @@
             </div>
 
             <div>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="outline">
                 <mat-label>コース</mat-label>
                 <mat-select #course [(value)]="defaultCourseId" (selectionChange)="selectorChange(course.value,'courseId')">
                   <mat-option [value]="course['courseId']" *ngFor="let course of courseList">{{course["courseName"]}}</mat-option>
@@ -132,7 +132,7 @@
         <mat-tab label="タイヤ">
           <div class="mat-body">
             <div>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="outline">
                 <mat-label>タイヤの種類</mat-label>
                 <mat-select #tireType [(value)]="defaultTireId" (selectionChange)="selectorChange(tireType.value,'tireId')">
                   <mat-option [value]="tireType['tireId']" *ngFor="let tireType of tireTypeList">{{tireType["tireName"]}}
@@ -148,7 +148,7 @@
                 </div>
 
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['frontTirePressure']" 
                     min={{MatSliderValue.FrontTirePressure.MIN}}
                     max={{MatSliderValue.FrontTirePressure.MAX}}
@@ -172,7 +172,7 @@
                 </div>
 
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['rearTirePressure']" 
                     min={{MatSliderValue.RearTirePressure.MIN}} 
                     max={{MatSliderValue.RearTirePressure.MAX}}
@@ -199,7 +199,7 @@
                 </div>
 
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearFinal']"
                     min={{MatSliderValue.GearFinal.MIN}} 
                     max={{MatSliderValue.GearFinal.MAX}}
@@ -222,7 +222,7 @@
                   <mat-label>1速: {{settingInfo['gearOne']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearOne']"
                     min={{MatSliderValue.GearOne.MIN}} 
                     max={{MatSliderValue.GearOne.MAX}}
@@ -245,7 +245,7 @@
                   <mat-label>2速: {{settingInfo['gearTwo']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearTwo']"
                     min={{MatSliderValue.GearTwo.MIN}} 
                     max={{MatSliderValue.GearTwo.MAX}}
@@ -268,7 +268,7 @@
                   <mat-label>3速: {{settingInfo['gearThree']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearThree']"
                     min={{MatSliderValue.GearThree.MIN}} 
                     max={{MatSliderValue.GearThree.MAX}}
@@ -291,7 +291,7 @@
                   <mat-label>4速: {{settingInfo['gearFour']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearFour']"
                     min={{MatSliderValue.GearFour.MIN}} 
                     max={{MatSliderValue.GearFour.MAX}}
@@ -314,7 +314,7 @@
                   <mat-label>5速: {{settingInfo['gearFive']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearFive']"
                     min={{MatSliderValue.GearFive.MIN}} 
                     max={{MatSliderValue.GearFive.MAX}}
@@ -337,7 +337,7 @@
                   <mat-label>6速: {{settingInfo['gearSix']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['gearSix']"
                     min={{MatSliderValue.GearSix.MIN}} 
                     max={{MatSliderValue.GearSix.MAX}}
@@ -364,7 +364,7 @@
                   <mat-label>スタビライザー前軸: {{settingInfo['stabiliserAgo']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['stabiliserAgo']"
                     min={{MatSliderValue.GearSix.MIN}} 
                     max={{MatSliderValue.GearSix.MAX}}
@@ -387,7 +387,7 @@
                   <mat-label>スタビライザー後軸: {{settingInfo['stabiliserAfter']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['stabiliserAfter']"
                     min={{MatSliderValue.StabiliserAfter.MIN}} 
                     max={{MatSliderValue.StabiliserAfter.MAX}}
@@ -410,7 +410,7 @@
                   <mat-label>最大舵角: {{settingInfo['maxRudderAngle']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['maxRudderAngle']"
                     min={{MatSliderValue.MaxRudderAngle.MIN}} 
                     max={{MatSliderValue.MaxRudderAngle.MAX}}
@@ -433,7 +433,7 @@
                   <mat-label>アッカーマンアングル: {{settingInfo['ackermannAngle']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['ackermannAngle']"
                     min={{MatSliderValue.AckermannAngle.MIN}} 
                     max={{MatSliderValue.AckermannAngle.MAX}}
@@ -456,7 +456,7 @@
                   <mat-label>フロントネガティブキャンバー: {{settingInfo['camberAgo']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['camberAgo']"
                     min={{MatSliderValue.CamberAgo.MIN}} 
                     max={{MatSliderValue.CamberAgo.MAX}}
@@ -479,7 +479,7 @@
                   <mat-label>リアネガティブキャンバー: {{settingInfo['camberAfter']}}</mat-label>                  
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['camberAfter']"
                     min={{MatSliderValue.CamberAfter.MIN}} 
                     max={{MatSliderValue.CamberAfter.MAX}}
@@ -511,7 +511,7 @@
                   <mat-label>BREAKE POWER: {{settingInfo['breakPower']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['breakPower']"
                     min={{MatSliderValue.BreakPower.MIN}} 
                     max={{MatSliderValue.BreakPower.MAX}}
@@ -534,7 +534,7 @@
                   <mat-label>ブレーキバランス: {{settingInfo['breakBallance']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['breakBallance']"
                       min={{MatSliderValue.BreakBallance.MIN}} 
                       max={{MatSliderValue.BreakBallance.MAX}}
@@ -557,7 +557,7 @@
                   <mat-label>空気圧: {{settingInfo['airPressure']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['airPressure']"
                     min={{MatSliderValue.AirPressure.MIN}} 
                     max={{MatSliderValue.AirPressure.MAX}}
@@ -580,7 +580,7 @@
                   <mat-label>車高: {{settingInfo['carHigh']}}</mat-label>                
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['carHigh']"
                     min={{MatSliderValue.CarHigh.MIN}} 
                     max={{MatSliderValue.CarHigh.MAX}}
@@ -603,7 +603,7 @@
                   <mat-label>オフセット: {{settingInfo['offset']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['offset']"
                     min={{MatSliderValue.Offset.MIN}} 
                     max={{MatSliderValue.Offset.MAX}}
@@ -626,7 +626,7 @@
                   <mat-label>ホイールサイズ: {{settingInfo['hoilesize']}}</mat-label>
                 </div>
                 <div>
-                  <mat-form-field appearance="fill" class="input-number-field">
+                  <mat-form-field appearance="outline" class="input-number-field">
                     <input matInput type="number" [value]="settingInfo['hoilesize']"
                     min={{MatSliderValue.Hoilesize.MIN}} 
                     max={{MatSliderValue.Hoilesize.MAX}}

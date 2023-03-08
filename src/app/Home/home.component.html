@@ -3,13 +3,13 @@
     <div id="content-header" style="display:flex;">
 
       <form id="filter-textbox" class="example-form" [formGroup]="filterSerachForm">
-        <mat-form-field appearance="fill" class="example-full-width">
+        <mat-form-field appearance="outline" class="example-full-width">
           <mat-label for="searchName">フィルター </mat-label>
           <input matInput #filter type="text" id="filter" formControlName="searchName" (input)="filterInput(filter.value)">
         </mat-form-field>
       </form>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>列名</mat-label>
         <mat-select #columnName [(value)]="selectionColumnName" (selectionChange)="selectorColumnNameChange(columnName.value)">
           <mat-option [value]="columnName" *ngFor="let columnName of columnNames">{{columnName}}
