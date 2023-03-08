@@ -50,7 +50,7 @@ export class SettingsAccountComponent implements OnInit{
       next:(datas:any) => {
         if(datas !== null){
           self.userName = datas["userName"];
-          self.asteriskPassword = "*".repeat(datas["passwordLetters"] !== null ? datas["passwordLetters"] : 0);
+          self.asteriskPassword = "*".repeat(8);
           self.mail = datas["mail"];
         } else {
           self.errorSnackBarService.openSnackBarForErrorMessage(["アカウント情報が見つかりませんでした。"]);
