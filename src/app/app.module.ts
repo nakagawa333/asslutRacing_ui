@@ -43,20 +43,22 @@ import { ErrorSnackBarComponent } from './errorSnackBar/errorSnackBar.component'
 import { SettingsAccountMailComponent } from './settingsAccountMail/settings-account-mail.component';
 import { UpdateMailComponent } from './updateMail/updateMail.component';
 import { SettingsAccountPasswordComponent } from './settingsAccountPassword/settings-account-password.component';
+import { AuthGuard } from './guard/auth.guard';
+
 
 const routes: Routes  = [
-  {path:"home",component:HomeComponent},
+  {path:"home",component:HomeComponent,canActivate: [AuthGuard]},
   {path:"",component:TopComponent},
   {path:"login",component:LoginComponent},
   {path:"signup",component:SingupComponent},
   {path:"verify",component:TokenComponent},
   {path:"password/reset",component:SendPasswordResetMailComponent},
   {path:"verify/mail",component:UpdatePasswordComponent},
-  {path:"settings/account",component:SettingsAccountComponent},
-  {path:"settings/account/username",component:SettingsAccountUserNameComponent},
-  {path:"settings/account/mail",component:SettingsAccountMailComponent},
-  {path:"settings/account/password",component:SettingsAccountPasswordComponent},
-  {path:"update/mail",component:UpdateMailComponent},
+  {path:"settings/account",component:SettingsAccountComponent,canActivate: [AuthGuard]},
+  {path:"settings/account/username",component:SettingsAccountUserNameComponent,canActivate: [AuthGuard]},
+  {path:"settings/account/mail",component:SettingsAccountMailComponent,canActivate: [AuthGuard]},
+  {path:"settings/account/password",component:SettingsAccountPasswordComponent,canActivate: [AuthGuard]},
+  {path:"update/mail",component:UpdateMailComponent,canActivate: [AuthGuard]},
   {path:'**', pathMatch: 'full', component:NotFoundErrorComponent}
 ]
 

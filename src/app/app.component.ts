@@ -17,36 +17,16 @@ import {MatButtonToggle} from '@angular/material/button-toggle';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent{
-
   constructor(
     private router: Router,
     public authService: AuthService,
     private dialog: MatDialog,
     private lo: Location
   ) {
-
-    //アプリ内にあるパス一覧
-    let notApplicablePathNames:Set<string> = new Set([constant.PATH.HOME,constant.PATH.LOGIN,
-      constant.PATH.SIGNUP,constant.PATH.VERIFY,constant.PATH.PASSWORDRESET,constant.PATH.VERIFYMAIL,
-      constant.PATH.TOP,constant.PATH.SETTINGSACCOUNT]);
-
-    let isLoggedAuthPaths:Set<String> = new Set([constant.PATH.LOGIN,constant.PATH.SIGNUP,constant.PATH.PASSWORDRESET,
-      constant.PATH.VERIFY,constant.PATH.VERIFYMAIL,constant.PATH.TOP]);
-
-    //ログイン状態を更新
-    this.authService.updateIsLoggedIn();
-
-    if(notApplicablePathNames.has(location.pathname)){
-      //ログイン認証されていない場合
-      if(!this.authService.isLoggedIn.value && !isLoggedAuthPaths.has(location.pathname)){
-        //ログイン画面に遷移
-        this.router.navigate([constant.PATH.LOGIN])
-      } else if(this.authService.isLoggedIn.value && isLoggedAuthPaths.has(location.pathname)){
-        //ログイン認証されている場合
-        this.router.navigate([constant.PATH.HOME])
-      }
-    }
   }
+
+  //ログインしている際は、ログイン画面 していない場合はホーム
+  public path = this.authService.isLoggedIn ? constant.PATH.HOME : constant.PATH.LOGIN;
   
   public positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
   public position = new FormControl(this.positionOptions[0]);
