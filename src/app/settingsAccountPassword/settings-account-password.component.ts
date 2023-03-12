@@ -62,6 +62,9 @@ export class SettingsAccountPasswordComponent implements OnInit{
   //新しいパスワードの再入力表示フラグ
   public reenterNewPasswordVisibleFlag:boolean = true;
 
+  //ログインしている際は、ログイン画面 していない場合はホーム
+  public path = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
+
   ngOnInit(): void{
     let self = this;
   }

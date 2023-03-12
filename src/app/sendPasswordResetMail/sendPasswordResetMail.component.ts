@@ -39,6 +39,9 @@ export class SendPasswordResetMailComponent{
 
     public mail:FormControl<any> = this.sendPasswordResetMailForm.controls.mail
 
+    //ログインしている際は、ホーム画面 していない場合はログイン画面
+    public cancelPath:string = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
+
     ngOnInit(): void{
 
     }

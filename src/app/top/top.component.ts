@@ -5,6 +5,7 @@ import { TopService } from './top.component.service';
 import { Notifications } from '../interface/notifications';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class TopComponent{
     constructor(
         private http: HttpClient,
         private service:TopService,
+        public authService: AuthService,
         private router:Router
     ){}
 
@@ -31,6 +33,9 @@ export class TopComponent{
     public pageSize:number = 5;
 
     public pageIndex:number = 0;
+
+    //ログインしている際は、ログイン画面 していない場合はホーム
+    public path = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
 
     ngOnInit(){
         this.getNotifications()
