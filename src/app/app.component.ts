@@ -33,26 +33,29 @@ export class AppComponent{
 
   //ログアウトアイコンクリック時
   public logoutClick():void{
-    this.logoutConfilmOpenDialog();
+    let self = this;
+    self.logoutConfilmOpenDialog();
   }
 
 
   private logoutConfilmOpenDialog():void{
+    let self = this;
     const param:object = {
       data:{"title":"ログアウトしてもよろしいでしょうか？"},
       id:"logout-confilm-modal"
     }
-    const dialogRef = this.openDialog(LogoutConfirmModalComponent,param)
+    const dialogRef = self.openDialog(LogoutConfirmModalComponent,param)
 
     dialogRef.afterClosed().subscribe((result:Logout) => {
       if(result["logoutFlag"]){
-        this.authService.logout();
-        this.router.navigate([constant.PATH.LOGIN])
+        self.authService.logout();
+        self.router.navigate([constant.PATH.LOGIN])
       }
     })
   }
 
   private openDialog(component:any,param:object):any{
-    return this.dialog.open(component,param)
+    let self = this;
+    return self.dialog.open(component,param)
   }
 }

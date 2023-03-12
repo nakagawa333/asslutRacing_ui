@@ -22,15 +22,17 @@ export class AuthService{
 
     //ログイン
     login(body:object){
-        return this.http.post(constant.API.URL + constant.API.LOGIN,body)
+        let self = this;
+        return self.http.post(constant.API.URL + constant.API.LOGIN,body)
     }
 
     //ログアウト
     logout(){
+        let self = this;
         //セッションに保存しているユーザーIDとユーザー名を削除
-        this.cookie.delete(constant.COOKIE.USERID)
-        this.cookie.delete(constant.COOKIE.USERNAME)
-        this.updateIsLoggedIn()
+        self.cookie.delete(constant.COOKIE.USERID,'/')
+        self.cookie.delete(constant.COOKIE.USERNAME,'/')
+        self.updateIsLoggedIn()
     }
 
     getUserId(){
@@ -39,8 +41,9 @@ export class AuthService{
 
     //ログイン状態を更新
     updateIsLoggedIn(){
-        let userId = this.cookie.get(constant.COOKIE.USERID)
-        this.isLoggedIn.next(userId !== "");
+        let self = this;
+        let userId = self.cookie.get(constant.COOKIE.USERID)
+        self.isLoggedIn.next(userId !== "");
     }
 
     //ユーザー名から取得
