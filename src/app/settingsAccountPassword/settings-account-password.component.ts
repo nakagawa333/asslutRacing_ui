@@ -63,7 +63,7 @@ export class SettingsAccountPasswordComponent implements OnInit{
   public reenterNewPasswordVisibleFlag:boolean = true;
 
   //ログインしている際は、ログイン画面 していない場合はホーム
-  public path = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
+  public path = this.authService.checkIsLoggedIn() ? constant.PATH.HOME : constant.PATH.LOGIN;
 
   ngOnInit(): void{
     let self = this;
@@ -75,7 +75,7 @@ export class SettingsAccountPasswordComponent implements OnInit{
     let self = this;
 
     //ログイン状態でない場合
-    if(!self.authService.isLoggedIn){
+    if(!self.authService.checkIsLoggedIn()){
       let errorMessageList:string[] = [];
       errorMessageList.push(constant.MESSAGE.UNAUTHORISEDACCESS);
       self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);
@@ -151,7 +151,7 @@ export class SettingsAccountPasswordComponent implements OnInit{
     if(self.settingsAccountPasswordForm.invalid) return;
 
     //ログイン状態でない場合
-    if(!self.authService.isLoggedIn){
+    if(!self.authService.checkIsLoggedIn()){
       let errorMessageList:string[] = [];
       errorMessageList.push("不正なアクセスです。ログインしなおしてください。");
       self.errorSnackBarService.openSnackBarForErrorMessage(errorMessageList);

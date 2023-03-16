@@ -65,7 +65,7 @@ export class UpdateMailComponent{
     RouterNavigate():void{
       let self = this;
       //ログイン状態化を確認
-      if(self.authService.isLoggedIn){
+      if(self.authService.checkIsLoggedIn()){
         //アカウント情報画面に戻る
         self.router.navigate(["settings/account"]);
       } else {

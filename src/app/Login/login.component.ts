@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit{
 
     ngOnInit(){
         //既にログイン済の場合、url履歴を戻す
-        if(this.authService.isLoggedIn.getValue()){
+        if(this.authService.checkIsLoggedIn()){
             this.location.back();
         }
     }

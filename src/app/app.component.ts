@@ -26,7 +26,7 @@ export class AppComponent{
   }
 
   //ログインしている際は、ログイン画面 していない場合はホーム
-  public path = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
+  public path = this.authService.checkIsLoggedIn() ? constant.PATH.HOME : constant.PATH.LOGIN;
   
   public positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
   public position = new FormControl(this.positionOptions[0]);

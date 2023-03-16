@@ -20,9 +20,9 @@
       <mat-drawer mode="side" opened>Drawer content</mat-drawer>
       <mat-drawer-content>Main content</mat-drawer-content>
     </mat-drawer-container> -->
-    <mat-icon id="account-settings-button" *ngIf="authService.isLoggedIn.value" routerLink="/settings/account" matTooltip="アカウント設定">account_circle</mat-icon>
+    <mat-icon id="account-settings-button" *ngIf="authService.checkIsLoggedIn()" routerLink="/settings/account" matTooltip="アカウント設定">account_circle</mat-icon>
 
-    <mat-icon id="logout-button" *ngIf="authService.isLoggedIn.value" (click)="logoutClick()" matTooltip="ログアウト">logout</mat-icon>
+    <mat-icon id="logout-button" *ngIf="authService.checkIsLoggedIn()" (click)="logoutClick()" matTooltip="ログアウト">logout</mat-icon>
 </div>
 
 <router-outlet></router-outlet>

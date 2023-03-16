@@ -35,7 +35,7 @@ export class TopComponent{
     public pageIndex:number = 0;
 
     //ログインしている際は、ログイン画面 していない場合はホーム
-    public path = this.authService.isLoggedIn.getValue() ? constant.PATH.HOME : constant.PATH.LOGIN;
+    public path = this.authService.checkIsLoggedIn() ? constant.PATH.HOME : constant.PATH.LOGIN;
 
     ngOnInit(){
         this.getNotifications()
