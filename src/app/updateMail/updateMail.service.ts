@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from '../../constants';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -21,6 +22,6 @@ export class UpdateMailService{
         'Content-Type':'application/json'
       })
     }
-    return this.http.put(constant.API.URL + constant.API.UPDATEMAIL,token,httpOptions);
+    return this.http.put(environment.apiUrl + constant.API.UPDATEMAIL,token,httpOptions);
   }
 }

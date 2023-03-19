@@ -15,6 +15,7 @@ import { SnackBarService } from '../snackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import { EnabledBlockingInitialNavigationFeature } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 type Nullable<T> = T | undefined | null;
 
@@ -187,7 +188,7 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       return
     }
 
-    self.service.setUrl(constant.API.URL + constant.API.UPDATE);
+    self.service.setUrl(environment.apiUrl + constant.API.UPDATE);
     //新規に設定情報を更新する
     self.service.updateSettingInfo(self.settingInfo)
     .subscribe({

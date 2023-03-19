@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as constant from "../../constants";
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -19,6 +20,6 @@ export class TopService{
               'Content-Type':'application/json'
             })
         }
-        return this.http.get(constant.API.URL + constant.API.SELECTNOTIFICATION,httpOptions)
+        return this.http.get(environment.apiUrl + constant.API.SELECTNOTIFICATION,httpOptions)
     }
 }

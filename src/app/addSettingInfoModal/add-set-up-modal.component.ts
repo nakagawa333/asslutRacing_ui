@@ -13,7 +13,7 @@ import { SettingInfo } from '../interface/settingInfo';
 import { SnackBarService } from '../snackBar.service';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -231,7 +231,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       return;
     }
 
-    self.service.setUrl(constant.API.URL + constant.API.ADD);
+    self.service.setUrl(environment.apiUrl + constant.API.ADD);
 
     //新規に設定情報を登録する
     self.service.addSettingInfo(self.settingInfo)

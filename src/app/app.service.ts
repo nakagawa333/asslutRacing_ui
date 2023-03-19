@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import * as constant from "../constants"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
+import {environment} from "../environments/environment";
+
 
 @Injectable({
     providedIn: 'root'
@@ -20,11 +22,11 @@ export class AppService{
     }
 
     public getAllSettingInfo(options:object){
-        return this.http.get(constant.API.URL + constant.API.HOME,options)
+        return this.http.get(environment.apiUrl + constant.API.HOME,options)
     }
 
     async deleteSettingInfo(body:any){
-        return await this.http.put(constant.API.URL + constant.API.DELETE,body)
+        return await this.http.put(environment.apiUrl + constant.API.DELETE,body)
     }
 
     public changeDataToMatTableDataSource(datas:any){

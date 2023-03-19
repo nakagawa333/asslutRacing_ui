@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { CookieService } from 'ngx-cookie-service';
 import { ObserversModule } from "@angular/cdk/observers";
 import { Router } from "@angular/router";
+import {environment} from "../environments/environment";
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class AuthService {
     //ログイン
     login(body: object) {
         let self = this;
-        return self.http.post(constant.API.URL + constant.API.LOGIN, body)
+        return self.http.post(environment.apiUrl + constant.API.LOGIN, body)
     }
 
     //ログアウト
@@ -71,31 +72,31 @@ export class AuthService {
 
     //ユーザー名から取得
     selectUserByUserName(userName: string) {
-        return this.http.post(constant.API.URL + constant.API.SELECTUSERBYUSERNAME, userName)
+        return this.http.post(environment.apiUrl + constant.API.SELECTUSERBYUSERNAME, userName)
     }
 
     //メールから取得
     selectUserByMail(mail: string) {
-        return this.http.post(constant.API.URL + constant.API.SELECTUSERBYMAIL, mail)
+        return this.http.post(environment.apiUrl + constant.API.SELECTUSERBYMAIL, mail)
     }
 
     //サインアップ
     signup(body: object) {
-        return this.http.post(constant.API.URL + constant.API.SIGNUP, body)
+        return this.http.post(environment.apiUrl + constant.API.SIGNUP, body)
     }
 
     //トークン確認
     verifyToken(token: String | null) {
-        return this.http.post(constant.API.URL + constant.API.VERIFYTOKEN, token)
+        return this.http.post(environment.apiUrl + constant.API.VERIFYTOKEN, token)
     }
 
     //パスワードリセットメール送信
     sendPasswordResetMail(body: object) {
-        return this.http.post(constant.API.URL + constant.API.PASSWORDRESET, body)
+        return this.http.post(environment.apiUrl + constant.API.PASSWORDRESET, body)
     }
 
     //パスワードアップデート
     passwordUpdate(body: object) {
-        return this.http.put(constant.API.URL + constant.API.PASSWORDUPDATE, body)
+        return this.http.put(environment.apiUrl + constant.API.PASSWORDUPDATE, body)
     }
 }

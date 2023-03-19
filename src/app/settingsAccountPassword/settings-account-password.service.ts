@@ -7,6 +7,7 @@ import * as constant from "../../constants"
 import { AuthService } from "../auth.service";
 import { SelectUserPassword } from "../selectUserPassword";
 import { UpdateMail } from "../updateMail";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class SettingsAccountPasswordService{
       userId:userId,
       password:password
     }
-    return self.http.post(constant.API.URL + constant.API.SELECTUSERBYPASSWORD,selectUserPassword);
+    return self.http.post(environment.apiUrl + constant.API.SELECTUSERBYPASSWORD,selectUserPassword);
   }
 
   /**
@@ -63,6 +64,6 @@ export class SettingsAccountPasswordService{
       newPassword:newPassword
     }
     
-    return self.http.put(constant.API.URL + constant.API.PASSWORDCURRENT,currentPassword)
+    return self.http.put(environment.apiUrl + constant.API.PASSWORDCURRENT,currentPassword)
   }
 }

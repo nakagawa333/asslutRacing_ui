@@ -14,6 +14,8 @@ import { UpdateSettingInfoModalComponent } from '../updateSettingInfoModal/updat
 import { DeleteConfirmModalComponent } from '../deleteConfirmModal/delete-confirm-modal.component';
 import { ModalParam } from '../interface/modalParam';
 import { SettingInfo } from '../interface/settingInfo';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
     templateUrl: './home.component.html',
@@ -75,7 +77,7 @@ export class HomeComponent implements OnInit {
     private getAllSettingInfo():void{
       let userId = this.authService.getUserId();
 
-      this.service.setUrl(constant.API.URL + constant.API.HOME);
+      this.service.setUrl(environment.apiUrl + constant.API.HOME);
       let options = {
         "params":{"userId":userId},
         "responseType":"json"
@@ -130,7 +132,7 @@ export class HomeComponent implements OnInit {
 
     //追加ボタンクリック時
     public addClick():void{
-      this.http.get(constant.API.URL + constant.API.INFOS,{
+      this.http.get(environment.apiUrl + constant.API.INFOS,{
         responseType:"json"
       })
       .subscribe((res) => {
@@ -176,7 +178,7 @@ export class HomeComponent implements OnInit {
         const body:object = {"id":result.id}
         if(result.deleteFlag){
           //該当idのデータを削除する
-          this.http.put(constant.API.URL + constant.API.DELETE,body)
+          this.http.put(environment.apiUrl + constant.API.DELETE,body)
           .subscribe((res:any) => {
             //データの削除に成功した場合
             if(res){
@@ -190,11 +192,11 @@ export class HomeComponent implements OnInit {
     //更新ボタンクリック時
     public updateClick(row:any){
       //メーカー,車,コースを取得
-      this.http.get(constant.API.URL + constant.API.INFOS,{
+      this.http.get(environment.apiUrl + constant.API.INFOS,{
         responseType:"json"
       })
       .subscribe((infos) => {
-        this.http.get(constant.API.URL + constant.API.SELECT + row.id,{
+        this.http.get(environment.apiUrl + constant.API.SELECT + row.id,{
           responseType:"json"
         })
         .subscribe((settingInfo) => {
