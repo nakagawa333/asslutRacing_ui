@@ -26,6 +26,9 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
+            "allowedCommonJsDependencies": [
+              "buffer"
+            ],
             "scripts": []
           },
           "configurations": {
