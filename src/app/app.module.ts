@@ -44,6 +44,9 @@ import { SettingsAccountMailComponent } from './settingsAccountMail/settings-acc
 import { UpdateMailComponent } from './updateMail/updateMail.component';
 import { SettingsAccountPasswordComponent } from './settingsAccountPassword/settings-account-password.component';
 import { AuthGuard } from './guard/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'src/auth-interceptor';
+
 
 
 const routes: Routes  = [
@@ -110,7 +113,9 @@ const routes: Routes  = [
     LayoutModule
   ],
   exports:[RouterModule],
-  providers: [CookieService],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi: true }
+  ],
   bootstrap: [AppComponent]
-})
+})  
 export class AppModule { }
