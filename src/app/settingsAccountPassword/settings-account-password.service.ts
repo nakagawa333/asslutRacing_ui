@@ -52,12 +52,6 @@ export class SettingsAccountPasswordService{
    */
   currentPassword(oldPassword:string,newPassword:string,userId:number):Observable<Object>{
     let self = this;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':'application/json'
-      })
-    }
-
     let currentPassword = {
       userId:userId,
       oldPassword:oldPassword,

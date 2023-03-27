@@ -21,8 +21,8 @@ export class AppService{
         this.url = url
     }
 
-    public getAllSettingInfo(options:object){
-        return this.http.get(environment.apiUrl + constant.API.HOME,options)
+    public getAllSettingInfo(userId:string){
+        return this.http.get(environment.apiUrl + constant.API.HOME + userId)
     }
 
     async deleteSettingInfo(body:any){

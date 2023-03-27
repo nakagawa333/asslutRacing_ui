@@ -3,7 +3,7 @@ export class API{
     //本番環境のurl
     // public static readonly URL = "";
     public static readonly DELETE = "/delete"
-    public static readonly HOME = "/home"
+    public static readonly HOME = "/home?userId="
     public static readonly INFOS = "/infos"
     public static readonly ADD = "/add"
     public static readonly AUTH_USER = "/auth/user"
@@ -53,6 +53,7 @@ export class LOCALSTORAGE{
 export class COOKIE{
     public static readonly USERID = "userId"
     public static readonly USERNAME = "userName"
+    public static readonly ACESSTOKEN = "acess_token"
 }
 
 export class REGEX{
@@ -69,5 +70,5 @@ export class MESSAGE{
     public static readonly UNAUTHORISEDACCESS = "不正なアクセスです。ログインしなおしてください。";
     public static readonly PASSWORDUPDAREFAILED = "パスワード更新に失敗しました";
     public static readonly PASSWORDUPDATESUCESS = "パスワード更新に成功しました";
-
+    public static readonly NOTEXSITSACESSTOKEN = "アクセストークンが存在しません";
 }

@@ -5,6 +5,7 @@ import {AddSettingInfoModalComponent} from "./add-set-up-modal.component";
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SettingInfo } from "../interface/settingInfo";
 import { SettingInfoMatSliderValue } from "../settingInfoMatSliderValue";
+import { AuthService } from "../auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { SettingInfoMatSliderValue } from "../settingInfoMatSliderValue";
 export class AddSettingInfoModalService{
   constructor(
     private http: HttpClient,
+    private authService:AuthService
   ){}
 
   private url:string;
@@ -59,6 +61,13 @@ export class AddSettingInfoModalService{
 
   /** 新規に設定情報を登録する  */
   addSettingInfo(settingInfo:object){
+
+    //トークン
+    let acessToken = this.authService.getAccessToken();
+    let headers = new HttpHeaders({
+      "Authorization":"Basic " + acessToken
+    })
+    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':'application/json'

@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { SettingsAccountService } from './settings-account.service';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -40,12 +41,8 @@ export class SettingsAccountComponent implements OnInit{
   getSettingsAccount():void{
     let self = this;
     let userId = self.authService.getUserId();
-    let options:Object = {
-      "responseType":"json"
-    }
-
     //ユーザーの設定情報を取得する
-    self.service.getSettingsAccount(userId,options)
+    self.service.getSettingsAccount(userId)
     .subscribe({
       next:(datas:any) => {
         if(datas !== null){

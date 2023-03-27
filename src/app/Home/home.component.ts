@@ -75,15 +75,12 @@ export class HomeComponent implements OnInit {
 
     /** 全設定情報を取得する */
     private getAllSettingInfo():void{
-      let userId = this.authService.getUserId();
+      let self = this;
+      let userId = self.authService.getUserId();
 
       this.service.setUrl(environment.apiUrl + constant.API.HOME);
-      let options = {
-        "params":{"userId":userId},
-        "responseType":"json"
-      }
 
-      this.service.getAllSettingInfo(options)
+      this.service.getAllSettingInfo(userId)
       .subscribe({
           next: (datas:any) => {
             //設定情報

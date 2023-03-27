@@ -9,6 +9,9 @@ import { UpdateUsername } from '../updateUsername';
 import { SnackBarService } from '../snackBar.service';
 import { Router } from '@angular/router'
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
+import * as constant from "../../constants";
+import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -22,6 +25,7 @@ export class SettingsAccountUserNameComponent implements OnInit{
     private snackBarService:SnackBarService,
     private service:SettingsAccountUserNameService,
     private errorSnackBarService:ErrorSnackBarService,
+    private cookie:CookieService,
     private router: Router
   ){}
 
@@ -80,13 +84,22 @@ export class SettingsAccountUserNameComponent implements OnInit{
         if(1 <= userNum){
           self.settingsAccountUserNameForm.controls.userName.setErrors({"existUserName":true})
         } else {
+          //httpヘッダー
+          let headers = self.authService.createHttpHeaders();
+          //アクセストークンが存在しない場合
+          if(headers === null){
+            self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.UNAUTHORISEDACCESS]);
+            return;
+          }
+
           //ユーザー名更新処理
           self.service.updateUserName(updateUsername)
           .subscribe({
-            next:(userUpdateSucessFlag:any) => {
-              if(userUpdateSucessFlag){
+            next:(updateUserRes:any) => {
+              if(updateUserRes["userUpdateSucessFlag"]){
                 self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
-                self.router.navigate(["settings/account"]);
+                self.cookie.set(constant.COOKIE.ACESSTOKEN,updateUserRes["acessToken"]);
+                self.router.navigate([constant.PATH.SETTINGSACCOUNT]);
               } else {
                 self.errorSnackBarService.openSnackBarForErrorMessage(["ユーザー名の変更に失敗しました"]);
               }

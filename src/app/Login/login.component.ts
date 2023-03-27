@@ -103,10 +103,12 @@ export class LoginComponent implements OnInit{
                         //ログイン情報を保持する
                         cookie.set(constant.COOKIE.USERID,data["userId"])
                         cookie.set(constant.COOKIE.USERNAME,data["userName"])
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["token"]);
                     } else {
                         //ログイン情報を保持する(1日)
                         cookie.set(constant.COOKIE.USERID,data["userId"],1)
                         cookie.set(constant.COOKIE.USERNAME,data["userName"],1)
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["token"],1);
                     }
 
                     //ログイン状態を更新

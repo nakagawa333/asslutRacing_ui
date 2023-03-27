@@ -15,7 +15,7 @@ export class SettingsAccountService{
   ){}
 
   //ユーザーの設定情報を取得する
-  getSettingsAccount(userId:string,options:object){
+  getSettingsAccount(userId:string){
     return this.http.get(environment.apiUrl + constant.API.SETTINGSACCOUNT + userId);
   }
 }

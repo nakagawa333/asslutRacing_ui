@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler } from "@angular/common/http";
 import { AuthService } from "./app/auth.service";
 
+/**
+ * 認証共通設定クラス
+ */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) { }

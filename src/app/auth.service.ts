@@ -1,11 +1,13 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from "../constants";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { CookieService } from 'ngx-cookie-service';
 import { ObserversModule } from "@angular/cdk/observers";
 import { Router } from "@angular/router";
 import {environment} from "../environments/environment";
+import { LoginBody } from "./interface/loginBody";
+import { Buffer } from 'buffer'
 
 
 @Injectable({
@@ -25,22 +27,47 @@ export class AuthService {
     }
 
     //ログイン
-    login(body: object) {
+    login(body: LoginBody) :Observable<Object>{
         let self = this;
+        let userName = body.userName === null ? "" : body.userName;
+        let passsword = body.password === undefined ? "" : body.password;
         return self.http.post(environment.apiUrl + constant.API.LOGIN, body)
     }
 
     //ログアウト
-    logout() {
+    logout() :void{
         let self = this;
         //セッションに保存しているユーザーIDとユーザー名を削除
         self.cookie.delete(constant.COOKIE.USERID, '/')
         self.cookie.delete(constant.COOKIE.USERNAME, '/')
+        self.cookie.delete(constant.COOKIE.ACESSTOKEN,'/')
         self.updateIsLoggedIn()
     }
 
+    //ユーザーidを取得する
     getUserId() {
         return this.cookie.get(constant.COOKIE.USERID)
+    }
+
+    //アクセストークンを取得する
+    getAccessToken():string{
+        return this.cookie.get(constant.COOKIE.ACESSTOKEN);
+    }
+
+    //jwt用のhttpヘッダーを作成する
+    createHttpHeaders():HttpHeaders | null{
+        //アクセストークン
+        let acessToken = this.getAccessToken();
+
+        //アクセストークンが存在しない場合
+        if(acessToken === null) {
+            return null;
+        }
+
+        let headers = new HttpHeaders({
+            "Authorization":"Basic " + acessToken
+        })
+        return headers;
     }
 
     //ログイン状態を更新
