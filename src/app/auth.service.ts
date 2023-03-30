@@ -38,9 +38,7 @@ export class AuthService {
     logout() :void{
         let self = this;
         //セッションに保存しているユーザーIDとユーザー名を削除
-        self.cookie.delete(constant.COOKIE.USERID, '/')
-        self.cookie.delete(constant.COOKIE.USERNAME, '/')
-        self.cookie.delete(constant.COOKIE.ACESSTOKEN,'/')
+        self.cookie.deleteAll('/')
         self.updateIsLoggedIn()
     }
 

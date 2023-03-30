@@ -54,6 +54,7 @@ export class COOKIE{
     public static readonly USERID = "userId"
     public static readonly USERNAME = "userName"
     public static readonly ACESSTOKEN = "acess_token"
+    public static readonly REFRESHTOKEN = "refresh_token"
 }
 
 export class REGEX{

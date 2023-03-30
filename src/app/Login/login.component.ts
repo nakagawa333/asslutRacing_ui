@@ -98,17 +98,24 @@ export class LoginComponent implements OnInit{
         .subscribe({
             next:(data:any) => {
                 if(data !== null){
+                    //セッションに保存しているユーザーIDとユーザー名を削除
+                    cookie.deleteAll('/')
+
                     //ログイン状態を保持チェック状態がtrue
                     if(this.loginStateObserveFlg){
                         //ログイン情報を保持する
                         cookie.set(constant.COOKIE.USERID,data["userId"])
                         cookie.set(constant.COOKIE.USERNAME,data["userName"])
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["token"]);
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"]);
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"]);
+
                     } else {
                         //ログイン情報を保持する(1日)
                         cookie.set(constant.COOKIE.USERID,data["userId"],1)
                         cookie.set(constant.COOKIE.USERNAME,data["userName"],1)
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["token"],1);
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],1);
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"]);
+
                     }
 
                     //ログイン状態を更新
