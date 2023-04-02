@@ -10,6 +10,7 @@ import {TooltipPosition} from '@angular/material/tooltip';
 import {FormControl} from '@angular/forms';
 import { NotFoundErrorComponent } from './notFoundError/not-found-error.component';
 import {MatButtonToggle} from '@angular/material/button-toggle';
+import { SnackBarService } from './snackBar.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent{
     private router: Router,
     public authService: AuthService,
     private dialog: MatDialog,
+    private snackBarService:SnackBarService,
     private lo: Location
   ) {
   }
@@ -48,6 +50,7 @@ export class AppComponent{
 
     dialogRef.afterClosed().subscribe((result:Logout) => {
       if(result["logoutFlag"]){
+        self.snackBarService.openSnackBar(constant.MESSAGE.LOGOUTSUCESS);
         //ログアウト
         self.authService.logout();
       }

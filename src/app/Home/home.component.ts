@@ -15,6 +15,8 @@ import { DeleteConfirmModalComponent } from '../deleteConfirmModal/delete-confir
 import { ModalParam } from '../interface/modalParam';
 import { SettingInfo } from '../interface/settingInfo';
 import { environment } from 'src/environments/environment';
+import { HomeService } from './home.service';
+import { SnackBarService } from '../snackBar.service';
 
 
 @Component({
@@ -27,7 +29,9 @@ export class HomeComponent implements OnInit {
       private dialog: MatDialog,
       private service: AppService,
       private http: HttpClient,
-      private authService: AuthService
+      private authService: AuthService,
+      private snackBarService:SnackBarService,
+      private homeService:HomeService
     ) {
     }
 
@@ -164,22 +168,26 @@ export class HomeComponent implements OnInit {
     }
 
     private deleteConfilmOpenDialog(row:any,dates:any):void{
+      let self = this;
+
       const param:object = {
         data:{"row":row,"dates":dates,"title":row.title + "を削除してもよろしいでしょうか？","id":row.id},
         id:"delete-confilm-modal"
       }
-      const dialogRef = this.openDialog(DeleteConfirmModalComponent,param)
+      const dialogRef = self.openDialog(DeleteConfirmModalComponent,param)
 
-      let value = this.filterName
+      let value = self.filterName
       dialogRef.afterClosed().subscribe((result:any) => {
         const body:object = {"id":result.id}
         if(result.deleteFlag){
           //該当idのデータを削除する
-          this.http.put(environment.apiUrl + constant.API.DELETE,body)
+          self.homeService.deleteSettingInfo(body)
           .subscribe((res:any) => {
             //データの削除に成功した場合
             if(res){
-              this.getAllSettingInfo();
+              self.snackBarService.openSnackBar(row.title + "を削除しました");
+              //設定情報を再取得する
+              self.getAllSettingInfo();
             }
           })
         }
