@@ -48,8 +48,8 @@ export class AppComponent{
 
     dialogRef.afterClosed().subscribe((result:Logout) => {
       if(result["logoutFlag"]){
+        //ログアウト
         self.authService.logout();
-        self.router.navigate([constant.PATH.LOGIN])
       }
     })
   }

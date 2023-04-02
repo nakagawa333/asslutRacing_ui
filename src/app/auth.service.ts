@@ -39,7 +39,10 @@ export class AuthService {
         let self = this;
         //セッションに保存しているユーザーIDとユーザー名を削除
         self.cookie.deleteAll('/')
+        //ログイン状態を更新
         self.updateIsLoggedIn()
+        //ログイン画面に繊維
+        self.router.navigate([constant.PATH.LOGIN])
     }
 
     //ユーザーidを取得する
@@ -50,6 +53,11 @@ export class AuthService {
     //アクセストークンを取得する
     getAccessToken():string{
         return this.cookie.get(constant.COOKIE.ACESSTOKEN);
+    }
+
+    //リフレッシュトークンを取得する
+    getRefreshToken():string{
+        return this.cookie.get(constant.COOKIE.REFRESHTOKEN);
     }
 
     //jwt用のhttpヘッダーを作成する
@@ -94,6 +102,14 @@ export class AuthService {
         }
     }
 
+    /**
+     * 
+     * @param refreshToken リフレッシュトークン
+     * @returns 
+     */
+    refreshToken(body:object){
+        return this.http.post(environment.apiUrl + constant.API.REFRESHTOKEN,body);
+    }
 
     //ユーザー名から取得
     selectUserByUserName(userName: string) {
