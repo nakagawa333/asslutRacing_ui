@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit{
                 }
             },
             error: (e:HttpErrorResponse) => {
-                self.errorSnackBarService.openSnackBarForErrorMessage([e.error.error])
+                self.errorSnackBarService.openSnackBarForErrorMessage([e.error.message])
             }
         })
     }
