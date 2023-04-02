@@ -77,4 +77,6 @@ export class MESSAGE{
     public static readonly PASSWORDUPDATESUCESS = "パスワード更新に成功しました";
     public static readonly NOTEXSITSACESSTOKEN = "アクセストークンが存在しません";
     public static readonly EXPIREDACCESSTOKEN = "アクセストークンの有効期限が切れています。";
+    public static readonly LOGINSUCESS = "ログインに成功しました";
+    public static readonly UNKNOWNERROR = "原因不明のエラーが発生しました";
 }

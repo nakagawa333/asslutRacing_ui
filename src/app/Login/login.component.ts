@@ -11,6 +11,8 @@ import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/sn
 import {SnackBarConfig} from '../union/snabar';
 import { LoginBody } from '../interface/loginBody';
 import { SnackBarService } from '../snackBar.service';
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     templateUrl: './login.component.html',
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit{
         private cookie: CookieService,
         private location: Location,
         private dialog: MatDialog,
+        private errorSnackBarService: ErrorSnackBarService,
         private snackBar: MatSnackBar
         ) {}
 
@@ -70,13 +73,14 @@ export class LoginComponent implements OnInit{
     }
 
     submitLoginForm(){
-        if(this.loginForm.invalid) return;
+        let self = this;
+        if(self.loginForm.invalid) return;
 
         let userName = null;
         let mail = null;
 
         let mailRegex = new RegExp(constant.REGEX.MAIL);
-        let val:string = this.loginForm.get("userName")?.value?.trim() || "";
+        let val:string = self.loginForm.get("userName")?.value?.trim() || "";
 
         //メールアドレスの場合
         if(mailRegex.test(val)){
@@ -88,10 +92,10 @@ export class LoginComponent implements OnInit{
         let body:LoginBody = {
             "userName":userName,
             "mail":mail,
-            "password":this.loginForm.get("password")?.value?.trim()
+            "password":self.loginForm.get("password")?.value?.trim()
         }
 
-        let cookie = this.cookie
+        let cookie = self.cookie
 
         //ログインする
         this.authService.login(body)
@@ -123,18 +127,18 @@ export class LoginComponent implements OnInit{
                     this.authService.updateIsLoggedIn();
 
                     //初期画面に遷移
-                    this.router.navigate(["/home"])
+                    this.router.navigate([constant.PATH.HOME]);
 
                     //snackBarを開く
-                    this.snackBarService.openSnackBar("ログインしました。");
+                    this.snackBarService.openSnackBar(constant.MESSAGE.LOGINSUCESS);
 
                 } else {
                     //snackBarを開く
-                    let loginFailSnackBar:MatSnackBarRef<any> = this.snackBar.open("ユーザー名orメールアドレス、もしくはパスワードが間違えています。","OK",this.loginSnackConfig);
+                    self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.UNKNOWNERROR]);
                 }
             },
-            error: (e:any) => {
-                let loginSnackBar:MatSnackBarRef<any> = this.snackBar.open("ログイン時にエラーが発生しました","OK",this.loginSnackConfig);
+            error: (e:HttpErrorResponse) => {
+                self.errorSnackBarService.openSnackBarForErrorMessage([e.error.error])
             }
         })
     }
