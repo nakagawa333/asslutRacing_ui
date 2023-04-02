@@ -25,6 +25,7 @@ export class API{
     public static readonly SENDMAILUPDATEMAIL = "/send/mail/update/mail"
     public static readonly UPDATEMAIL = "/mail/update"
     public static readonly PASSWORDCURRENT = "/password/current"
+    public static readonly REFRESHTOKEN = "/refresh/token"
 }
 
 export class PATH{
@@ -72,4 +73,5 @@ export class MESSAGE{
     public static readonly PASSWORDUPDAREFAILED = "パスワード更新に失敗しました";
     public static readonly PASSWORDUPDATESUCESS = "パスワード更新に成功しました";
     public static readonly NOTEXSITSACESSTOKEN = "アクセストークンが存在しません";
+    public static readonly EXPIREDACCESSTOKEN = "アクセストークンの有効期限が切れています。";
 }
