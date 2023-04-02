@@ -104,18 +104,17 @@ export class LoginComponent implements OnInit{
                     //ログイン状態を保持チェック状態がtrue
                     if(this.loginStateObserveFlg){
                         //ログイン情報を保持する
-                        cookie.set(constant.COOKIE.USERID,data["userId"])
-                        cookie.set(constant.COOKIE.USERNAME,data["userName"])
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"]);
-                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"]);
+                        cookie.set(constant.COOKIE.USERID,data["userId"],365,"/")
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"],365,"/")
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],365,"/");
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],365,"/");
 
                     } else {
                         //ログイン情報を保持する(1日)
-                        cookie.set(constant.COOKIE.USERID,data["userId"],1)
-                        cookie.set(constant.COOKIE.USERNAME,data["userName"],1)
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],1);
-                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"]);
-
+                        cookie.set(constant.COOKIE.USERID,data["userId"],1,"/")
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"],1,"/")
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],1,"/");
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],1,"/");
                     }
 
                     //ログイン状態を更新

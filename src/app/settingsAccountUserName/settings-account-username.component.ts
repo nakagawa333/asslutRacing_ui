@@ -1,8 +1,6 @@
 
 import { Component,Inject, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
-import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsAccountUserNameService } from './settings-account-username.service';
 import { UpdateUsername } from '../updateUsername';
@@ -10,7 +8,6 @@ import { SnackBarService } from '../snackBar.service';
 import { Router } from '@angular/router'
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import * as constant from "../../constants";
-import { HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -98,8 +95,8 @@ export class SettingsAccountUserNameComponent implements OnInit{
             next:(updateUserRes:any) => {
               if(updateUserRes["userUpdateSucessFlag"]){
                 self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
-                self.cookie.set(constant.COOKIE.ACESSTOKEN,updateUserRes["acessToken"]);
-                self.cookie.set(constant.COOKIE.REFRESHTOKEN,updateUserRes["refreshToken"]);
+                self.cookie.set(constant.COOKIE.ACESSTOKEN,updateUserRes["acessToken"],365,"/");
+                self.cookie.set(constant.COOKIE.REFRESHTOKEN,updateUserRes["refreshToken"],365,"/");
                 self.router.navigate([constant.PATH.SETTINGSACCOUNT]);
               } else {
                 self.errorSnackBarService.openSnackBarForErrorMessage(["ユーザー名の変更に失敗しました"]);
