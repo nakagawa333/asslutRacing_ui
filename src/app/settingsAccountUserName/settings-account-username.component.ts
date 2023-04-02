@@ -95,8 +95,8 @@ export class SettingsAccountUserNameComponent implements OnInit{
             next:(updateUserRes:any) => {
               if(updateUserRes["userUpdateSucessFlag"]){
                 self.snackBarService.openSnackBar("ユーザー名の変更に成功しました");
-                self.cookie.set(constant.COOKIE.ACESSTOKEN,updateUserRes["acessToken"],365,"/");
-                self.cookie.set(constant.COOKIE.REFRESHTOKEN,updateUserRes["refreshToken"],365,"/");
+                self.cookie.set(constant.COOKIE.ACESSTOKEN,updateUserRes["acessToken"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH);
+                self.cookie.set(constant.COOKIE.REFRESHTOKEN,updateUserRes["refreshToken"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH);
                 self.router.navigate([constant.PATH.SETTINGSACCOUNT]);
               } else {
                 self.errorSnackBarService.openSnackBarForErrorMessage(["ユーザー名の変更に失敗しました"]);

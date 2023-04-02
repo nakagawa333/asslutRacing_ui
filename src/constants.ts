@@ -56,6 +56,9 @@ export class COOKIE{
     public static readonly USERNAME = "userName"
     public static readonly ACESSTOKEN = "acess_token"
     public static readonly REFRESHTOKEN = "refresh_token"
+    public static readonly PATH = "/"
+    public static readonly EXPIREDYEAR = 365;
+    public static readonly EXPIREDDAY = 1;
 }
 
 export class REGEX{

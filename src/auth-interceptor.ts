@@ -73,7 +73,7 @@ export class AuthInterceptor implements HttpInterceptor {
             concatMap((data:any) => {
                 let acessToken = data["acessToken"]
                 self.cookie.delete(constant.COOKIE.ACESSTOKEN,"/");
-                self.cookie.set(constant.COOKIE.ACESSTOKEN,acessToken);
+                self.cookie.set(constant.COOKIE.ACESSTOKEN,acessToken,constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH);
 
                 return next.handle(req.clone({setHeaders:self.getHeaders(req)}));
             }),

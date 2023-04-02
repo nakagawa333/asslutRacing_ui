@@ -3,19 +3,15 @@ import { FormControl, FormGroup, Validators,ValidationErrors } from '@angular/fo
 import { Router } from '@angular/router';
 import {AuthService} from "../auth.service";
 import * as constant from "../../constants"
-import { CookieService } from 'ngx-cookie-service';
-import { Location } from '@angular/common';
 import { User } from 'src/user';
 import {SnackBarConfig} from '../union/snabar';
-import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
+import {MatSnackBar,MatSnackBarConfig} from '@angular/material/snack-bar';
 import { SignUpBody } from '../interface/signUpBody';
-import { SelectUserBody } from '../interface/selectUserBody';
 import { SnackBarService } from '../snackBar.service';
 
 @Component({
     templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.css'],
-    providers: [CookieService]
+    styleUrls: ['./signup.component.css']
 })
 
 

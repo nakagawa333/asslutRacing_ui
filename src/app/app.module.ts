@@ -19,7 +19,6 @@ import { AddSettingInfoModalComponent } from './addSettingInfoModal/add-set-up-m
 import { LoginComponent } from './Login/login.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './Home/home.component';
-import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SingupComponent } from './SignUp/signup.component';

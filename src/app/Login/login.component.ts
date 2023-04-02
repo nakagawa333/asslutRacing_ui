@@ -101,20 +101,22 @@ export class LoginComponent implements OnInit{
                     //セッションに保存しているユーザーIDとユーザー名を削除
                     cookie.deleteAll('/')
 
+                    // localStorage.setItem("loginStateObserveFlg",this.loginStateObserveFlg)
+
                     //ログイン状態を保持チェック状態がtrue
                     if(this.loginStateObserveFlg){
                         //ログイン情報を保持する
-                        cookie.set(constant.COOKIE.USERID,data["userId"],365,"/")
-                        cookie.set(constant.COOKIE.USERNAME,data["userName"],365,"/")
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],365,"/");
-                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],365,"/");
+                        cookie.set(constant.COOKIE.USERID,data["userId"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH)
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH)
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH);
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],constant.COOKIE.EXPIREDYEAR,constant.COOKIE.PATH);
 
                     } else {
                         //ログイン情報を保持する(1日)
-                        cookie.set(constant.COOKIE.USERID,data["userId"],1,"/")
-                        cookie.set(constant.COOKIE.USERNAME,data["userName"],1,"/")
-                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],1,"/");
-                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],1,"/");
+                        cookie.set(constant.COOKIE.USERID,data["userId"],constant.COOKIE.EXPIREDDAY,constant.COOKIE.PATH)
+                        cookie.set(constant.COOKIE.USERNAME,data["userName"],constant.COOKIE.EXPIREDDAY,constant.COOKIE.PATH)
+                        cookie.set(constant.COOKIE.ACESSTOKEN,data["acessToken"],constant.COOKIE.EXPIREDDAY,constant.COOKIE.PATH);
+                        cookie.set(constant.COOKIE.REFRESHTOKEN,data["refreshToken"],constant.COOKIE.EXPIREDDAY,constant.COOKIE.PATH);
                     }
 
                     //ログイン状態を更新
