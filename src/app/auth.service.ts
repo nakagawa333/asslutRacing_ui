@@ -79,9 +79,8 @@ export class AuthService {
     //ログイン状態を更新
     updateIsLoggedIn(): void {
         let self = this;
-        let isUserId = self.cookie.check(constant.COOKIE.USERID)
-        let isUsername = self.cookie.check(constant.COOKIE.USERNAME)
-        self.isLoggedIn.next(isUserId && isUsername);
+        let refreshToken = self.cookie.check(constant.COOKIE.REFRESHTOKEN);
+        self.isLoggedIn.next(refreshToken);
     }
 
     //ログイン状態を確認

@@ -1,23 +1,48 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, ɵHttpInterceptingHandler } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "./app/auth.service";
 import * as constant from "./constants";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { CookieService } from "ngx-cookie-service";
 import { catchError, concatMap, Observable, switchMap } from "rxjs";
+import { Route, Router, Routes } from "@angular/router";
+import { ErrorSnackBarService } from "./app/errorSnackBar/errorSnackBar.service";
 
 /**
  * Http共通設定クラス
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+    //キーがパス
+    private routerMap = new Map<String,Route>();
+
     constructor(
         private authService: AuthService,
-        private cookie:CookieService
-    ) { }
-    
+        private cookie:CookieService,
+        private router: Router,
+        private errorSnackBarService:ErrorSnackBarService
+    ) { 
+        let self = this;
+        let config:Routes = self.router.config;
+        for(let c of config){
+            let path = c?.path;
+            if(path){
+                self.routerMap.set("/" + path,c);
+            }
+        }
+    }
+
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         let self = this;
+
+        let url = new URL(location.href);
+        let route = self.routerMap.get(url.pathname);
+
+        //ログインが必要な画面でリフレッシュトークンを取得できない場合、強制ログアウト
+        if(!self.authService.checkIsLoggedIn() && route?.canActivate){
+            self.errorSnackBarService.openSnackBarForErrorMessage(["不正なアクセスです。再度ログインをお願いいたします。"])
+            self.authService.logout();
+        }
 
         //ヘッダー
         let headers = self.getHeaders(req);
