@@ -9,20 +9,20 @@ import {  SnackBarConfig} from '../union/snabar';
 import {MatSnackBar,MatSnackBarConfig,MatSnackBarRef} from '@angular/material/snack-bar';
 import {UpdateSettingInfoModalService} from "./update-setting-info-modal.service";
 import { SettingInfo } from '../interface/settingInfo';
-import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { SnackBarService } from '../snackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
-import { EnabledBlockingInitialNavigationFeature } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-type Nullable<T> = T | undefined | null;
-
+/**
+ * 設定情報更新コンポーネントクラス
+ */
 @Component({
   templateUrl: "./update-setting-info-modal.component.html",
   styleUrls: ["./update-setting-info-modal.component.css"]
 })
+
 export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
   constructor(
       public dialogRef: MatDialogRef<UpdateSettingInfoModalComponent>,
@@ -78,6 +78,18 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
 
   public MatSliderValue = SettingInfoMatSliderValue;
 
+  //セッティングネイム
+  public settingName = this.updateSettingInfoForm.controls.settingName;
+
+  //設定情報エラーメッセージ
+  public settingNameErrorMessage:String = "";
+
+  //選択したファイル名
+  public selectedFilename:string = "";
+
+  //ブラウザ上のurl
+  public imgBase64Url:any = "";
+
   /**
    * セッティングネイムに値を挿入する
    * @param settingName セッティングネイム
@@ -85,12 +97,6 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
   public setSettingName(settingName:string){
     this.updateSettingInfoForm.controls.settingName.setValue(settingName);
   }
-
-  //セッティングネイム
-  public settingName = this.updateSettingInfoForm.controls.settingName;
-
-  //設定情報エラーメッセージ
-  public settingNameErrorMessage:String = "";
 
   ngOnInit(): void{
     if(this.data === null) return;
@@ -123,6 +129,8 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       //absのテキストを変更 ON checked:true OFF checked:false
       this.absTextChange(this.settingInfo.abs)
 
+      //画像を設定
+      this.imgBase64Url = settingInfo["imgBase64Url"];
       //メーカーidを設定
       this.defaultMakerId = settingInfo["makerId"];
       //車idを設定
@@ -274,6 +282,30 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       e.preventDefault();
       return;
     }
+  }
+
+  //画像選択時イベント
+  selectFile(e:any):void{
+    let self = this;
+    let file:File = e?.target.files[0];
+    if(!file.type.includes("image")){
+      self.errorSnackBarService.openSnackBarForErrorMessage(["選択したファイルが画像ではありません"]);
+      self.imgBase64Url = "";
+      return;
+    }
+    self.selectedFilename = file.name;
+    //ファイルのブラウザ上でのURLを取得する
+    let reader = new FileReader();
+    reader.onload = () => {
+      self.imgBase64Url = reader.result;
+    }
+
+    //ファイル読み込み失敗時
+    reader.onerror = () => {
+      self.errorSnackBarService.openSnackBarForErrorMessage(["ファイルの読み込みに失敗しました"]);
+    }
+
+    reader.readAsDataURL(file);
   }
 
   isValidate(min:number,max:number,num:number):boolean{

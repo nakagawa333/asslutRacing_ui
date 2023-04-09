@@ -32,5 +32,6 @@ export interface SettingInfo{
     hoilesize:Nullable<number>,
     memo:Nullable<string>,
     userId:Nullable<number>,
+    imgBase64Url:Nullable<string>
     [key: string]: any
 }

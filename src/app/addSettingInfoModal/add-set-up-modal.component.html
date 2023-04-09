@@ -1,6 +1,24 @@
 <div id="add-modal-content">
   <form id="" [formGroup]="addSetupForm">
     <mat-tab-group>
+
+      <!-- ファイル読み込み -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">image
+          </mat-icon>
+        </ng-template>
+
+        <div class="file-container">
+          <input type="file" (change)="selectFile($event)" class="file" accept="image/*"/>
+        </div>
+
+
+        <div *ngIf="imgBase64Url !== ''">
+          <img src="{{imgBase64Url}}" width="50%;">
+        </div>
+      </mat-tab>
+
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">create

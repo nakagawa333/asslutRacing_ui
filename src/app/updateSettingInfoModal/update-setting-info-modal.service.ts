@@ -49,7 +49,8 @@ export class UpdateSettingInfoModalService{
     "offset":this.MatSliderValue.Offset.MIN,
     "hoilesize":this.MatSliderValue.Hoilesize.MIN,
     "memo":"",
-    "userId":null
+    "userId":null,
+    "imgBase64Url":""
   };
 
   setUrl(url:string):void{

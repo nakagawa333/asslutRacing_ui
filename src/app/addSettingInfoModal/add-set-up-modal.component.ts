@@ -105,6 +105,12 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   public MatSliderValue = SettingInfoMatSliderValue
 
+  //選択したファイル名
+  public selectedFilename:string = "";
+
+  //ブラウザ上のurl
+  public imgBase64Url:any = "";
+
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
     horizontalPosition:SnackBarConfig?.SnackBarHorizontalPosition?.CENTER,
@@ -233,6 +239,9 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
     self.service.setUrl(environment.apiUrl + constant.API.ADD);
 
+    //画像のBase64を最新化
+    self.settingInfo["imgBase64Url"] = self.imgBase64Url;
+    
     //新規に設定情報を登録する
     self.service.addSettingInfo(self.settingInfo)
     .subscribe({
@@ -358,5 +367,29 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     self.makerErrorMessage = "";
     self.courseErrorMessage = "";
     self.tireTypeErrorMessage = "";
+  }
+
+  //画像選択時イベント
+  selectFile(e:any):void{
+    let self = this;
+    let file:File = e?.target.files[0];
+    if(!file.type.includes("image")){
+      self.errorSnackBarService.openSnackBarForErrorMessage(["選択したファイルが画像ではありません"]);
+      self.imgBase64Url = "";
+      return;
+    }
+    self.selectedFilename = file.name;
+    //ファイルのブラウザ上でのURLを取得する
+    let reader = new FileReader();
+    reader.onload = () => {
+      self.imgBase64Url = reader.result;
+    }
+
+    //ファイル読み込み失敗時
+    reader.onerror = () => {
+      self.errorSnackBarService.openSnackBarForErrorMessage(["ファイルの読み込みに失敗しました"]);
+    }
+
+    reader.readAsDataURL(file);
   }
 }
