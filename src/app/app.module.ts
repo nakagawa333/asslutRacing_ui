@@ -21,6 +21,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './Home/home.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {OverlayModule} from '@angular/cdk/overlay';
 import { SingupComponent } from './SignUp/signup.component';
 import { TokenComponent } from './token/token.component';
 import { SendPasswordResetMailComponent } from './sendPasswordResetMail/sendPasswordResetMail.component';
@@ -45,7 +47,8 @@ import { SettingsAccountPasswordComponent } from './settingsAccountPassword/sett
 import { AuthGuard } from './guard/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/auth-interceptor';
-
+import { LoadingSpinnerComponent } from './loadingSpinner/loading-spinner.component';
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
 
 
 const routes: Routes  = [
@@ -82,6 +85,7 @@ const routes: Routes  = [
     SettingsAccountMailComponent,
     UpdateMailComponent,
     SettingsAccountPasswordComponent,
+    LoadingSpinnerComponent,
     NotFoundErrorComponent
   ],
   imports: [
@@ -109,6 +113,8 @@ const routes: Routes  = [
     MatSidenavModule,
     MatDividerModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
+    OverlayModule,
     LayoutModule
   ],
   exports:[RouterModule],

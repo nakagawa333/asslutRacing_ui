@@ -9,12 +9,11 @@
             </mat-icon>
           </ng-template>
   
-          <div class="file-container">
-            <input type="file" (change)="selectFile($event)" class="file" accept="image/*"/>
-          </div>
-          
-          <div *ngIf="imgBase64Url !== ''">
-            <img src="{{imgBase64Url}}" width="50%;">
+          <div class="file-container" (click)="fileSelectorClick()" (dragover)="imageFileDrag($event)" (drop)="imageFileDrop($event)">
+            <div class="file-container-text">
+              <p class="text-center">ファイルを選択してください</p>
+              <p class="text-center">{{selectedFilename}}</p>
+            </div>
           </div>
         </mat-tab>
   

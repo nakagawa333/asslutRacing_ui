@@ -66,6 +66,7 @@ export class REGEX{
 }
 
 export class COLUMNNAMES{
+    public static readonly CAPUTURE = "画像"
     public static readonly SETTINGNAME = "セッティングネイム"
     public static readonly CARNAME = "車名"
     public static readonly COURSE = "コース"
@@ -80,4 +81,6 @@ export class MESSAGE{
     public static readonly LOGINSUCESS = "ログインに成功しました";
     public static readonly LOGOUTSUCESS = "ログアウトしました";
     public static readonly UNKNOWNERROR = "原因不明のエラーが発生しました";
+    public static readonly NOTEXSITFILEIMAGE = "選択したファイルが画像ではありません"
+    public static readonly READFILEFAIL = "ファイルの読み込みに失敗しました"
 }

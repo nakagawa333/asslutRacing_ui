@@ -29,6 +29,14 @@
 
     <div id="setting-info-table">
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="capture">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{capture}} </th>
+          <td class="mat-start-cell" *matCellDef="let element">
+            <img #img src={{element.imgBase64Url}}/>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{settingName}} </th>
           <td mat-cell *matCellDef="let element">
@@ -77,3 +85,4 @@
 </div>
 </router-outlet>
 
+<!-- <loading-spinner></loading-spinner> -->

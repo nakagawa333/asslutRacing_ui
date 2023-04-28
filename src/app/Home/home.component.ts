@@ -1,4 +1,4 @@
-import { Component,Inject, OnInit,ViewChild} from '@angular/core';
+import { Component,ContentChild,Directive,ElementRef,HostListener,Inject, Input, OnInit,QueryList,ViewChild, ViewChildren} from '@angular/core';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
@@ -17,27 +17,41 @@ import { SettingInfo } from '../interface/settingInfo';
 import { environment } from 'src/environments/environment';
 import { HomeService } from './home.service';
 import { SnackBarService } from '../snackBar.service';
-
+import { Subject } from 'rxjs/internal/Subject';
+import { EventManager } from '@angular/platform-browser';
+import { LoadingSpinnerComponent } from '../loadingSpinner/loading-spinner.component';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { OverlayService } from '../overlay.service';
 
 @Component({
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent implements OnInit {
+  @ViewChildren("img") imgs: QueryList<ElementRef>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(LoadingSpinnerComponent) contentChild: LoadingSpinnerComponent;
+
+
     constructor(
       private dialog: MatDialog,
       private service: AppService,
       private http: HttpClient,
       private authService: AuthService,
       private snackBarService:SnackBarService,
+      private overlayService:OverlayService,
       private homeService:HomeService
     ) {
+
     }
 
     public filterSerachForm = new FormGroup({
       searchName: new FormControl("",[])
-  });
+    });
 
     public title:string = 'assltRacing_ui';
 
@@ -47,7 +61,7 @@ export class HomeComponent implements OnInit {
     //設定情報一覧 (key:タイトル,value:設定情報オブジェクト)
     public settingInfosMap = new Map<String,SettingInfo>();
 
-    public displayedColumns:Array<String> = ["title","carName","carse","actions"];
+    public displayedColumns:Array<String> = ["capture","title","carName","carse","actions"];
 
     //列名
     public columnNames:Array<String> = [constant.COLUMNNAMES.SETTINGNAME,constant.COLUMNNAMES.CARNAME,constant.COLUMNNAMES.COURSE];
@@ -58,8 +72,8 @@ export class HomeComponent implements OnInit {
     //フィルターの選択中の名称
     public filterName:String = "";
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+    //画像
+    public capture:string = constant.COLUMNNAMES.CAPUTURE
 
     //セッティングネイム
     public settingName:String = constant.COLUMNNAMES.SETTINGNAME;
@@ -72,10 +86,23 @@ export class HomeComponent implements OnInit {
 
     public pageSizeOptions:number[] = [5,10,15,20]
 
+    //画像 横サイズ
+    public imgWidth:number | null = null;
+
+    //画像 縦サイズ
+    public imgHeight:number | null = null;
 
     ngOnInit(): void {
       this.getAllSettingInfo();
     }
+
+    ngAfterContentInit(): void{
+      console.log(this.contentChild)
+    }
+    // @HostListener('window:resize', ['$event'])
+    // onResize():void{
+
+    // }
 
     /** 全設定情報を取得する */
     private getAllSettingInfo():void{
@@ -84,6 +111,7 @@ export class HomeComponent implements OnInit {
 
       this.service.setUrl(environment.apiUrl + constant.API.HOME);
 
+      this.overlayService.attach(LoadingSpinnerComponent);
       this.service.getAllSettingInfo(userId)
       .subscribe({
           next: (datas:any) => {
@@ -99,6 +127,7 @@ export class HomeComponent implements OnInit {
                settingInfoTableValue.carName = data?.carName
                settingInfoTableValue.course = data?.course
                settingInfoTableValue.title = data?.title
+               settingInfoTableValue.imgBase64Url = data?.imgBase64Url
                settingInfoTableValueList.push(settingInfoTableValue)
             }
 
@@ -108,10 +137,12 @@ export class HomeComponent implements OnInit {
             this.dataSource.sort = this.sort
             //フィルター処理
             this.dataSourceFilter(this.filterName);
+            this.overlayService.detach();  
           },
 
           error: (error:any) => {
             alert(error?.statusText)
+            this.overlayService.detach();
           }
       })
     }

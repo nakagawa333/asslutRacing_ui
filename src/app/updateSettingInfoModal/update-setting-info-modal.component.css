@@ -20,16 +20,25 @@
 }
 
 .file-container{
-    width:80%;
+    width:auto;
     border:4px dotted black;
     margin-top:30px;
-}
+    padding-bottom:400px;
+}   
 
 .file-container .file{
     opacity: 0;
-    padding: 5rem;
-    width:80%;
-    height: 5rem;
+    width:100%;
+}
+
+.file-container-text{
+    position: relative; 
+    top:180px;
+}
+
+.text-center{
+    text-align: center;
+    font-weight: bold;
 }
 
 @media screen and (min-width : 576px){

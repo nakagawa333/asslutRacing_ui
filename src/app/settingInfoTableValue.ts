@@ -8,6 +8,8 @@ export class SettingInfoTableValue{
   private _carName:String;
   //コース
   private _course:String;
+  //画像
+  private _imgBase64Url:String;
 
   public get id(){
     return this._id;
@@ -39,5 +41,13 @@ export class SettingInfoTableValue{
 
   public set course(course:String){
     this._course = course;
+  }
+
+  public get imgBase64Url(){
+    return this._imgBase64Url;
+  }
+
+  public set imgBase64Url(imgBase64Url:String){
+    this._imgBase64Url = imgBase64Url;
   }
 }

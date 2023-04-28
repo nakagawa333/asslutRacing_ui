@@ -1,6 +1,6 @@
 
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { Component,Inject, OnInit, ViewChild, ViewChildren,ContentChild	} from '@angular/core';
+import { Component,Inject, OnInit, ViewChild, ViewChildren,ContentChild, HostListener	} from '@angular/core';
 import { FormControl, FormGroup, Validators,ValidationErrors } from '@angular/forms';
 import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BaseModal } from '../baseModal.component';
@@ -14,6 +14,9 @@ import { SnackBarService } from '../snackBar.service';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 import { environment } from 'src/environments/environment';
+import { ObserversModule } from '@angular/cdk/observers';
+import { Observable } from 'rxjs/internal/Observable';
+import { CvtFileFormatService } from '../cvt-file-format.service'
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -27,6 +30,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private authService:AuthService,
       private snackBar:MatSnackBar,
       private errorSnackBarService:ErrorSnackBarService,
+      private cvtFileFormatService:CvtFileFormatService,
       private snackBarService:SnackBarService,
   ){}
 
@@ -110,6 +114,9 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
   //ブラウザ上のurl
   public imgBase64Url:any = "";
+
+  //選択したファイル
+  public file:File;
 
   //snackBarを開くための設定値
   private addSetupModalSnackConfig:MatSnackBarConfig<any> = {
@@ -238,6 +245,8 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     }
 
     self.service.setUrl(environment.apiUrl + constant.API.ADD);
+
+    self.createFileObjectUrl(self.file);
 
     //画像のBase64を最新化
     self.settingInfo["imgBase64Url"] = self.imgBase64Url;
@@ -369,16 +378,43 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     self.tireTypeErrorMessage = "";
   }
 
-  //画像選択時イベント
-  selectFile(e:any):void{
+  //ファイルを選択してくださいのクリック時
+  async fileSelectorClick():Promise<void>{
     let self = this;
-    let file:File = e?.target.files[0];
-    if(!file.type.includes("image")){
-      self.errorSnackBarService.openSnackBarForErrorMessage(["選択したファイルが画像ではありません"]);
-      self.imgBase64Url = "";
-      return;
+    let pickerOpts = {
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false
     }
-    self.selectedFilename = file.name;
+    //フォルダを開く
+    let fileHandle:any = await (window as any).showOpenFilePicker(pickerOpts);
+    if(fileHandle){
+      let file = await fileHandle[0].getFile();
+      if(!file.type.includes("image")){
+        self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.NOTEXSITFILEIMAGE]);
+        self.imgBase64Url = "";
+        return;
+      }
+
+      self.selectedFilename = file.name;
+      self.file = file;
+    }
+
+    self.createFileObjectUrl(self.file);
+  }
+
+  //ファイルサイズを変更してオブジェクトURLを作成する
+  createFileObjectUrl(file:File):void{
+    let self = this;
+    let objectUrl = URL.createObjectURL(file);
+
     //ファイルのブラウザ上でのURLを取得する
     let reader = new FileReader();
     reader.onload = () => {
@@ -387,9 +423,50 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
     //ファイル読み込み失敗時
     reader.onerror = () => {
-      self.errorSnackBarService.openSnackBarForErrorMessage(["ファイルの読み込みに失敗しました"]);
+      self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.READFILEFAIL]);
     }
 
-    reader.readAsDataURL(file);
+    self.cvtFileFormatService.cvtObjUrlToImage(objectUrl).subscribe({
+      next:(datas:any) => {
+        self.cvtFileFormatService.cvtHTMLImageElementCanvas(datas,300,250).subscribe({
+          next:(canvas:any) => {
+            canvas.toBlob((blob:any) => {
+              reader.readAsDataURL(blob);
+              URL.revokeObjectURL(objectUrl);
+            })
+          },
+          error:(err:any) => {
+            self.errorSnackBarService.openSnackBarForErrorMessage([err]);
+          }
+        })
+      },
+      error:(err:any) => {
+        self.errorSnackBarService.openSnackBarForErrorMessage([err]);
+      }
+     })
+  }
+
+  @HostListener('drag', ['$event'])
+  imageFileDrag(event:any):void{
+    event.preventDefault();
+  }
+
+  @HostListener('drop', ['$event'])
+  imageFileDrop(event:DragEvent):void{
+    //ブラウザで画像を開くのを制御
+    event.preventDefault();
+    let files = event.dataTransfer?.files;
+    let self = this;
+    if(files && files.length !== 0){
+      let file = files[0];
+      if(!file.type.includes("image")){
+        self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.NOTEXSITFILEIMAGE]);
+        self.imgBase64Url = "";
+        return;
+      }
+      self.file = file;
+      self.selectedFilename = file.name;
+    }
   }
 }
+
