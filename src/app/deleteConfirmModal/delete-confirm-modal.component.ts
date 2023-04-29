@@ -13,13 +13,8 @@ export class DeleteConfirmModalComponent{
       public dialogRef: MatDialogRef<DeleteConfirmModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
   ){}
-  yes(id:number): void{
+  deleteClick(id:number): void{
     let result:object = {"id":id,"deleteFlag":true}
-    this.close(result);
-  }
-
-  no(): void{
-    let result:object = {"id":null,"deleteFlag":false}
     this.close(result);
   }
 
