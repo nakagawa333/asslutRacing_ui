@@ -14,14 +14,9 @@ export class LogoutConfirmModalComponent{
       public dialogRef: MatDialogRef<LogoutConfirmModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
   ){}
-  yes(): void{
+  deleteClick(): void{
     let result:Logout = {"logoutFlag":true}
     this.close(result);
-  }
-
-  no(): void{
-    let result:Logout = {"logoutFlag":false}
-      this.close(result);
   }
 
   close(result:object): void{

@@ -2,3 +2,8 @@
     color: inherit;
     background: transparent;
 }
+
+.close_dialog{
+    margin-right: 0;
+    margin-left: auto;
+}

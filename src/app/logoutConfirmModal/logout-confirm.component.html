@@ -1,8 +1,12 @@
+<button class="close_dialog" mat-icon-button aria-label="close dialog" mat-dialog-title mat-dialog-close>
+    <mat-icon>close</mat-icon>
+</button>
+
 <div mat-dialog-content>
     <p>{{data.title}}</p>
 </div>
 
 <div mat-dialog-actions>
-    <button class="mat-raised-button" mat-button (click)="yes()">はい</button>
-    <button class="mat-raised-button" mat-button (click)="no()">いいえ</button>
+    <button class="mat-raised-button" mat-button (click)="deleteClick()">はい</button>
+    <button class="mat-raised-button" mat-button mat-dialog-close>いいえ</button>
 </div>
