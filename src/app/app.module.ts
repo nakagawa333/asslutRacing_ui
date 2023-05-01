@@ -48,8 +48,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/auth-interceptor';
 import { LoadingSpinnerComponent } from './loadingSpinner/loading-spinner.component';
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
-
+import { DeleteConfirmModalComponent } from './deleteConfirmModal/delete-confirm-modal.component';
 
 const routes: Routes  = [
   {path:"home",component:HomeComponent,canActivate: [AuthGuard]},
@@ -86,6 +85,7 @@ const routes: Routes  = [
     UpdateMailComponent,
     SettingsAccountPasswordComponent,
     LoadingSpinnerComponent,
+    DeleteConfirmModalComponent,
     NotFoundErrorComponent
   ],
   imports: [

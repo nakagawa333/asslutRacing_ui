@@ -46,6 +46,12 @@
     font-weight: bold;
 }
 
+.close_dialog{
+    margin-right: 0;
+    margin-left: auto;
+    display: block;
+}
+
 @media screen and (min-width : 576px){
     .input-number-field{
         padding-left:12px;

@@ -15,8 +15,9 @@ import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import { SettingInfoMatSliderValue } from '../settingInfoMatSliderValue';
 import { environment } from 'src/environments/environment';
 import { ObserversModule } from '@angular/cdk/observers';
-import { Observable } from 'rxjs/internal/Observable';
 import { CvtFileFormatService } from '../cvt-file-format.service'
+import { SaveConfirmModalComponent } from '../saveConfirmModal/save-confirm-modal.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   templateUrl: './add-set-up-modal.component.html',
@@ -32,7 +33,10 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       private errorSnackBarService:ErrorSnackBarService,
       private cvtFileFormatService:CvtFileFormatService,
       private snackBarService:SnackBarService,
-  ){}
+  ){
+    //背景をクリックしてもモーダルが閉じないように設定
+    this.dialogRef.disableClose = true;
+  }
 
   public defalutCarId:number = 0;
   public absText = "OFF";
@@ -156,10 +160,19 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     }
 
     this.settingNameValueChanges();
-  }
+    //設定情報登録モーダルの背景画面がクリックされた場合
+    this.dialogRef.backdropClick().subscribe(async(e:any) => {
+      let self = this;
+      let isSettingInfoChange = self.isSettingInfoChange()
 
-  ngAfterViewChecked(){
-    let self = this;
+      //設定情報の値が変更されている場合
+      if(!isSettingInfoChange){
+        //保存確認ダイアログを表示する
+        self.saveConfirmDialogOpen();
+      } else {
+        self.closeDialog();
+      }
+    })
   }
 
   /** メーカー一覧を選択した場合  */
@@ -419,6 +432,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
     let reader = new FileReader();
     reader.onload = () => {
       self.imgBase64Url = reader.result;
+      self.settingInfo["imgBase64Url"] = self.imgBase64Url;
     }
 
     //ファイル読み込み失敗時
@@ -461,12 +475,57 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       let file = files[0];
       if(!file.type.includes("image")){
         self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.NOTEXSITFILEIMAGE]);
-        self.imgBase64Url = "";
         return;
       }
       self.file = file;
       self.selectedFilename = file.name;
     }
+  }
+
+  //×ボタンクリック時
+  closeDialogClick(){
+    let self = this;
+    let isSettingInfoChange = self.isSettingInfoChange()
+    if(!isSettingInfoChange){
+      //保存確認ダイアログを表示する
+      self.saveConfirmDialogOpen();
+    } else {
+      self.closeDialog();
+    }
+  }
+
+  //保存確認ダイアログを表示する
+  saveConfirmDialogOpen():void{
+    let self = this;
+    let param = {}
+     //保存確認ダイアログを画面上に表示
+     let saveDialogRef = self.service.openDialog(SaveConfirmModalComponent,param);
+     //保存確認ダイアログが閉じられた場合
+     saveDialogRef.afterClosed().subscribe(async(result:any) => {
+       if(result){
+
+        if(result["save"]){
+
+        } else {
+
+        }
+        //ダイアログを閉じる
+        self.closeDialog();
+       }
+     })
+  }
+
+  //設定情報が変更されているか
+  isSettingInfoChange():Boolean{
+    let self = this;
+    let settingInfo = self.service.settingInfo;
+
+    let isSettingInfoChange = Object.keys(settingInfo).every((key) => {
+      //ユーザーidはフィルターの対象外
+      if(key === "userId") return true;
+      return self.settingInfo[key] === settingInfo[key] ? true : false;
+    });
+    return isSettingInfoChange;
   }
 }
 

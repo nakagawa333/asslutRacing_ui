@@ -13,6 +13,7 @@ import { AuthService } from "../auth.service";
 export class AddSettingInfoModalService{
   constructor(
     private http: HttpClient,
+    private dialog: MatDialog,
     private authService:AuthService
   ){}
 
@@ -75,6 +76,11 @@ export class AddSettingInfoModalService{
       })
     }
     return this.http.post(this.url,settingInfo,httpOptions)
+  }
+
+  //対象のダイアログを表示する
+  openDialog(component:any,param:object){
+    return this.dialog.open(component,param);
   }
 
   //数字であるかを判定
