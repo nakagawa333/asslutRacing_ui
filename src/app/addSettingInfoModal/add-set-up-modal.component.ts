@@ -259,8 +259,6 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
 
     self.service.setUrl(environment.apiUrl + constant.API.ADD);
 
-    self.createFileObjectUrl(self.file);
-
     //画像のBase64を最新化
     self.settingInfo["imgBase64Url"] = self.imgBase64Url;
     
