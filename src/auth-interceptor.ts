@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
 import { AuthService } from "./app/auth.service";
 import * as constant from "./constants";
 import { throwError } from "rxjs/internal/observable/throwError";
@@ -7,6 +7,8 @@ import { CookieService } from "ngx-cookie-service";
 import { catchError, concatMap, Observable, switchMap } from "rxjs";
 import { Route, Router, Routes } from "@angular/router";
 import { ErrorSnackBarService } from "./app/errorSnackBar/errorSnackBar.service";
+import { RetryConfig, retry } from 'rxjs/operators';
+import { APISETTING } from "./apiConstants";
 
 /**
  * Http共通設定クラス
@@ -51,15 +53,23 @@ export class AuthInterceptor implements HttpInterceptor {
             setHeaders:headers
         });
         
+        let retryConfig:RetryConfig = {
+            count:APISETTING.RETRY_COUNT,
+            delay:APISETTING.DELAY
+        }
+
         return next.handle(req).pipe(
+            //リトライ処理
+            retry(retryConfig),
             catchError((err: HttpErrorResponse) => {
-                if (err.status === 500 
+                if (err.status === HttpStatusCode.InternalServerError 
                     && err.error.message === constant.MESSAGE.EXPIREDACCESSTOKEN) {
                     //アクセストークンの有効期限が切れている場合
                     return self.expiredJwtError(req,next);
                 }
                 return throwError(err);
-        }));
+            })
+        );
     }
 
     /**
