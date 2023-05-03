@@ -13,6 +13,8 @@ import { LoginBody } from '../interface/loginBody';
 import { SnackBarService } from '../snackBar.service';
 import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OverlayService } from '../overlay.service';
+import { LoadingSpinnerComponent } from '../loadingSpinner/loading-spinner.component';
 
 @Component({
     templateUrl: './login.component.html',
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit{
         private location: Location,
         private dialog: MatDialog,
         private errorSnackBarService: ErrorSnackBarService,
+        private overlayService:OverlayService,
         private snackBar: MatSnackBar
         ) {}
 
@@ -97,6 +100,8 @@ export class LoginComponent implements OnInit{
 
         let cookie = self.cookie
 
+        //ローディングスピナーを開く
+        this.overlayService.attach(LoadingSpinnerComponent);
         //ログインする
         this.authService.login(body)
         .subscribe({
@@ -137,8 +142,14 @@ export class LoginComponent implements OnInit{
                     self.errorSnackBarService.openSnackBarForErrorMessage([constant.MESSAGE.UNKNOWNERROR]);
                 }
             },
+
             error: (e:HttpErrorResponse) => {
                 self.errorSnackBarService.openSnackBarForErrorMessage([e.error.message])
+            },
+            
+            complete: () => {
+                //ローディングスピナーを閉じる
+                this.overlayService.detach();
             }
         })
     }

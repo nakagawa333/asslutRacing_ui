@@ -4,7 +4,7 @@ import {AppService} from "../../app/app.service";
 import {settingModalComponent} from 'src/app/settingModal/set-up-modal.component';
 import {AddSettingInfoModalComponent} from 'src/app/addSettingInfoModal/add-set-up-modal.component';
 import {MatPaginator} from '@angular/material/paginator';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as constant from "../../constants";
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -23,6 +23,7 @@ import { LoadingSpinnerComponent } from '../loadingSpinner/loading-spinner.compo
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { OverlayService } from '../overlay.service';
+import { ErrorSnackBarService } from '../errorSnackBar/errorSnackBar.service';
 
 @Component({
   selector: 'home',
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
       private authService: AuthService,
       private snackBarService:SnackBarService,
       private overlayService:OverlayService,
+      private errorSnackBarService:ErrorSnackBarService,
       private homeService:HomeService
     ) {
 
@@ -111,6 +113,7 @@ export class HomeComponent implements OnInit {
 
       this.service.setUrl(environment.apiUrl + constant.API.HOME);
 
+      //ローディングスピナーを開く
       this.overlayService.attach(LoadingSpinnerComponent);
       this.service.getAllSettingInfo(userId)
       .subscribe({
@@ -137,11 +140,14 @@ export class HomeComponent implements OnInit {
             this.dataSource.sort = this.sort
             //フィルター処理
             this.dataSourceFilter(this.filterName);
-            this.overlayService.detach();  
           },
 
-          error: (error:any) => {
-            alert(error?.statusText)
+          error: (error:HttpErrorResponse) => {
+            this.errorSnackBarService.openSnackBarForErrorMessage([error.error.message])
+          },
+
+          complete: () => {
+            //ローディングスピナーを閉じる
             this.overlayService.detach();
           }
       })
