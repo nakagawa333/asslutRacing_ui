@@ -478,6 +478,7 @@ export class AddSettingInfoModalComponent implements OnInit,BaseModal{
       self.file = file;
       self.selectedFilename = file.name;
     }
+    self.createFileObjectUrl(self.file);
   }
 
   //×ボタンクリック時

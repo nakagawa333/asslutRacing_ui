@@ -400,5 +400,6 @@ export class UpdateSettingInfoModalComponent implements OnInit,BaseModal{
       self.file = file;
       self.selectedFilename = file.name;
     }
+    self.createFileObjectUrl(self.file);
   }
 }
