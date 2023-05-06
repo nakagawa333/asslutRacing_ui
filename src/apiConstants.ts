@@ -2,5 +2,5 @@
 export class APISETTING{
     //待機時間
     public static readonly DELAY = 5000;
-    public static readonly RETRY_COUNT = 5;
+    public static readonly REPEAT_COUNT = 1;
 }

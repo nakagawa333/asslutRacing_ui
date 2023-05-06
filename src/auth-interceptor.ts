@@ -4,11 +4,12 @@ import { AuthService } from "./app/auth.service";
 import * as constant from "./constants";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { CookieService } from "ngx-cookie-service";
-import { catchError, concatMap, Observable, switchMap } from "rxjs";
+import { catchError, concatMap, Observable, of, switchMap } from "rxjs";
 import { Route, Router, Routes } from "@angular/router";
 import { ErrorSnackBarService } from "./app/errorSnackBar/errorSnackBar.service";
-import { RetryConfig, retry } from 'rxjs/operators';
+import { RetryConfig, repeat, retry } from 'rxjs/operators';
 import { APISETTING } from "./apiConstants";
+import { RepeatConfig } from "rxjs/internal/operators/repeat";
 
 /**
  * Http共通設定クラス
@@ -17,6 +18,9 @@ import { APISETTING } from "./apiConstants";
 export class AuthInterceptor implements HttpInterceptor {
     //キーがパス
     private routerMap = new Map<String,Route>();
+
+    //リトライカウント
+    private retryCount:number = 0;
 
     constructor(
         private authService: AuthService,
@@ -53,22 +57,32 @@ export class AuthInterceptor implements HttpInterceptor {
             setHeaders:headers
         });
         
-        let retryConfig:RetryConfig = {
-            count:APISETTING.RETRY_COUNT,
+        let repeatConfig:RepeatConfig = {
+            count:APISETTING.REPEAT_COUNT,
             delay:APISETTING.DELAY
         }
 
+
         return next.handle(req).pipe(
-            //リトライ処理
-            retry(retryConfig),
-            catchError((err: HttpErrorResponse) => {
+            catchError((err: HttpErrorResponse,caught) => {
                 if (err.status === HttpStatusCode.InternalServerError 
                     && err.error.message === constant.MESSAGE.EXPIREDACCESSTOKEN) {
                     //アクセストークンの有効期限が切れている場合
                     return self.expiredJwtError(req,next);
                 }
-                return throwError(err);
-            })
+
+                if(4 <= self.retryCount){
+                    self.retryCount = 0;
+                    throw err
+                }
+
+                self.retryCount += 1;
+
+                return caught.pipe(
+                    repeat({count:1,delay:5000}),
+                    catchError(() => of(catchError))
+                )
+            })        
         );
     }
 
@@ -115,7 +129,7 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((err) => {
                 //アクセストークン更新に失敗した場合、ログアウト
                 self.authService.logout();
-                return throwError(err);
+                throw err;
             })
         )
     }
