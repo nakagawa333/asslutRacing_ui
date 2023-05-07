@@ -4,12 +4,14 @@ import { AuthService } from "./app/auth.service";
 import * as constant from "./constants";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { CookieService } from "ngx-cookie-service";
-import { catchError, concatMap, Observable, of, switchMap } from "rxjs";
+import { catchError, concatMap, Observable, of } from "rxjs";
 import { Route, Router, Routes } from "@angular/router";
 import { ErrorSnackBarService } from "./app/errorSnackBar/errorSnackBar.service";
-import { RetryConfig, repeat, retry } from 'rxjs/operators';
+import { finalize, repeat } from 'rxjs/operators';
 import { APISETTING } from "./apiConstants";
 import { RepeatConfig } from "rxjs/internal/operators/repeat";
+import { LoadingSpinnerComponent } from "./app/loadingSpinner/loading-spinner.component";
+import { OverlayService } from "./app/overlay.service";
 
 /**
  * Http共通設定クラス
@@ -26,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
         private authService: AuthService,
         private cookie:CookieService,
         private router: Router,
+        private overlayService:OverlayService,
         private errorSnackBarService:ErrorSnackBarService
     ) { 
         let self = this;
@@ -62,6 +65,8 @@ export class AuthInterceptor implements HttpInterceptor {
             delay:APISETTING.DELAY
         }
 
+        //ローディングスピナーを開く
+        self.overlayService.show(LoadingSpinnerComponent);
 
         return next.handle(req).pipe(
             catchError((err: HttpErrorResponse,caught) => {
@@ -73,16 +78,17 @@ export class AuthInterceptor implements HttpInterceptor {
 
                 if(4 <= self.retryCount){
                     self.retryCount = 0;
-                    throw err
+                    return throwError(() => err);
                 }
 
                 self.retryCount += 1;
 
                 return caught.pipe(
-                    repeat({count:1,delay:5000}),
+                    repeat(repeatConfig),
                     catchError(() => of(catchError))
                 )
-            })        
+            }),
+            finalize(() => self.overlayService.detach())
         );
     }
 

@@ -44,7 +44,6 @@ export class HomeComponent implements OnInit {
       private http: HttpClient,
       private authService: AuthService,
       private snackBarService:SnackBarService,
-      private overlayService:OverlayService,
       private errorSnackBarService:ErrorSnackBarService,
       private homeService:HomeService
     ) {
@@ -97,15 +96,7 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
       this.getAllSettingInfo();
     }
-
-    ngAfterContentInit(): void{
-      console.log(this.contentChild)
-    }
-    // @HostListener('window:resize', ['$event'])
-    // onResize():void{
-
-    // }
-
+    
     /** 全設定情報を取得する */
     private getAllSettingInfo():void{
       let self = this;
@@ -113,8 +104,6 @@ export class HomeComponent implements OnInit {
 
       this.service.setUrl(environment.apiUrl + constant.API.HOME);
 
-      //ローディングスピナーを開く
-      this.overlayService.attach(LoadingSpinnerComponent);
       this.service.getAllSettingInfo(userId)
       .subscribe({
           next: (datas:any) => {
@@ -144,11 +133,6 @@ export class HomeComponent implements OnInit {
 
           error: (error:HttpErrorResponse) => {
             this.errorSnackBarService.openSnackBarForErrorMessage([error.error.message])
-          },
-
-          complete: () => {
-            //ローディングスピナーを閉じる
-            this.overlayService.detach();
           }
       })
     }

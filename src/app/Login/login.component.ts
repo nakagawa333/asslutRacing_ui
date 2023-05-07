@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit{
         private location: Location,
         private dialog: MatDialog,
         private errorSnackBarService: ErrorSnackBarService,
-        private overlayService:OverlayService,
         private snackBar: MatSnackBar
         ) {}
 
@@ -100,8 +99,6 @@ export class LoginComponent implements OnInit{
 
         let cookie = self.cookie
 
-        //ローディングスピナーを開く
-        this.overlayService.attach(LoadingSpinnerComponent);
         //ログインする
         this.authService.login(body)
         .subscribe({
@@ -143,13 +140,12 @@ export class LoginComponent implements OnInit{
                 }
             },
 
-            error: (e:HttpErrorResponse) => {
-                self.errorSnackBarService.openSnackBarForErrorMessage([e.error.message])
-            },
-            
-            complete: () => {
-                //ローディングスピナーを閉じる
-                this.overlayService.detach();
+            error: (e:any) => {
+                if(e instanceof HttpErrorResponse){
+                    self.errorSnackBarService.openSnackBarForErrorMessage([e.error.message])
+                } else {
+                    self.errorSnackBarService.openSnackBarForErrorMessage(["原因不明のエラーが発生しました"])
+                }
             }
         })
     }
